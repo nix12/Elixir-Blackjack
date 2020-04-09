@@ -36,19 +36,17 @@ defmodule Blackjack.Deck do
     by spliting the deck into chunks of 4 to assign values.
   """
   def assign_values(deck) do
-    deck = Enum.chunk(deck, 4)
+    deck = Enum.chunk_every(deck, 4)
 
-    for {chunk, index} <- Enum.with_index(deck, 2),
-        do:
-          for(
-            item <- chunk,
-            do:
-              if index <= 10 do
-                %Card{item | value: {index}}
-              else
-                %Card{item | value: {10}}
-              end
-          )
+    for {chunk, index} <- Enum.with_index(deck, 2) do
+      for item <- chunk do
+        if index <= 10 do
+          %Card{item | value: [index]}
+        else
+          %Card{item | value: [10]}
+        end
+      end
+    end
   end
 
   @doc """
@@ -61,7 +59,7 @@ defmodule Blackjack.Deck do
 
     aces =
       for symbol <- symbols, suit <- suits do
-        %Card{suit: suit, symbol: symbol, value: {1, 10}}
+        %Card{suit: suit, symbol: symbol, value: [11, 1]}
       end
 
     [aces | deck]
@@ -71,14 +69,10 @@ defmodule Blackjack.Deck do
     Takes the chunked deck and flattens it back out into
     a single deck.
   """
-  def combine(deck) do
-    List.flatten(deck)
-  end
+  def combine(deck), do: List.flatten(deck)
 
   @doc """
     Shuffles the deck.
   """
-  def shuffle(deck) do
-    Enum.shuffle(deck)
-  end
+  def shuffle(deck), do: Enum.shuffle(deck)
 end

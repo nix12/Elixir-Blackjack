@@ -1,8 +1,11 @@
 {application,blackjack,
              [{applications,[kernel,stdlib,elixir,logger]},
               {description,"blackjack"},
-              {modules,['Elixir.Blackjack.Card','Elixir.Blackjack.Deck',
-                        'Elixir.Blackjack.Gameplay',
-                        'Elixir.Blackjack.Player']},
+              {modules,['Elixir.Blackjack','Elixir.Blackjack.Application',
+                        'Elixir.Blackjack.Card','Elixir.Blackjack.Deck',
+                        'Elixir.Blackjack.Player',
+                        'Elixir.Blackjack.Processes.Server',
+                        'Elixir.Blackjack.Processes.Supervisor']},
               {registered,[]},
-              {vsn,"0.1.0"}]}.
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Blackjack',[]}}]}.
