@@ -21,7 +21,7 @@ defmodule Blackjack.MixProject do
   end
 
   # Run "mix help deps" to learn about dependencies.
-  defp deps do
+  def deps do
     [
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
       {:ecto_sql, "~> 3.0"},
@@ -32,7 +32,7 @@ defmodule Blackjack.MixProject do
       {:guardian, "~> 2.0"},
       {:authorize, "~> 1.0.0"},
       {:jason, "~> 1.2"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.3"}
     ]
   end
 

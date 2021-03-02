@@ -1,20 +1,19 @@
 defmodule Blackjack do
-  # alias Blackjack.Application
+  # Utilities
 
-  # def start_game do
-  #   IO.puts("Starting game.")
+  def via_tuple(registry, name) do
+    {:via, Registry, {registry, name}}
+  end
 
-  #   Task.start(fn ->
-  #     Application.setup()
-  #     Application.main()
+  def format_name(name) do
+    name
+    |> String.trim()
+    |> String.replace(" ", "_")
+    |> String.to_atom()
+  end
 
-  #     receive do
-  #       :continue ->
-  #         Application.main()
-
-  #       :end ->
-  #         System.stop(0)
-  #     end
-  #   end)
-  # end
+  def parent(registry, name) do
+    [{pid, _}] = Registry.lookup(registry, name)
+    pid
+  end
 end

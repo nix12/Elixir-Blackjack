@@ -1,4 +1,4 @@
-defmodule Blackjack.Network.Router do
+defmodule Blackjack.Router do
   use Plug.Router
 
   if Mix.env() == :dev do
@@ -30,15 +30,17 @@ defmodule Blackjack.Network.Router do
         %{"user" => user} ->
           {201, Blackjack.Web.Controllers.UsersController.create(conn, user)}
 
-        _ ->
-          {422, "Failed to register user.\n"}
+        error ->
+          %{errors: [{name, err}]} = Blackjack.Web.Controllers.UsersController.create(conn, error)
+
+          {422, "#{name} #{err |> elem(0)}\n"}
       end
 
     send_resp(conn, status, body)
   end
 
   get "/:id/info" do
-    {status, body} = {200, UsersController.show()}
+    {status, body} = {200, UsersController.get()}
 
     send_resp(conn, status, body)
   end
@@ -51,7 +53,7 @@ defmodule Blackjack.Network.Router do
           {200, AuthenticationController.login(conn, user)}
 
         _ ->
-          {422, "Failed to login\n"}
+          {422, "Wrong Username or Password.\n"}
       end
 
     AuthenticationController.store_token(token)

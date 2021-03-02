@@ -1,6 +1,7 @@
 defmodule Blackjack.Web.Controllers.UsersController do
   alias Blackjack.Repo
-  alias Blackjack.Web.Models.User
+  # Change to accounts api file
+  alias Blackjack.Accounts.User
   alias Blackjack.Web.Controllers.AuthenticationController
   alias Blackjack.Authentication.Guardian
 
@@ -16,16 +17,19 @@ defmodule Blackjack.Web.Controllers.UsersController do
     end
   end
 
-  def show() do
+  def get() do
     token = AuthenticationController.get_token()
-    {:ok, %{"user" => %{"id" => id}}} = Guardian.decode_and_verify(token)
+    {:ok, %{"user" => %{"username" => username}}} = Guardian.decode_and_verify(token)
 
-    {:ok, user} =
-      Repo.get(User, id)
-      |> Map.from_struct()
-      |> Map.take([:id, :username])
-      |> Jason.encode()
+    case Repo.get_by!(User, username: username) do
+      user ->
+        user
+        |> Map.from_struct()
+        |> Map.take([:id, :username])
+        |> Jason.encode()
 
-    user
+      {:error, changeset} ->
+        changeset
+    end
   end
 end

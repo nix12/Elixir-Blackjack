@@ -15,6 +15,4 @@ config :blackjack, Blackjack.Authentication.Guardian,
   ttl: {30, :days},
   allowed_drift: 2000,
   verify_issuer: true,
-  secret_key: System.get_env("SECRET")
-
-config :bcrypt_elixir, :log_rounds, 5
+  secret_key: System.fetch_env!("SECRET")

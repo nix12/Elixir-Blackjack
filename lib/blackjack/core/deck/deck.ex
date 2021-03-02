@@ -1,9 +1,9 @@
-defmodule Blackjack.Deck do
+defmodule Blackjack.Core.Deck do
   @moduledoc """
     Methods for creating a deck and standard gameplay actions.
   """
 
-  alias Blackjack.Card
+  alias Blackjack.Core.Deck.Card
 
   @doc """
     Builds the deck to make it ready for game play.

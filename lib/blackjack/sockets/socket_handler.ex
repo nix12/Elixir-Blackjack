@@ -1,5 +1,6 @@
 defmodule Blackjack.Sockets.SocketHandler do
   @behaviour :cowboy_websocket
+  @registry Registry.Core
 
   def init(request, _state) do
     state = %{registry_key: request.path}
@@ -8,7 +9,7 @@ defmodule Blackjack.Sockets.SocketHandler do
   end
 
   def websocket_init(state) do
-    Registry.Blackjack
+    @registry
     |> Registry.register(state.registry_key, {})
 
     {:ok, state}
@@ -18,7 +19,7 @@ defmodule Blackjack.Sockets.SocketHandler do
     payload = Jason.decode!(json)
     message = payload["data"]["user"]["message"]
 
-    Registry.Blackjack
+    @registry
     |> Registry.dispatch(state.registry_key, fn entries ->
       for {pid, _} <- entries do
         if pid != self() do

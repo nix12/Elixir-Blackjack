@@ -1,4 +1,4 @@
-defmodule Blackjack.Web.Models.User do
+defmodule Blackjack.Accounts.User do
   use Ecto.Schema
 
   import Ecto.Changeset
