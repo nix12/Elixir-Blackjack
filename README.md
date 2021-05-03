@@ -20,12 +20,9 @@ and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/blackjack](https://hexdocs.pm/blackjack).
 
 - convert players to users
-- networking
-- dealer
+- routing
 - betting
-- concurrency
-- dynamic supervisor
-- caching
 - packaging
 - distribution
 - difficulty
+- switch table from map to list

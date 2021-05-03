@@ -16,3 +16,10 @@ config :blackjack, Blackjack.Authentication.Guardian,
   allowed_drift: 2000,
   verify_issuer: true,
   secret_key: System.fetch_env!("SECRET")
+
+port =
+  IO.gets("What port would you like to play Blackjack on? (default port is 4000)\n")
+  |> String.trim()
+
+config :blackjack,
+  port: if(length(String.to_charlist(port)) == 0, do: 4000, else: port |> String.to_integer())

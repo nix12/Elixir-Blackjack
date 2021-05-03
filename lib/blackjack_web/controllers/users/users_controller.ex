@@ -1,9 +1,9 @@
-defmodule Blackjack.Web.Controllers.UsersController do
+defmodule BlackjackWeb.Controllers.UsersController do
   alias Blackjack.Repo
   # Change to accounts api file
   alias Blackjack.Accounts.User
-  alias Blackjack.Web.Controllers.AuthenticationController
   alias Blackjack.Authentication.Guardian
+  alias BlackjackWeb.Controllers.{AuthenticationController, RegistrationsController}
 
   def create(_conn, user) do
     changeset = User.changeset(%User{}, user)

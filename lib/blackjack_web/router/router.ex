@@ -1,4 +1,4 @@
-defmodule Blackjack.Router do
+defmodule BlackjackWeb.Router do
   use Plug.Router
 
   if Mix.env() == :dev do
@@ -7,7 +7,7 @@ defmodule Blackjack.Router do
 
   use Plug.ErrorHandler
 
-  alias Blackjack.Web.Controllers.{
+  alias BlackjackWeb.Controllers.{
     AuthenticationController,
     UsersController
   }
@@ -24,14 +24,14 @@ defmodule Blackjack.Router do
   plug(:dispatch)
 
   # User routes
-  post "/register" do
+  post "/user/register" do
     {status, body} =
       case conn.body_params do
         %{"user" => user} ->
-          {201, Blackjack.Web.Controllers.UsersController.create(conn, user)}
+          {201, UsersController.create(conn, user)}
 
         error ->
-          %{errors: [{name, err}]} = Blackjack.Web.Controllers.UsersController.create(conn, error)
+          %{errors: [{name, err}]} = UsersController.create(conn, error)
 
           {422, "#{name} #{err |> elem(0)}\n"}
       end
@@ -39,7 +39,13 @@ defmodule Blackjack.Router do
     send_resp(conn, status, body)
   end
 
-  get "/:id/info" do
+  get "/user/:id/info" do
+    {status, body} = {200, UsersController.get()}
+
+    send_resp(conn, status, body)
+  end
+
+  get "/user/:username" do
     {status, body} = {200, UsersController.get()}
 
     send_resp(conn, status, body)

@@ -8,7 +8,6 @@ defmodule Blackjack.Accounts.Supervisor do
 
   def init(:ok) do
     children = [
-      {Registry, keys: :unique, name: Registry.Accounts},
       {Blackjack.Accounts.Server, name: Blackjack.Accounts.Server}
     ]
 

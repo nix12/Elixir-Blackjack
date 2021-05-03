@@ -1,11 +1,10 @@
 defmodule Blackjack.Authentication.Guardian do
   use Guardian, otp_app: :blackjack
 
-  alias Blackjack.Repo
-  alias Blackjack.Web.Models.User
+  alias Blackjack.Accounts
 
-  def get_resource_by_id(id) do
-    case Repo.get_by(User, id: id) do
+  def get_resource_by_username(username) do
+    case Accounts.get_user_by_username!(username) do
       nil -> {:error, :user_not_found}
       user -> {:ok, user}
     end
@@ -18,8 +17,7 @@ defmodule Blackjack.Authentication.Guardian do
     # A unique `id` is a good subject, a non-unique email address
     # is a poor subject.
 
-    sub = to_string(resource.id)
-    {:ok, sub}
+    {:ok, resource}
   end
 
   def subject_for_token(_, _) do
@@ -27,11 +25,11 @@ defmodule Blackjack.Authentication.Guardian do
   end
 
   def resource_from_claims(claims) do
-    resource = get_resource_by_id(claims.id)
+    resource = get_resource_by_username(claims)
     {:ok, resource}
   end
 
-  def resource_from_claims(_claims) do
+  def resource_from_claims(_) do
     {:error, :claims_not_found}
   end
 end

@@ -1,6 +1,8 @@
 defmodule Blackjack.Accounts do
-  def get_user!(username) do
+  alias Blackjack.Accounts.Users
+
+  def get_user_by_username!(username) do
     # Returns {user's pid, user}
-    Blackjack.Accounts.Users.get_user(username)
+    Users.get_user_by_username(username)
   end
 end
