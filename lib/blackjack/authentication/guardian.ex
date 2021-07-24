@@ -17,19 +17,13 @@ defmodule Blackjack.Authentication.Guardian do
     # A unique `id` is a good subject, a non-unique email address
     # is a poor subject.
 
-    {:ok, resource}
-  end
-
-  def subject_for_token(_, _) do
-    {:error, :token_not_found}
+    {:ok, resource["user"]["username"]}
   end
 
   def resource_from_claims(claims) do
-    resource = get_resource_by_username(claims)
-    {:ok, resource}
-  end
+    username = claims["sub"]
+    resource = get_resource_by_username(username)
 
-  def resource_from_claims(_) do
-    {:error, :claims_not_found}
+    {:ok, resource}
   end
 end

@@ -1,8 +1,10 @@
 defmodule Blackjack.Accounts.Supervisor do
+  require Logger
+
   use Supervisor
 
   def start_link(_) do
-    IO.puts("Starting Accounts Supervisor")
+    Logger.info("Starting Accounts Supervisor")
     Supervisor.start_link(__MODULE__, :ok, name: :user_supervisor)
   end
 

@@ -1,7 +1,7 @@
-defmodule BlackjackWeb.Sockets.ClientHandler do
+defmodule BlackjackCLI.Sockets.ClientHandler do
   @behaviour :cowboy_websocket
 
-  alias BlackjackWeb.Controllers.AuthenticationController
+  alias BlackjackCLI.Controllers.AuthenticationController
 
   def init(request, _state) do
     state = %{registry_key: request.path}
@@ -11,18 +11,7 @@ defmodule BlackjackWeb.Sockets.ClientHandler do
   end
 
   def websocket_init(state) do
-    conn = %Plug.Conn{}
-    IO.inspect(self(), label: "INIT SOCKET PID")
-    IO.inspect(conn, label: "CONN")
-
-    IO.write(:player1@Developer, "Enter username:\n")
-
-    username =
-      IO.read(:stdio, :line)
-      |> to_string()
-      |> String.trim()
-
-    {:reply, {:text, AuthenticationController.login(conn, username)}, state}
+    {:reply, {:text, "something"}, state}
   end
 
   def websocket_handle({:text, json}, state) do

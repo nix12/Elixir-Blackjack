@@ -1,4 +1,6 @@
 defmodule Blackjack.Core.Supervisor do
+  require Logger
+
   use DynamicSupervisor
 
   alias Blackjack.Repo
@@ -16,27 +18,9 @@ defmodule Blackjack.Core.Supervisor do
 
   @impl true
   def init(_) do
-    IO.puts("Starting Core DynamicSupervisor.")
+    Logger.info("Starting Core Supervisor.")
 
     DynamicSupervisor.init(strategy: :one_for_one)
-  end
-
-  def list_servers do
-    Repo.all(Server) |> IO.inspect(label: "SERVERS")
-  end
-
-  def create_server(server_name) do
-    IO.puts("Creating Server.")
-
-    child_spec = {Servers, server_name}
-
-    Blackjack.lookup(@registry, __MODULE__)
-    |> DynamicSupervisor.start_child(child_spec)
-  end
-
-  def remove_server(server_name) do
-    Blackjack.lookup(@registry, __MODULE__)
-    |> DynamicSupervisor.terminate_child(server_name)
   end
 
   def list_servers_by_pid do
@@ -53,7 +37,7 @@ defmodule Blackjack.Core.Supervisor do
 
   def list_servers_by_name do
     Enum.map(list_servers_by_pid(), fn pid ->
-      Blackjack.lookup(@registry, pid) |> Atom.to_string()
+      Blackjack.unformat_name(Blackjack.name(@registry, pid))
     end)
   end
 

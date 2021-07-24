@@ -1,4 +1,6 @@
-defmodule Client do
+# http_proxy=http://192.168.49.1:8000 https_proxy=http://192.168.49.1:8000 asdf install elixir latest
+
+defmodule App do
   def start(client_name) do
     spawn(fn -> loop(client_name) end)
   end
@@ -19,9 +21,9 @@ end
 # {:ok, "#PID<0.99.0>"}
 
 {pid1, pid2, pid3} = {
-  Client.start("John"),
-  Client.start("Nick"),
-  Client.start("Time")
+  App.start("John"),
+  App.start("Nick"),
+  App.start("Time")
 }
 # {"#PID<0.106.0>", "#PID<0.107.0>", "#PID<0.108.0>"}
 

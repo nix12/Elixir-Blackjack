@@ -2,7 +2,6 @@
 defmodule Blackjack.Core.Tables do
   use GenServer
 
-  alias Blackjack.Cache
   alias Blackjack.Core.{Players, Dealers}
 
   @registry Registry.Core
@@ -54,15 +53,13 @@ defmodule Blackjack.Core.Tables do
 
   @impl true
   def init(table_name) do
-    {:ok, Cache.get(table_name)}
+    {:ok, table_name}
   end
 
   @impl true
   def handle_call({:generate_dealer, table_name}, _from, table) do
     {:ok, pid} = Dealers.start_link(table_name)
     updated_table = List.insert_at(table, -1, pid)
-
-    Cache.update(Registry.keys(@registry, self()) |> Enum.at(0), updated_table)
 
     {:reply, updated_table, updated_table}
   end
@@ -89,8 +86,6 @@ defmodule Blackjack.Core.Tables do
 
   @impl true
   def handle_call({:update_table, table_data}, _from, _table) do
-    Cache.update(Registry.keys(@registry, self()) |> Enum.at(0), table_data)
-
     {:reply, table_data, table_data}
   end
 
@@ -151,7 +146,6 @@ defmodule Blackjack.Core.Tables do
   @impl true
   def terminate(_reason, table) do
     IO.puts("Table crashed")
-    Cache.put(Registry.keys(@registry, self()) |> Enum.at(0), table)
   end
 
   defp get_state(pid) do

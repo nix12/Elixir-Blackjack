@@ -1,4 +1,6 @@
 defmodule Blackjack.Core.Servers do
+  require Logger
+
   use GenServer
 
   alias Blackjack.{Repo, Cache}
@@ -6,74 +8,78 @@ defmodule Blackjack.Core.Servers do
 
   @registry Registry.Core
 
-  def start_link(server_name) do
-    IO.inspect(server_name, label: "SERVER NAME")
-
-    GenServer.start_link(__MODULE__, server_name,
+  def start_link({_option, server_name} = server_options) do
+    GenServer.start_link(__MODULE__, server_options,
       name: Blackjack.via_tuple(@registry, server_name)
     )
   end
 
+  def create_table(server_name, table_name) do
+    GenServer.call(
+      Blackjack.lookup(@registry, server_name),
+      {:create_table, server_name, table_name}
+    )
+  end
+
   @impl true
-  def init(server_name) do
+  def init({_option, server_name} = server_options) do
     changeset = Server.changeset(%Server{}, %{server_name: server_name})
-    IO.inspect(changeset, label: "CHANGESET")
 
     server =
-      case Repo.insert(changeset) do
-        {:ok, server} ->
-          IO.puts("#{server.server_name} created.")
+      case server_options do
+        {:create, server_name} ->
+          create(changeset)
 
-        {:error, changeset} ->
-          changeset
+        {:start, server_name} ->
+          start(server_name)
       end
 
-    {:ok, {self(), server}}
+    {:ok, server}
   end
 
-  def create_table(server_name, table_name) do
-    IO.puts("Creating table '#{table_name}' on server '#{server_name}'.")
+  @impl true
+  def handle_call({:create_table, server_name, table_name}, _from, server) do
+    Logger.info("Creating table '#{table_name}' on server '#{server_name}'.")
 
-    child_spec = {Tables, table_name}
+    # Create table here
 
-    Cache.put(table_name, [])
-
-    Blackjack.lookup(@registry, server_name)
-    |> GenServer.start_child(child_spec)
+    {:reply, "Created table #{table_name} on server #{server_name}.", server}
   end
 
-  def remove_table(server_name, table_name) do
-    [{table_id, _}] = Registry.lookup(@registry, table_name)
-
-    Blackjack.lookup(@registry, server_name)
-    |> GenServer.terminate_child(table_id)
+  def server_players do
+    []
   end
 
-  def list_tables_by_pid(server_name) do
-    Task.async_stream(
-      children(server_name),
-      fn {_, pid, _, _} ->
-        pid
-      end,
-      ordered: true
-    )
-    |> Enum.to_list()
-    |> Keyword.get_values(:ok)
+  def cache_server_players(server_name) do
+    Cachex.put(Blackjack.Cache, server_name, server_players())
   end
 
-  def list_tables_by_name(server_name) do
-    Enum.map(list_tables_by_pid(server_name), fn pid ->
-      Registry.keys(@registry, pid) |> Enum.at(0) |> IO.puts()
-    end)
+  def start_all do
+    for server <- Repo.all(Server) do
+      start_link({:start, server.server_name})
+    end
   end
 
-  def children(server_name) do
-    Blackjack.lookup(@registry, server_name)
-    |> GenServer.which_children()
+  defp create(changeset) do
+    case Repo.insert(changeset) do
+      {:ok, server} ->
+        Logger.info("Created server #{server.server_name}.")
+        server
+
+      {:error, changeset} ->
+        changeset
+    end
   end
 
-  def count_children(server_name) do
-    Blackjack.lookup(@registry, server_name)
-    |> GenServer.count_children()
+  defp start(server_name) do
+    case Repo.get_by!(Server, server_name: server_name) do
+      {:error, server} ->
+        Logger.info("Failed to start server #{inspect(server.server_name)}.")
+        server
+
+      server ->
+        Logger.info("Starting server #{inspect(server.server_name)}.")
+        server
+    end
   end
 end

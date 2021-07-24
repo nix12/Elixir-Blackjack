@@ -1,7 +1,10 @@
 defmodule Blackjack.Core.Players do
+  require Logger
+
   use GenServer
 
-  alias Blackjack.Core.{Player, Card, Dealers, Tables}
+  alias Blackjack.Repo
+  alias Blackjack.Core.{Player, Card, Dealers, Tables, Server, Servers}
 
   @registry Registry.Core
 
@@ -41,6 +44,12 @@ defmodule Blackjack.Core.Players do
     )
   end
 
+  def join_server(player_name, server_name) do
+    Logger.info("players #{inspect(player_name)}")
+    Logger.info("players2 #{inspect(Blackjack.lookup(@registry, player_name))}")
+    GenServer.call(Blackjack.lookup(@registry, player_name), {:join_server, server_name})
+  end
+
   # Server
 
   # Setup through top level api file
@@ -62,6 +71,15 @@ defmodule Blackjack.Core.Players do
   @impl true
   def handle_call({:get_state}, _from, player) do
     {:reply, player, player}
+  end
+
+  @impl true
+  def handle_call({:join_server, server_name}, _from, player) do
+    # server = Repo.get_by!(Server, server_name: server_name)
+
+    [player.user_pid | Servers.server_players()]
+    Servers.cache_server_players(server_name)
+    {:reply, "#{Blackjack.name(@registry, player.user_pid)} joined server #{server_name}", player}
   end
 
   @impl true

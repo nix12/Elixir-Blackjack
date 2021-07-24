@@ -1,4 +1,6 @@
-defmodule BlackjackWeb.Router do
+defmodule BlackjackCLI.Router do
+  require Logger
+
   use Plug.Router
 
   if Mix.env() == :dev do
@@ -7,9 +9,13 @@ defmodule BlackjackWeb.Router do
 
   use Plug.ErrorHandler
 
-  alias BlackjackWeb.Controllers.{
+  alias Blackjack.Accounts
+  alias Blackjack.Authentication
+
+  alias BlackjackCLI.Controllers.{
     AuthenticationController,
-    UsersController
+    UsersController,
+    ServersController
   }
 
   plug(Plug.Logger)
@@ -24,7 +30,7 @@ defmodule BlackjackWeb.Router do
   plug(:dispatch)
 
   # User routes
-  post "/user/register" do
+  post "/register" do
     {status, body} =
       case conn.body_params do
         %{"user" => user} ->
@@ -39,38 +45,47 @@ defmodule BlackjackWeb.Router do
     send_resp(conn, status, body)
   end
 
-  get "/user/:id/info" do
-    {status, body} = {200, UsersController.get()}
-
-    send_resp(conn, status, body)
-  end
-
-  get "/user/:username" do
-    {status, body} = {200, UsersController.get()}
-
-    send_resp(conn, status, body)
-  end
-
   # Authentication routes
   post "/login" do
     {status, token} =
       case conn.body_params do
-        %{"user" => user} ->
-          {200, AuthenticationController.login(conn, user)}
+        %{"user" => %{"username" => username, "password_hash" => password}} ->
+          case Authentication.authenticate_user(username, password) do
+            {:ok, user} ->
+              Accounts.spawn_user(username)
+              {200, AuthenticationController.login(conn)}
+
+            {:error, user} ->
+              {422, "ERROR"}
+          end
 
         _ ->
-          {422, "Wrong Username or Password.\n"}
+          {422, "ERROR"}
       end
 
-    AuthenticationController.store_token(token)
-
-    send_resp(conn, status, "")
+    send_resp(conn, status, token)
   end
 
   delete "/logout" do
     {status, _body} = {200, AuthenticationController.logout(conn)}
     send_resp(conn, status, "User is logged out.")
   end
+
+  # Server routes
+
+  get "/servers" do
+    {status, body} = {200, ServersController.get_servers(conn)}
+
+    send_resp(conn, status, body)
+  end
+
+  get "/server/:server_name" do
+    {status, body} = {200, ServersController.get_server(conn)}
+    Logger.info(inspect(body))
+    send_resp(conn, status, body)
+  end
+
+  # Catch all routes and error handling.
 
   match _ do
     send_resp(conn, 404, "Route invalid.")

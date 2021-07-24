@@ -1,0 +1,2033 @@
+06:43:47.317 [info] Starting Blackjack application.
+06:43:47.434 [info] Starting Accounts Supervisor
+06:43:47.438 [info] Starting Accounts Server.
+06:43:47.438 [info] Starting Core Supervisor.
+06:43:47.579 [info] Starting server "high rollers".
+06:43:47.582 [info] Starting server "aces high".
+06:43:47.584 [info] Starting server "big ballers".
+06:43:47.586 [info] Starting server "asdf".
+06:43:47.588 [info] Starting server "plop".
+06:43:47.590 [info] Starting server "new server".
+06:43:47.591 [info] Starting server "another server".
+06:43:47.606 [info] Application blackjack exited: shutdown
+06:51:04.758 [info] Starting Blackjack application.
+06:51:04.856 [info] Starting Accounts Supervisor
+06:51:04.859 [info] Starting Accounts Server.
+06:51:04.860 [info] Starting Core Supervisor.
+06:51:04.990 [info] Starting server "high rollers".
+06:51:04.994 [info] Starting server "aces high".
+06:51:04.996 [info] Starting server "big ballers".
+06:51:04.998 [info] Starting server "asdf".
+06:51:05.004 [info] Starting server "plop".
+06:51:05.005 [info] Starting server "new server".
+06:51:05.007 [info] Starting server "another server".
+06:51:05.026 [info] Application blackjack exited: shutdown
+06:51:13.491 [info] Starting Blackjack application.
+06:51:13.599 [info] Starting Accounts Supervisor
+06:51:13.601 [info] Starting Accounts Server.
+06:51:13.601 [info] Starting Core Supervisor.
+06:51:13.732 [info] Starting server "high rollers".
+06:51:13.734 [info] Starting server "aces high".
+06:51:13.736 [info] Starting server "big ballers".
+06:51:13.738 [info] Starting server "asdf".
+06:51:13.741 [info] Starting server "plop".
+06:51:13.744 [info] Starting server "new server".
+06:51:13.747 [info] Starting server "another server".
+06:51:13.757 [info] Application blackjack exited: shutdown
+06:52:13.476 [info] Starting Blackjack application.
+06:52:13.574 [info] Starting Accounts Supervisor
+06:52:13.578 [info] Starting Accounts Server.
+06:52:13.579 [info] Starting Core Supervisor.
+06:52:13.685 [info] Starting server "high rollers".
+06:52:13.686 [info] Starting server "aces high".
+06:52:13.688 [info] Starting server "big ballers".
+06:52:13.690 [info] Starting server "asdf".
+06:52:13.693 [info] Starting server "plop".
+06:52:13.695 [info] Starting server "new server".
+06:52:13.698 [info] Starting server "another server".
+06:52:13.710 [info] Application blackjack exited: shutdown
+06:52:50.911 [info] Starting Blackjack application.
+06:52:51.000 [info] Starting Accounts Supervisor
+06:52:51.010 [info] Starting Accounts Server.
+06:52:51.011 [info] Starting Core Supervisor.
+06:52:51.141 [info] Starting server "high rollers".
+06:52:51.143 [info] Starting server "aces high".
+06:52:51.145 [info] Starting server "big ballers".
+06:52:51.147 [info] Starting server "asdf".
+06:52:51.148 [info] Starting server "plop".
+06:52:51.150 [info] Starting server "new server".
+06:52:51.152 [info] Starting server "another server".
+06:52:51.175 [info] Application blackjack exited: shutdown
+23:40:47.927 [info] Starting Blackjack application.
+23:40:48.373 [info] Starting Accounts Supervisor
+23:40:48.527 [info] Starting Accounts Server.
+23:40:48.527 [info] Starting Core Supervisor.
+23:40:51.278 [info] Starting server "high rollers".
+23:40:51.285 [info] Starting server "aces high".
+23:40:51.291 [info] Starting server "big ballers".
+23:40:51.297 [info] Starting server "asdf".
+23:40:51.303 [info] Starting server "plop".
+23:40:51.309 [info] Starting server "new server".
+23:40:51.314 [info] Starting server "another server".
+23:40:51.336 [info] Application blackjack exited: shutdown
+23:45:58.896 [info] Starting Blackjack application.
+23:45:59.012 [info] Starting Accounts Supervisor
+23:45:59.015 [info] Starting Accounts Server.
+23:45:59.015 [info] Starting Core Supervisor.
+23:45:59.245 [info] Starting server "high rollers".
+23:45:59.247 [info] Starting server "aces high".
+23:45:59.250 [info] Starting server "big ballers".
+23:45:59.254 [info] Starting server "asdf".
+23:45:59.257 [info] Starting server "plop".
+23:45:59.259 [info] Starting server "new server".
+23:45:59.263 [info] Starting server "another server".
+23:45:59.284 [info] Application blackjack exited: shutdown
+04:30:04.778 [info] Starting Blackjack application.
+04:30:05.227 [info] Starting Accounts Supervisor
+04:30:05.234 [info] Starting Accounts Server.
+04:30:05.234 [info] Starting Core Supervisor.
+04:30:06.872 [info] Starting server "high rollers".
+04:30:06.878 [info] Starting server "aces high".
+04:30:06.885 [info] Starting server "big ballers".
+04:30:06.893 [info] Starting server "asdf".
+04:30:06.904 [info] Starting server "plop".
+04:30:06.913 [info] Starting server "new server".
+04:30:06.925 [info] Starting server "another server".
+04:30:06.962 [info] Application blackjack exited: shutdown
+04:32:15.966 [info] Starting Blackjack application.
+04:32:16.111 [info] Starting Accounts Supervisor
+04:32:16.116 [info] Starting Accounts Server.
+04:32:16.117 [info] Starting Core Supervisor.
+04:32:16.309 [info] Starting server "high rollers".
+04:32:16.311 [info] Starting server "aces high".
+04:32:16.313 [info] Starting server "big ballers".
+04:32:16.316 [info] Starting server "asdf".
+04:32:16.319 [info] Starting server "plop".
+04:32:16.322 [info] Starting server "new server".
+04:32:16.325 [info] Starting server "another server".
+04:32:16.336 [info] Application blackjack exited: shutdown
+04:32:57.650 [info] Starting Blackjack application.
+04:32:57.805 [info] Starting Accounts Supervisor
+04:32:57.808 [info] Starting Accounts Server.
+04:32:57.808 [info] Starting Core Supervisor.
+04:32:57.991 [info] Starting server "high rollers".
+04:32:57.994 [info] Starting server "aces high".
+04:32:57.997 [info] Starting server "big ballers".
+04:32:58.000 [info] Starting server "asdf".
+04:32:58.003 [info] Starting server "plop".
+04:32:58.005 [info] Starting server "new server".
+04:32:58.008 [info] Starting server "another server".
+04:32:58.025 [info] Application blackjack exited: shutdown
+04:34:47.967 [info] Starting Blackjack application.
+04:34:48.110 [info] Starting Accounts Supervisor
+04:34:48.116 [info] Starting Accounts Server.
+04:34:48.116 [info] Starting Core Supervisor.
+04:34:48.311 [info] Starting server "high rollers".
+04:34:48.313 [info] Starting server "aces high".
+04:34:48.315 [info] Starting server "big ballers".
+04:34:48.317 [info] Starting server "asdf".
+04:34:48.319 [info] Starting server "plop".
+04:34:48.321 [info] Starting server "new server".
+04:34:48.323 [info] Starting server "another server".
+04:34:48.339 [info] Application blackjack exited: shutdown
+04:34:56.924 [info] Starting Blackjack application.
+04:34:57.075 [info] Starting Accounts Supervisor
+04:34:57.081 [info] Starting Accounts Server.
+04:34:57.082 [info] Starting Core Supervisor.
+04:34:57.269 [info] Starting server "high rollers".
+04:34:57.272 [info] Starting server "aces high".
+04:34:57.276 [info] Starting server "big ballers".
+04:34:57.280 [info] Starting server "asdf".
+04:34:57.283 [info] Starting server "plop".
+04:34:57.286 [info] Starting server "new server".
+04:34:57.289 [info] Starting server "another server".
+04:34:57.303 [info] Application blackjack exited: shutdown
+04:35:16.235 [info] Starting Blackjack application.
+04:35:16.378 [info] Starting Accounts Supervisor
+04:35:16.385 [info] Starting Accounts Server.
+04:35:16.385 [info] Starting Core Supervisor.
+04:35:16.575 [info] Starting server "high rollers".
+04:35:16.578 [info] Starting server "aces high".
+04:35:16.580 [info] Starting server "big ballers".
+04:35:16.584 [info] Starting server "asdf".
+04:35:16.587 [info] Starting server "plop".
+04:35:16.591 [info] Starting server "new server".
+04:35:16.594 [info] Starting server "another server".
+04:35:16.611 [info] Application blackjack exited: shutdown
+04:37:45.096 [info] Starting Blackjack application.
+04:37:45.234 [info] Starting Accounts Supervisor
+04:37:45.239 [info] Starting Accounts Server.
+04:37:45.242 [info] Starting Core Supervisor.
+04:37:45.421 [info] Starting server "high rollers".
+04:37:45.423 [info] Starting server "aces high".
+04:37:45.426 [info] Starting server "big ballers".
+04:37:45.428 [info] Starting server "asdf".
+04:37:45.430 [info] Starting server "plop".
+04:37:45.433 [info] Starting server "new server".
+04:37:45.435 [info] Starting server "another server".
+04:37:45.449 [info] Application blackjack exited: shutdown
+04:40:12.838 [info] Starting Blackjack application.
+04:40:13.004 [info] Starting Accounts Supervisor
+04:40:13.007 [info] Starting Accounts Server.
+04:40:13.008 [info] Starting Core Supervisor.
+04:40:13.176 [info] Starting server "high rollers".
+04:40:13.180 [info] Starting server "aces high".
+04:40:13.184 [info] Starting server "big ballers".
+04:40:13.187 [info] Starting server "asdf".
+04:40:13.189 [info] Starting server "plop".
+04:40:13.192 [info] Starting server "new server".
+04:40:13.194 [info] Starting server "another server".
+04:40:13.210 [info] Application blackjack exited: shutdown
+04:40:13.268 [info] Starting Blackjack application.
+04:40:13.276 [info] Starting Accounts Supervisor
+04:40:13.279 [info] Starting Accounts Server.
+04:40:13.281 [info] Starting Core Supervisor.
+04:40:13.290 [info] Starting server "high rollers".
+04:40:13.294 [info] Starting server "aces high".
+04:40:13.300 [info] Starting server "big ballers".
+04:40:13.303 [info] Starting server "asdf".
+04:40:13.307 [info] Starting server "plop".
+04:40:13.308 [info] Starting server "new server".
+04:40:13.311 [info] Starting server "another server".
+04:40:13.321 [info] Application blackjack exited: shutdown
+04:40:13.328 [info] Starting Blackjack application.
+04:40:13.343 [info] Starting Accounts Supervisor
+04:40:13.343 [info] Starting Accounts Server.
+04:40:13.343 [info] Starting Core Supervisor.
+04:40:13.349 [info] Starting server "high rollers".
+04:40:13.352 [info] Starting server "aces high".
+04:40:13.356 [info] Starting server "big ballers".
+04:40:13.361 [info] Starting server "asdf".
+04:40:13.371 [info] Starting server "plop".
+04:40:13.374 [info] Starting server "new server".
+04:40:13.376 [info] Starting server "another server".
+04:40:13.388 [info] Application blackjack exited: shutdown
+04:41:17.098 [info] Starting Blackjack application.
+04:41:17.251 [info] Starting Accounts Supervisor
+04:41:17.256 [info] Starting Accounts Server.
+04:41:17.256 [info] Starting Core Supervisor.
+04:41:17.441 [info] Starting server "high rollers".
+04:41:17.443 [info] Starting server "aces high".
+04:41:17.446 [info] Starting server "big ballers".
+04:41:17.448 [info] Starting server "asdf".
+04:41:17.451 [info] Starting server "plop".
+04:41:17.454 [info] Starting server "new server".
+04:41:17.457 [info] Starting server "another server".
+04:41:17.486 [info] Application blackjack exited: shutdown
+04:48:55.802 [info] Starting Blackjack application.
+04:48:55.946 [info] Starting Accounts Supervisor
+04:48:55.952 [info] Starting Accounts Server.
+04:48:55.953 [info] Starting Core Supervisor.
+04:48:56.142 [info] Starting server "high rollers".
+04:48:56.145 [info] Starting server "aces high".
+04:48:56.148 [info] Starting server "big ballers".
+04:48:56.151 [info] Starting server "asdf".
+04:48:56.158 [info] Starting server "plop".
+04:48:56.161 [info] Starting server "new server".
+04:48:56.167 [info] Starting server "another server".
+04:48:56.188 [info] Application blackjack exited: shutdown
+04:49:59.929 [info] Starting Blackjack application.
+04:50:00.062 [info] Starting Accounts Supervisor
+04:50:00.078 [info] Starting Accounts Server.
+04:50:00.078 [info] Starting Core Supervisor.
+04:50:00.268 [info] Starting server "high rollers".
+04:50:00.273 [info] Starting server "aces high".
+04:50:00.279 [info] Starting server "big ballers".
+04:50:00.282 [info] Starting server "asdf".
+04:50:00.289 [info] Starting server "plop".
+04:50:00.291 [info] Starting server "new server".
+04:50:00.294 [info] Starting server "another server".
+04:50:00.317 [info] Application blackjack exited: shutdown
+04:56:23.300 [info] Starting Blackjack application.
+04:56:23.447 [info] Starting Accounts Supervisor
+04:56:23.454 [info] Starting Accounts Server.
+04:56:23.454 [info] Starting Core Supervisor.
+04:56:23.616 [info] Starting server "high rollers".
+04:56:23.619 [info] Starting server "aces high".
+04:56:23.622 [info] Starting server "big ballers".
+04:56:23.625 [info] Starting server "asdf".
+04:56:23.628 [info] Starting server "plop".
+04:56:23.632 [info] Starting server "new server".
+04:56:23.634 [info] Starting server "another server".
+04:56:23.649 [info] Application blackjack exited: shutdown
+04:56:31.898 [info] Starting Blackjack application.
+04:56:32.046 [info] Starting Accounts Supervisor
+04:56:32.053 [info] Starting Accounts Server.
+04:56:32.054 [info] Starting Core Supervisor.
+04:56:32.234 [info] Starting server "high rollers".
+04:56:32.237 [info] Starting server "aces high".
+04:56:32.240 [info] Starting server "big ballers".
+04:56:32.243 [info] Starting server "asdf".
+04:56:32.247 [info] Starting server "plop".
+04:56:32.249 [info] Starting server "new server".
+04:56:32.255 [info] Starting server "another server".
+04:56:32.270 [info] Application blackjack exited: shutdown
+04:56:43.417 [info] Starting Blackjack application.
+04:56:43.562 [info] Starting Accounts Supervisor
+04:56:43.567 [info] Starting Accounts Server.
+04:56:43.568 [info] Starting Core Supervisor.
+04:56:43.742 [info] Starting server "high rollers".
+04:56:43.746 [info] Starting server "aces high".
+04:56:43.750 [info] Starting server "big ballers".
+04:56:43.753 [info] Starting server "asdf".
+04:56:43.755 [info] Starting server "plop".
+04:56:43.760 [info] Starting server "new server".
+04:56:43.763 [info] Starting server "another server".
+04:56:43.781 [info] Application blackjack exited: shutdown
+04:58:25.849 [info] Starting Blackjack application.
+04:58:25.976 [info] Starting Accounts Supervisor
+04:58:25.992 [info] Starting Accounts Server.
+04:58:25.994 [info] Starting Core Supervisor.
+04:58:26.182 [info] Starting server "high rollers".
+04:58:26.185 [info] Starting server "aces high".
+04:58:26.187 [info] Starting server "big ballers".
+04:58:26.189 [info] Starting server "asdf".
+04:58:26.194 [info] Starting server "plop".
+04:58:26.198 [info] Starting server "new server".
+04:58:26.201 [info] Starting server "another server".
+04:58:26.212 [info] Application blackjack exited: shutdown
+05:02:24.398 [info] Starting Blackjack application.
+05:02:24.531 [info] Starting Accounts Supervisor
+05:02:24.547 [info] Starting Accounts Server.
+05:02:24.548 [info] Starting Core Supervisor.
+05:02:24.746 [info] Starting server "high rollers".
+05:02:24.749 [info] Starting server "aces high".
+05:02:24.752 [info] Starting server "big ballers".
+05:02:24.755 [info] Starting server "asdf".
+05:02:24.758 [info] Starting server "plop".
+05:02:24.761 [info] Starting server "new server".
+05:02:24.764 [info] Starting server "another server".
+05:02:24.790 [info] Application blackjack exited: shutdown
+05:44:07.889 [info] Starting Blackjack application.
+05:44:08.033 [info] Starting Accounts Supervisor
+05:44:08.039 [info] Starting Accounts Server.
+05:44:08.039 [info] Starting Core Supervisor.
+05:44:08.199 [info] Starting server "high rollers".
+05:44:08.202 [info] Starting server "aces high".
+05:44:08.205 [info] Starting server "big ballers".
+05:44:08.208 [info] Starting server "asdf".
+05:44:08.211 [info] Starting server "plop".
+05:44:08.215 [info] Starting server "new server".
+05:44:08.220 [info] Starting server "another server".
+05:44:08.235 [info] Application blackjack exited: shutdown
+05:46:48.334 [info] Starting Blackjack application.
+05:46:48.482 [info] Starting Accounts Supervisor
+05:46:48.488 [info] Starting Accounts Server.
+05:46:48.488 [info] Starting Core Supervisor.
+05:46:48.658 [info] Starting server "high rollers".
+05:46:48.660 [info] Starting server "aces high".
+05:46:48.663 [info] Starting server "big ballers".
+05:46:48.665 [info] Starting server "asdf".
+05:46:48.667 [info] Starting server "plop".
+05:46:48.669 [info] Starting server "new server".
+05:46:48.672 [info] Starting server "another server".
+05:46:48.700 [info] Application blackjack exited: shutdown
+06:01:16.789 [info] Starting Blackjack application.
+06:01:16.917 [info] Starting Accounts Supervisor
+06:01:16.932 [info] Starting Accounts Server.
+06:01:16.932 [info] Starting Core Supervisor.
+06:01:17.123 [info] Starting server "high rollers".
+06:01:17.127 [info] Starting server "aces high".
+06:01:17.129 [info] Starting server "big ballers".
+06:01:17.132 [info] Starting server "asdf".
+06:01:17.137 [info] Starting server "plop".
+06:01:17.141 [info] Starting server "new server".
+06:01:17.145 [info] Starting server "another server".
+06:01:17.160 [info] Application blackjack exited: shutdown
+06:05:10.901 [info] Starting Blackjack application.
+06:05:11.050 [info] Starting Accounts Supervisor
+06:05:11.056 [info] Starting Accounts Server.
+06:05:11.057 [info] Starting Core Supervisor.
+06:05:11.246 [info] Starting server "high rollers".
+06:05:11.248 [info] Starting server "aces high".
+06:05:11.253 [info] Starting server "big ballers".
+06:05:11.261 [info] Starting server "asdf".
+06:05:11.264 [info] Starting server "plop".
+06:05:11.277 [info] Starting server "new server".
+06:05:11.279 [info] Starting server "another server".
+06:05:11.296 [info] Application blackjack exited: shutdown
+06:08:55.350 [info] Starting Blackjack application.
+06:08:55.492 [info] Starting Accounts Supervisor
+06:08:55.500 [info] Starting Accounts Server.
+06:08:55.500 [info] Starting Core Supervisor.
+06:08:55.688 [info] Starting server "high rollers".
+06:08:55.690 [info] Starting server "aces high".
+06:08:55.694 [info] Starting server "big ballers".
+06:08:55.696 [info] Starting server "asdf".
+06:08:55.699 [info] Starting server "plop".
+06:08:55.701 [info] Starting server "new server".
+06:08:55.704 [info] Starting server "another server".
+06:08:55.732 [info] Application blackjack exited: shutdown
+06:10:10.182 [info] Starting Blackjack application.
+06:10:10.323 [info] Starting Accounts Supervisor
+06:10:10.329 [info] Starting Accounts Server.
+06:10:10.331 [info] Starting Core Supervisor.
+06:10:10.517 [info] Starting server "high rollers".
+06:10:10.521 [info] Starting server "aces high".
+06:10:10.524 [info] Starting server "big ballers".
+06:10:10.527 [info] Starting server "asdf".
+06:10:10.530 [info] Starting server "plop".
+06:10:10.533 [info] Starting server "new server".
+06:10:10.537 [info] Starting server "another server".
+06:10:10.555 [info] Application blackjack exited: shutdown
+06:13:01.450 [info] Starting Blackjack application.
+06:13:01.596 [info] Starting Accounts Supervisor
+06:13:01.604 [info] Starting Accounts Server.
+06:13:01.604 [info] Starting Core Supervisor.
+06:13:01.780 [info] Starting server "high rollers".
+06:13:01.784 [info] Starting server "aces high".
+06:13:01.786 [info] Starting server "big ballers".
+06:13:01.788 [info] Starting server "asdf".
+06:13:01.790 [info] Starting server "plop".
+06:13:01.793 [info] Starting server "new server".
+06:13:01.795 [info] Starting server "another server".
+06:13:01.808 [info] Application blackjack exited: shutdown
+06:18:36.049 [info] Starting Blackjack application.
+06:18:36.193 [info] Starting Accounts Supervisor
+06:18:36.199 [info] Starting Accounts Server.
+06:18:36.199 [info] Starting Core Supervisor.
+06:18:36.378 [info] Starting server "high rollers".
+06:18:36.381 [info] Starting server "aces high".
+06:18:36.385 [info] Starting server "big ballers".
+06:18:36.387 [info] Starting server "asdf".
+06:18:36.391 [info] Starting server "plop".
+06:18:36.393 [info] Starting server "new server".
+06:18:36.396 [info] Starting server "another server".
+06:18:36.407 [info] Application blackjack exited: shutdown
+06:21:28.316 [info] Starting Blackjack application.
+06:21:28.456 [info] Starting Accounts Supervisor
+06:21:28.462 [info] Starting Accounts Server.
+06:21:28.463 [info] Starting Core Supervisor.
+06:21:28.635 [info] Starting server "high rollers".
+06:21:28.639 [info] Starting server "aces high".
+06:21:28.645 [info] Starting server "big ballers".
+06:21:28.648 [info] Starting server "asdf".
+06:21:28.651 [info] Starting server "plop".
+06:21:28.654 [info] Starting server "new server".
+06:21:28.657 [info] Starting server "another server".
+06:21:28.675 [info] Application blackjack exited: shutdown
+06:31:09.306 [info] Starting Blackjack application.
+06:31:09.450 [info] Starting Accounts Supervisor
+06:31:09.456 [info] Starting Accounts Server.
+06:31:09.456 [info] Starting Core Supervisor.
+06:31:09.629 [info] Starting server "high rollers".
+06:31:09.635 [info] Starting server "aces high".
+06:31:09.638 [info] Starting server "big ballers".
+06:31:09.640 [info] Starting server "asdf".
+06:31:09.643 [info] Starting server "plop".
+06:31:09.646 [info] Starting server "new server".
+06:31:09.649 [info] Starting server "another server".
+06:31:09.683 [info] Application blackjack exited: shutdown
+06:36:01.040 [info] Starting Blackjack application.
+06:36:01.187 [info] Starting Accounts Supervisor
+06:36:01.194 [info] Starting Accounts Server.
+06:36:01.194 [info] Starting Core Supervisor.
+06:37:49.289 [info] Starting Blackjack application.
+06:37:49.434 [info] Starting Accounts Supervisor
+06:37:49.439 [info] Starting Accounts Server.
+06:37:49.440 [info] Starting Core Supervisor.
+06:37:49.619 [info] Starting server "high rollers".
+06:37:49.622 [info] Starting server "aces high".
+06:37:49.625 [info] Starting server "big ballers".
+06:37:49.627 [info] Starting server "asdf".
+06:37:49.630 [info] Starting server "plop".
+06:37:49.633 [info] Starting server "new server".
+06:37:49.635 [info] Starting server "another server".
+06:37:49.648 [info] Application blackjack exited: shutdown
+06:41:32.923 [info] Starting Blackjack application.
+06:41:33.064 [info] Starting Accounts Supervisor
+06:41:33.069 [info] Starting Accounts Server.
+06:41:33.069 [info] Starting Core Supervisor.
+06:41:33.260 [info] Starting server "high rollers".
+06:41:33.262 [info] Starting server "aces high".
+06:41:33.264 [info] Starting server "big ballers".
+06:41:33.267 [info] Starting server "asdf".
+06:41:33.269 [info] Starting server "plop".
+06:41:33.272 [info] Starting server "new server".
+06:41:33.280 [info] Starting server "another server".
+06:41:33.300 [info] Application blackjack exited: shutdown
+06:44:19.384 [info] Starting Blackjack application.
+06:44:19.529 [info] Starting Accounts Supervisor
+06:44:19.534 [info] Starting Accounts Server.
+06:44:19.534 [info] Starting Core Supervisor.
+06:46:31.655 [info] Starting Blackjack application.
+06:46:31.797 [info] Starting Accounts Supervisor
+06:46:31.803 [info] Starting Accounts Server.
+06:46:31.803 [info] Starting Core Supervisor.
+06:46:31.979 [info] Starting server "high rollers".
+06:46:31.982 [info] Starting server "aces high".
+06:46:31.986 [info] Starting server "big ballers".
+06:46:31.989 [info] Starting server "asdf".
+06:46:31.992 [info] Starting server "plop".
+06:46:31.995 [info] Starting server "new server".
+06:46:31.999 [info] Starting server "another server".
+06:46:32.012 [info] Application blackjack exited: shutdown
+06:48:15.701 [info] Starting Blackjack application.
+06:48:15.851 [info] Starting Accounts Supervisor
+06:48:15.857 [info] Starting Accounts Server.
+06:48:15.857 [info] Starting Core Supervisor.
+06:48:16.037 [info] Starting server "high rollers".
+06:48:16.040 [info] Starting server "aces high".
+06:48:16.042 [info] Starting server "big ballers".
+06:48:16.044 [info] Starting server "asdf".
+06:48:16.047 [info] Starting server "plop".
+06:48:16.050 [info] Starting server "new server".
+06:48:16.053 [info] Starting server "another server".
+06:48:16.070 [info] Application blackjack exited: shutdown
+07:03:24.189 [info] Starting Blackjack application.
+07:03:24.231 [info] Application blackjack exited: exited in: Blackjack.Application.start(:normal, [])
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) The module Registry.Accounts was given as a child to a supervisor but it does not exist.
+            (elixir 1.12.0) lib/supervisor.ex:631: Supervisor.init_child/1
+            (elixir 1.12.0) lib/enum.ex:1553: Enum."-map/2-lists^map/1-0-"/2
+            (elixir 1.12.0) lib/enum.ex:1553: Enum."-map/2-lists^map/1-0-"/2
+            (elixir 1.12.0) lib/supervisor.ex:617: Supervisor.init/2
+            (elixir 1.12.0) lib/supervisor.ex:556: Supervisor.start_link/2
+            (kernel 8.0) application_master.erl:293: :application_master.start_it_old/4
+07:03:24.239 [info] Application cachex exited: :stopped
+07:03:24.239 [info] Application jumper exited: :stopped
+07:03:24.239 [info] Application sleeplocks exited: :stopped
+07:03:24.239 [info] Application eternal exited: :stopped
+07:03:24.239 [info] Application authorize exited: :stopped
+07:03:24.239 [info] Application guardian exited: :stopped
+07:03:24.240 [info] Application jose exited: :stopped
+07:03:24.240 [info] Application ecto_sql exited: :stopped
+07:03:24.241 [info] Application bcrypt_elixir exited: :stopped
+07:03:24.241 [info] Application comeonin exited: :stopped
+07:03:24.241 [info] Application jason exited: :stopped
+07:03:24.241 [info] Application ratatouille exited: :stopped
+07:03:24.241 [info] Application asciichart exited: :stopped
+07:03:24.241 [info] Application ex_termbox exited: :stopped
+07:03:24.241 [info] Application pubsub exited: :stopped
+07:03:24.241 [info] Application postgrex exited: :stopped
+07:03:24.242 [info] Application db_connection exited: :stopped
+07:03:24.242 [info] Application connection exited: :stopped
+07:03:24.243 [info] Application ecto exited: :stopped
+07:03:24.243 [info] Application decimal exited: :stopped
+07:03:24.244 [info] Application plug_cowboy exited: :stopped
+07:03:24.244 [info] Application cowboy_telemetry exited: :stopped
+07:03:24.245 [info] Application cowboy exited: :stopped
+07:03:24.245 [info] Application ranch exited: :stopped
+07:03:24.246 [info] Application cowlib exited: :stopped
+07:03:24.246 [info] Application plug exited: :stopped
+07:03:24.247 [info] Application telemetry exited: :stopped
+07:03:24.248 [info] Application plug_crypto exited: :stopped
+07:03:24.248 [info] Application mime exited: :stopped
+07:03:24.249 [info] Application eex exited: :stopped
+07:05:25.109 [info] Starting Blackjack application.
+07:05:25.226 [info] Application blackjack exited: Blackjack.Application.start(:normal, []) returned an error: shutdown: failed to start child: Registry
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) expected :keys to be given and be one of :unique or :duplicate, got: nil
+            (elixir 1.12.0) lib/registry.ex:321: Registry.start_link/1
+            (stdlib 3.15) supervisor.erl:414: :supervisor.do_start_child_i/3
+            (stdlib 3.15) supervisor.erl:400: :supervisor.do_start_child/2
+            (stdlib 3.15) supervisor.erl:384: anonymous fn/3 in :supervisor.start_children/2
+            (stdlib 3.15) supervisor.erl:1234: :supervisor.children_map/4
+            (stdlib 3.15) supervisor.erl:350: :supervisor.init_children/2
+            (stdlib 3.15) gen_server.erl:423: :gen_server.init_it/2
+            (stdlib 3.15) gen_server.erl:390: :gen_server.init_it/6
+07:05:25.243 [info] Application cachex exited: :stopped
+07:05:25.244 [info] Application jumper exited: :stopped
+07:05:25.244 [info] Application sleeplocks exited: :stopped
+07:05:25.244 [info] Application eternal exited: :stopped
+07:05:25.244 [info] Application authorize exited: :stopped
+07:05:25.244 [info] Application guardian exited: :stopped
+07:05:25.245 [info] Application jose exited: :stopped
+07:05:25.245 [info] Application ecto_sql exited: :stopped
+07:05:25.246 [info] Application bcrypt_elixir exited: :stopped
+07:05:25.246 [info] Application comeonin exited: :stopped
+07:05:25.246 [info] Application jason exited: :stopped
+07:05:25.246 [info] Application ratatouille exited: :stopped
+07:05:25.246 [info] Application asciichart exited: :stopped
+07:05:25.246 [info] Application ex_termbox exited: :stopped
+07:05:25.246 [info] Application pubsub exited: :stopped
+07:05:25.247 [info] Application postgrex exited: :stopped
+07:05:25.248 [info] Application db_connection exited: :stopped
+07:05:25.248 [info] Application connection exited: :stopped
+07:05:25.248 [info] Application ecto exited: :stopped
+07:05:25.249 [info] Application decimal exited: :stopped
+07:05:25.250 [info] Application plug_cowboy exited: :stopped
+07:05:25.250 [info] Application cowboy_telemetry exited: :stopped
+07:05:25.251 [info] Application cowboy exited: :stopped
+07:05:25.251 [info] Application ranch exited: :stopped
+07:05:25.251 [info] Application cowlib exited: :stopped
+07:05:25.252 [info] Application plug exited: :stopped
+07:05:25.253 [info] Application telemetry exited: :stopped
+07:05:25.253 [info] Application plug_crypto exited: :stopped
+07:05:25.254 [info] Application mime exited: :stopped
+07:05:25.254 [info] Application eex exited: :stopped
+07:07:22.602 [info] Starting Blackjack application.
+07:07:22.724 [info] Application blackjack exited: Blackjack.Application.start(:normal, []) returned an error: shutdown: failed to start child: Registry
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) expected :keys to be given and be one of :unique or :duplicate, got: nil
+            (elixir 1.12.0) lib/registry.ex:321: Registry.start_link/1
+            (stdlib 3.15) supervisor.erl:414: :supervisor.do_start_child_i/3
+            (stdlib 3.15) supervisor.erl:400: :supervisor.do_start_child/2
+            (stdlib 3.15) supervisor.erl:384: anonymous fn/3 in :supervisor.start_children/2
+            (stdlib 3.15) supervisor.erl:1234: :supervisor.children_map/4
+            (stdlib 3.15) supervisor.erl:350: :supervisor.init_children/2
+            (stdlib 3.15) gen_server.erl:423: :gen_server.init_it/2
+            (stdlib 3.15) gen_server.erl:390: :gen_server.init_it/6
+07:07:22.743 [info] Application cachex exited: :stopped
+07:07:22.743 [info] Application jumper exited: :stopped
+07:07:22.743 [info] Application sleeplocks exited: :stopped
+07:07:22.743 [info] Application eternal exited: :stopped
+07:07:22.743 [info] Application authorize exited: :stopped
+07:07:22.743 [info] Application guardian exited: :stopped
+07:07:22.744 [info] Application jose exited: :stopped
+07:07:22.745 [info] Application ecto_sql exited: :stopped
+07:07:22.745 [info] Application bcrypt_elixir exited: :stopped
+07:07:22.745 [info] Application comeonin exited: :stopped
+07:07:22.745 [info] Application jason exited: :stopped
+07:07:22.745 [info] Application ratatouille exited: :stopped
+07:07:22.745 [info] Application asciichart exited: :stopped
+07:07:22.745 [info] Application ex_termbox exited: :stopped
+07:07:22.745 [info] Application pubsub exited: :stopped
+07:07:22.746 [info] Application postgrex exited: :stopped
+07:07:22.747 [info] Application db_connection exited: :stopped
+07:07:22.747 [info] Application connection exited: :stopped
+07:07:22.748 [info] Application ecto exited: :stopped
+07:07:22.748 [info] Application decimal exited: :stopped
+07:07:22.748 [info] Application plug_cowboy exited: :stopped
+07:07:22.748 [info] Application cowboy_telemetry exited: :stopped
+07:07:22.749 [info] Application cowboy exited: :stopped
+07:07:22.750 [info] Application ranch exited: :stopped
+07:07:22.750 [info] Application cowlib exited: :stopped
+07:07:22.751 [info] Application plug exited: :stopped
+07:07:22.751 [info] Application telemetry exited: :stopped
+07:07:22.752 [info] Application plug_crypto exited: :stopped
+07:07:22.753 [info] Application mime exited: :stopped
+07:07:22.753 [info] Application eex exited: :stopped
+07:08:26.471 [info] Starting Blackjack application.
+07:08:26.581 [info] Application blackjack exited: Blackjack.Application.start(:normal, []) returned an error: shutdown: failed to start child: Registry
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) expected :name option to be present
+            (elixir 1.12.0) lib/registry.ex:334: Registry.start_link/1
+            (stdlib 3.15) supervisor.erl:414: :supervisor.do_start_child_i/3
+            (stdlib 3.15) supervisor.erl:400: :supervisor.do_start_child/2
+            (stdlib 3.15) supervisor.erl:384: anonymous fn/3 in :supervisor.start_children/2
+            (stdlib 3.15) supervisor.erl:1234: :supervisor.children_map/4
+            (stdlib 3.15) supervisor.erl:350: :supervisor.init_children/2
+            (stdlib 3.15) gen_server.erl:423: :gen_server.init_it/2
+            (stdlib 3.15) gen_server.erl:390: :gen_server.init_it/6
+07:08:26.596 [info] Application cachex exited: :stopped
+07:08:26.596 [info] Application jumper exited: :stopped
+07:08:26.596 [info] Application sleeplocks exited: :stopped
+07:08:26.596 [info] Application eternal exited: :stopped
+07:08:26.596 [info] Application authorize exited: :stopped
+07:08:26.596 [info] Application guardian exited: :stopped
+07:08:26.597 [info] Application jose exited: :stopped
+07:08:26.598 [info] Application ecto_sql exited: :stopped
+07:08:26.598 [info] Application bcrypt_elixir exited: :stopped
+07:08:26.598 [info] Application comeonin exited: :stopped
+07:08:26.598 [info] Application jason exited: :stopped
+07:08:26.598 [info] Application ratatouille exited: :stopped
+07:08:26.598 [info] Application asciichart exited: :stopped
+07:08:26.598 [info] Application ex_termbox exited: :stopped
+07:08:26.598 [info] Application pubsub exited: :stopped
+07:08:26.601 [info] Application postgrex exited: :stopped
+07:08:26.602 [info] Application db_connection exited: :stopped
+07:08:26.602 [info] Application connection exited: :stopped
+07:08:26.603 [info] Application ecto exited: :stopped
+07:08:26.603 [info] Application decimal exited: :stopped
+07:08:26.604 [info] Application plug_cowboy exited: :stopped
+07:08:26.604 [info] Application cowboy_telemetry exited: :stopped
+07:08:26.604 [info] Application cowboy exited: :stopped
+07:08:26.605 [info] Application ranch exited: :stopped
+07:08:26.605 [info] Application cowlib exited: :stopped
+07:08:26.606 [info] Application plug exited: :stopped
+07:08:26.607 [info] Application telemetry exited: :stopped
+07:08:26.607 [info] Application plug_crypto exited: :stopped
+07:08:26.608 [info] Application mime exited: :stopped
+07:08:26.608 [info] Application eex exited: :stopped
+07:08:55.177 [info] Starting Blackjack application.
+07:08:55.334 [info] Starting Accounts Supervisor
+07:08:55.341 [info] Starting Accounts Server.
+07:08:55.341 [info] Starting Core Supervisor.
+07:08:55.514 [info] Starting server "high rollers".
+07:08:55.517 [info] Starting server "aces high".
+07:08:55.520 [info] Starting server "big ballers".
+07:08:55.524 [info] Starting server "asdf".
+07:08:55.526 [info] Starting server "plop".
+07:08:55.530 [info] Starting server "new server".
+07:08:55.533 [info] Starting server "another server".
+07:08:55.548 [info] Application blackjack exited: shutdown
+07:09:40.949 [info] Starting Blackjack application.
+07:09:41.099 [info] Starting Accounts Supervisor
+07:09:41.106 [info] Starting Accounts Server.
+07:09:41.106 [info] Starting Core Supervisor.
+07:09:41.300 [info] Starting server "high rollers".
+07:09:41.302 [info] Starting server "aces high".
+07:09:41.304 [info] Starting server "big ballers".
+07:09:41.307 [info] Starting server "asdf".
+07:09:41.310 [info] Starting server "plop".
+07:09:41.313 [info] Starting server "new server".
+07:09:41.316 [info] Starting server "another server".
+07:09:41.333 [info] Application blackjack exited: shutdown
+07:11:51.438 [info] Starting Blackjack application.
+07:11:51.566 [info] Starting Accounts Supervisor
+07:11:51.581 [info] Starting Accounts Server.
+07:11:51.581 [info] Starting Core Supervisor.
+07:11:51.784 [info] Starting server "high rollers".
+07:11:51.786 [info] Starting server "aces high".
+07:11:51.789 [info] Starting server "big ballers".
+07:11:51.792 [info] Starting server "asdf".
+07:11:51.795 [info] Starting server "plop".
+07:11:51.797 [info] Starting server "new server".
+07:11:51.800 [info] Starting server "another server".
+07:11:51.813 [info] Application blackjack exited: shutdown
+07:14:08.426 [info] Starting Blackjack application.
+07:14:08.574 [info] Starting Accounts Supervisor
+07:14:08.580 [info] Starting Accounts Server.
+07:14:08.580 [info] Starting Core Supervisor.
+07:14:08.762 [info] Starting server "high rollers".
+07:14:08.764 [info] Starting server "aces high".
+07:14:08.766 [info] Starting server "big ballers".
+07:14:08.768 [info] Starting server "asdf".
+07:14:08.771 [info] Starting server "plop".
+07:14:08.773 [info] Starting server "new server".
+07:14:08.776 [info] Starting server "another server".
+07:14:08.794 [info] Application blackjack exited: shutdown
+07:15:46.463 [info] Starting Blackjack application.
+07:15:46.594 [info] Starting Accounts Supervisor
+07:15:46.613 [info] Starting Accounts Server.
+07:15:46.613 [info] Starting Core Supervisor.
+07:15:46.804 [info] Starting server "high rollers".
+07:15:46.806 [info] Starting server "aces high".
+07:15:46.808 [info] Starting server "big ballers".
+07:15:46.811 [info] Starting server "asdf".
+07:15:46.813 [info] Starting server "plop".
+07:15:46.815 [info] Starting server "new server".
+07:15:46.819 [info] Starting server "another server".
+07:15:46.838 [info] Application blackjack exited: shutdown
+07:16:59.552 [info] Starting Blackjack application.
+07:16:59.693 [info] Starting Accounts Supervisor
+07:16:59.699 [info] Starting Accounts Server.
+07:16:59.700 [info] Starting Core Supervisor.
+07:16:59.891 [info] Starting server "high rollers".
+07:16:59.894 [info] Starting server "aces high".
+07:16:59.896 [info] Starting server "big ballers".
+07:16:59.898 [info] Starting server "asdf".
+07:16:59.900 [info] Starting server "plop".
+07:16:59.903 [info] Starting server "new server".
+07:16:59.908 [info] Starting server "another server".
+07:16:59.924 [info] Application blackjack exited: shutdown
+07:17:42.937 [info] Starting Blackjack application.
+07:17:43.082 [info] Starting Accounts Supervisor
+07:17:43.087 [info] Starting Accounts Server.
+07:17:43.087 [info] Starting Core Supervisor.
+07:17:43.267 [info] Starting server "high rollers".
+07:17:43.270 [info] Starting server "aces high".
+07:17:43.272 [info] Starting server "big ballers".
+07:17:43.274 [info] Starting server "asdf".
+07:17:43.277 [info] Starting server "plop".
+07:17:43.279 [info] Starting server "new server".
+07:17:43.284 [info] Starting server "another server".
+07:17:43.305 [info] Application blackjack exited: shutdown
+07:18:56.363 [info] Starting Blackjack application.
+07:18:56.508 [info] Starting Accounts Supervisor
+07:18:56.514 [info] Starting Accounts Server.
+07:18:56.514 [info] Starting Core Supervisor.
+07:18:56.702 [info] Starting server "high rollers".
+07:18:56.705 [info] Starting server "aces high".
+07:18:56.707 [info] Starting server "big ballers".
+07:18:56.709 [info] Starting server "asdf".
+07:18:56.711 [info] Starting server "plop".
+07:18:56.714 [info] Starting server "new server".
+07:18:56.717 [info] Starting server "another server".
+07:18:56.731 [info] Application blackjack exited: shutdown
+07:22:48.129 [info] Starting Blackjack application.
+07:22:48.281 [info] Starting Accounts Supervisor
+07:22:48.289 [info] Starting Accounts Server.
+07:22:48.290 [info] Starting Core Supervisor.
+07:22:48.461 [info] Starting server "high rollers".
+07:22:48.464 [info] Starting server "aces high".
+07:22:48.467 [info] Starting server "big ballers".
+07:22:48.470 [info] Starting server "asdf".
+07:22:48.473 [info] Starting server "plop".
+07:22:48.475 [info] Starting server "new server".
+07:22:48.477 [info] Starting server "another server".
+07:22:48.495 [info] Application blackjack exited: shutdown
+00:20:50.646 [info] Starting Blackjack application.
+00:20:50.749 [info] Starting Accounts Supervisor
+00:20:50.753 [info] Starting Accounts Server.
+00:20:50.753 [info] Starting Core Supervisor.
+00:20:50.863 [info] Starting server "high rollers".
+00:20:50.864 [info] Starting server "aces high".
+00:20:50.866 [info] Starting server "big ballers".
+00:20:50.868 [info] Starting server "asdf".
+00:20:50.870 [info] Starting server "plop".
+00:20:50.872 [info] Starting server "new server".
+00:20:50.875 [info] Starting server "another server".
+00:20:50.882 [info] Application blackjack exited: shutdown
+00:21:06.512 [info] Starting Blackjack application.
+00:21:06.614 [info] Starting Accounts Supervisor
+00:21:06.617 [info] Starting Accounts Server.
+00:21:06.617 [info] Starting Core Supervisor.
+00:21:06.735 [info] Starting server "high rollers".
+00:21:06.737 [info] Starting server "aces high".
+00:21:06.739 [info] Starting server "big ballers".
+00:21:06.742 [info] Starting server "asdf".
+00:21:06.744 [info] Starting server "plop".
+00:21:06.745 [info] Starting server "new server".
+00:21:06.747 [info] Starting server "another server".
+00:21:06.755 [info] Application blackjack exited: shutdown
+00:23:00.425 [info] Starting Blackjack application.
+00:23:00.521 [info] Starting Accounts Supervisor
+00:23:00.526 [info] Starting Accounts Server.
+00:23:00.526 [info] Starting Core Supervisor.
+00:23:00.647 [info] Starting server "high rollers".
+00:23:00.648 [info] Starting server "aces high".
+00:23:00.650 [info] Starting server "big ballers".
+00:23:00.651 [info] Starting server "asdf".
+00:23:00.654 [info] Starting server "plop".
+00:23:00.656 [info] Starting server "new server".
+00:23:00.658 [info] Starting server "another server".
+00:23:00.678 [info] Application blackjack exited: shutdown
+00:24:39.969 [info] Starting Blackjack application.
+00:24:40.064 [info] Starting Accounts Supervisor
+00:24:40.068 [info] Starting Accounts Server.
+00:24:40.069 [info] Starting Core Supervisor.
+00:24:40.193 [info] Starting server "high rollers".
+00:24:40.194 [info] Starting server "aces high".
+00:24:40.196 [info] Starting server "big ballers".
+00:24:40.199 [info] Starting server "asdf".
+00:24:40.201 [info] Starting server "plop".
+00:24:40.203 [info] Starting server "new server".
+00:24:40.206 [info] Starting server "another server".
+00:24:40.224 [info] Application blackjack exited: shutdown
+00:32:33.952 [info] Starting Blackjack application.
+00:32:34.051 [info] Starting Accounts Supervisor
+00:32:34.054 [info] Starting Accounts Server.
+00:32:34.054 [info] Starting Core Supervisor.
+00:32:34.177 [info] Starting server "high rollers".
+00:32:34.178 [info] Starting server "aces high".
+00:32:34.180 [info] Starting server "big ballers".
+00:32:34.182 [info] Starting server "asdf".
+00:32:34.183 [info] Starting server "plop".
+00:32:34.185 [info] Starting server "new server".
+00:32:34.186 [info] Starting server "another server".
+00:32:34.198 [info] Application blackjack exited: shutdown
+00:32:40.929 [info] Starting Blackjack application.
+00:32:41.031 [info] Starting Accounts Supervisor
+00:32:41.034 [info] Starting Accounts Server.
+00:32:41.034 [info] Starting Core Supervisor.
+00:32:41.164 [info] Starting server "high rollers".
+00:32:41.166 [info] Starting server "aces high".
+00:32:41.167 [info] Starting server "big ballers".
+00:32:41.169 [info] Starting server "asdf".
+00:32:41.171 [info] Starting server "plop".
+00:32:41.173 [info] Starting server "new server".
+00:32:41.175 [info] Starting server "another server".
+00:32:41.186 [info] Application blackjack exited: shutdown
+00:43:20.910 [info] Starting Blackjack application.
+00:43:21.007 [info] Starting Accounts Supervisor
+00:43:21.011 [info] Starting Accounts Server.
+00:43:21.011 [info] Starting Core Supervisor.
+00:43:21.137 [info] Starting server "high rollers".
+00:43:21.139 [info] Starting server "aces high".
+00:43:21.140 [info] Starting server "big ballers".
+00:43:21.142 [info] Starting server "asdf".
+00:43:21.144 [info] Starting server "plop".
+00:43:21.146 [info] Starting server "new server".
+00:43:21.148 [info] Starting server "another server".
+00:43:21.163 [info] Application blackjack exited: shutdown
+04:11:10.220 [info] Starting Blackjack application.
+04:11:10.318 [info] Starting Accounts Supervisor
+04:11:10.321 [info] Starting Accounts Server.
+04:11:10.322 [info] Starting Core Supervisor.
+04:11:10.437 [info] Starting server "high rollers".
+04:11:10.439 [info] Starting server "aces high".
+04:11:10.441 [info] Starting server "big ballers".
+04:11:10.443 [info] Starting server "asdf".
+04:11:10.445 [info] Starting server "plop".
+04:11:10.447 [info] Starting server "new server".
+04:11:10.449 [info] Starting server "another server".
+04:11:10.459 [info] Application blackjack exited: shutdown
+04:12:10.226 [info] Starting Blackjack application.
+04:12:10.327 [info] Starting Accounts Supervisor
+04:12:10.331 [info] Starting Accounts Server.
+04:12:10.331 [info] Starting Core Supervisor.
+04:12:10.440 [info] Starting server "high rollers".
+04:12:10.441 [info] Starting server "aces high".
+04:12:10.443 [info] Starting server "big ballers".
+04:12:10.445 [info] Starting server "asdf".
+04:12:10.446 [info] Starting server "plop".
+04:12:10.448 [info] Starting server "new server".
+04:12:10.450 [info] Starting server "another server".
+04:12:10.459 [info] Application blackjack exited: shutdown
+05:01:31.919 [info] Starting Blackjack application.
+05:01:32.006 [info] Starting Accounts Supervisor
+05:01:32.017 [info] Starting Accounts Server.
+05:01:32.017 [info] Starting Core Supervisor.
+05:01:32.154 [info] Starting server "high rollers".
+05:01:32.156 [info] Starting server "aces high".
+05:01:32.158 [info] Starting server "big ballers".
+05:01:32.159 [info] Starting server "asdf".
+05:01:32.161 [info] Starting server "plop".
+05:01:32.163 [info] Starting server "new server".
+05:01:32.165 [info] Starting server "another server".
+05:01:32.179 [info] Application blackjack exited: shutdown
+06:21:52.181 [info] Starting Blackjack application.
+06:21:52.275 [info] Starting Accounts Supervisor
+06:21:52.279 [info] Starting Accounts Server.
+06:21:52.279 [info] Starting Core Supervisor.
+06:21:52.408 [info] Starting server "high rollers".
+06:21:52.410 [info] Starting server "aces high".
+06:21:52.412 [info] Starting server "big ballers".
+06:21:52.413 [info] Starting server "asdf".
+06:21:52.415 [info] Starting server "plop".
+06:21:52.417 [info] Starting server "new server".
+06:21:52.419 [info] Starting server "another server".
+06:21:52.431 [info] Application blackjack exited: shutdown
+18:57:07.675 [info] Starting Blackjack application.
+18:57:07.771 [info] Starting Accounts Supervisor
+18:57:07.776 [info] Starting Accounts Server.
+18:57:07.776 [info] Starting Core Supervisor.
+18:57:07.900 [info] Starting server "high rollers".
+18:57:07.902 [info] Starting server "aces high".
+18:57:07.903 [info] Starting server "big ballers".
+18:57:07.905 [info] Starting server "asdf".
+18:57:07.907 [info] Starting server "plop".
+18:57:07.910 [info] Starting server "new server".
+18:57:07.912 [info] Starting server "another server".
+18:57:07.925 [info] Application blackjack exited: shutdown
+18:59:33.144 [info] Starting Blackjack application.
+18:59:33.238 [info] Starting Accounts Supervisor
+18:59:33.241 [info] Starting Accounts Server.
+18:59:33.241 [info] Starting Core Supervisor.
+18:59:33.371 [info] Starting server "high rollers".
+18:59:33.373 [info] Starting server "aces high".
+18:59:33.375 [info] Starting server "big ballers".
+18:59:33.377 [info] Starting server "asdf".
+18:59:33.378 [info] Starting server "plop".
+18:59:33.380 [info] Starting server "new server".
+18:59:33.382 [info] Starting server "another server".
+18:59:33.396 [info] Application blackjack exited: shutdown
+19:08:00.460 [info] Starting Blackjack application.
+19:08:00.560 [info] Starting Accounts Supervisor
+19:08:00.563 [info] Starting Accounts Server.
+19:08:00.563 [info] Starting Core Supervisor.
+19:08:00.687 [info] Starting server "high rollers".
+19:08:00.688 [info] Starting server "aces high".
+19:08:00.692 [info] Starting server "big ballers".
+19:08:00.694 [info] Starting server "asdf".
+19:08:00.696 [info] Starting server "plop".
+19:08:00.697 [info] Starting server "new server".
+19:08:00.704 [info] Starting server "another server".
+19:08:00.716 [info] Application blackjack exited: shutdown
+22:00:23.033 [info] Starting Blackjack application.
+22:00:23.134 [info] Starting Accounts Supervisor
+22:00:23.138 [info] Starting Accounts Server.
+22:00:23.138 [info] Starting Core Supervisor.
+22:00:23.261 [info] Starting server "high rollers".
+22:00:23.263 [info] Starting server "aces high".
+22:00:23.264 [info] Starting server "big ballers".
+22:00:23.266 [info] Starting server "asdf".
+22:00:23.268 [info] Starting server "plop".
+22:00:23.271 [info] Starting server "new server".
+22:00:23.273 [info] Starting server "another server".
+22:00:23.280 [info] Application blackjack exited: shutdown
+22:29:36.944 [info] Starting Blackjack application.
+22:29:37.037 [info] Starting Accounts Supervisor
+22:29:37.041 [info] Starting Accounts Server.
+22:29:37.041 [info] Starting Core Supervisor.
+22:29:37.169 [info] Starting server "high rollers".
+22:29:37.171 [info] Starting server "aces high".
+22:29:37.172 [info] Starting server "big ballers".
+22:29:37.174 [info] Starting server "asdf".
+22:29:37.176 [info] Starting server "plop".
+22:29:37.178 [info] Starting server "new server".
+22:29:37.180 [info] Starting server "another server".
+22:29:37.185 [info] Application blackjack exited: shutdown
+22:42:40.525 [info] Starting Blackjack application.
+22:42:40.620 [info] Starting Accounts Supervisor
+22:42:40.624 [info] Starting Accounts Server.
+22:42:40.624 [info] Starting Core Supervisor.
+22:42:40.747 [info] Starting server "high rollers".
+22:42:40.750 [info] Starting server "aces high".
+22:42:40.753 [info] Starting server "big ballers".
+22:42:40.755 [info] Starting server "asdf".
+22:42:40.757 [info] Starting server "plop".
+22:42:40.759 [info] Starting server "new server".
+22:42:40.761 [info] Starting server "another server".
+22:42:40.775 [info] Application blackjack exited: shutdown
+22:44:33.064 [info] Starting Blackjack application.
+22:44:33.162 [info] Starting Accounts Supervisor
+22:44:33.166 [info] Starting Accounts Server.
+22:44:33.166 [info] Starting Core Supervisor.
+22:44:33.276 [info] Starting server "high rollers".
+22:44:33.278 [info] Starting server "aces high".
+22:44:33.279 [info] Starting server "big ballers".
+22:44:33.282 [info] Starting server "asdf".
+22:44:33.283 [info] Starting server "plop".
+22:44:33.284 [info] Starting server "new server".
+22:44:33.286 [info] Starting server "another server".
+22:44:33.300 [info] Application blackjack exited: shutdown
+22:46:36.218 [info] Starting Blackjack application.
+22:46:36.316 [info] Starting Accounts Supervisor
+22:46:36.320 [info] Starting Accounts Server.
+22:46:36.320 [info] Starting Core Supervisor.
+22:46:36.450 [info] Starting server "high rollers".
+22:46:36.452 [info] Starting server "aces high".
+22:46:36.454 [info] Starting server "big ballers".
+22:46:36.456 [info] Starting server "asdf".
+22:46:36.458 [info] Starting server "plop".
+22:46:36.461 [info] Starting server "new server".
+22:46:36.464 [info] Starting server "another server".
+22:46:36.476 [info] Application blackjack exited: shutdown
+22:47:32.835 [info] Starting Blackjack application.
+22:47:32.931 [info] Starting Accounts Supervisor
+22:47:32.934 [info] Starting Accounts Server.
+22:47:32.936 [info] Starting Core Supervisor.
+22:47:33.065 [info] Starting server "high rollers".
+22:47:33.068 [info] Starting server "aces high".
+22:47:33.070 [info] Starting server "big ballers".
+22:47:33.072 [info] Starting server "asdf".
+22:47:33.074 [info] Starting server "plop".
+22:47:33.076 [info] Starting server "new server".
+22:47:33.078 [info] Starting server "another server".
+22:47:33.085 [info] Application blackjack exited: shutdown
+22:49:08.622 [info] Starting Blackjack application.
+22:49:08.719 [info] Starting Accounts Supervisor
+22:49:08.723 [info] Starting Accounts Server.
+22:49:08.723 [info] Starting Core Supervisor.
+22:49:08.813 [info] Starting server "high rollers".
+22:49:08.814 [info] Starting server "aces high".
+22:49:08.815 [info] Starting server "big ballers".
+22:49:08.817 [info] Starting server "asdf".
+22:49:08.818 [info] Starting server "plop".
+22:49:08.819 [info] Starting server "new server".
+22:49:08.820 [info] Starting server "another server".
+22:49:08.826 [info] Application blackjack exited: shutdown
+23:19:34.305 [info] Starting Blackjack application.
+23:19:34.401 [info] Starting Accounts Supervisor
+23:19:34.405 [info] Starting Accounts Server.
+23:19:34.405 [info] Starting Core Supervisor.
+23:19:34.520 [info] Starting server "high rollers".
+23:19:34.523 [info] Starting server "aces high".
+23:19:34.525 [info] Starting server "big ballers".
+23:19:34.527 [info] Starting server "asdf".
+23:19:34.528 [info] Starting server "plop".
+23:19:34.530 [info] Starting server "new server".
+23:19:34.532 [info] Starting server "another server".
+23:19:34.541 [info] Application blackjack exited: shutdown
+00:19:22.339 [info] Starting Blackjack application.
+00:19:22.416 [info] Application blackjack exited: Blackjack.Application.start(:normal, []) returned an error: shutdown: failed to start child: Registry.Web
+    ** (EXIT) an exception was raised:
+        ** (ArgumentError) expected :keys to be given and be one of :unique or :duplicate, got: :uniqwrue
+            (elixir 1.12.0) lib/registry.ex:321: Registry.start_link/1
+            (stdlib 3.15) supervisor.erl:414: :supervisor.do_start_child_i/3
+            (stdlib 3.15) supervisor.erl:400: :supervisor.do_start_child/2
+            (stdlib 3.15) supervisor.erl:384: anonymous fn/3 in :supervisor.start_children/2
+            (stdlib 3.15) supervisor.erl:1234: :supervisor.children_map/4
+            (stdlib 3.15) supervisor.erl:350: :supervisor.init_children/2
+            (stdlib 3.15) gen_server.erl:423: :gen_server.init_it/2
+            (stdlib 3.15) gen_server.erl:390: :gen_server.init_it/6
+00:19:22.429 [info] Application cachex exited: :stopped
+00:19:22.429 [info] Application jumper exited: :stopped
+00:19:22.429 [info] Application sleeplocks exited: :stopped
+00:19:22.429 [info] Application eternal exited: :stopped
+00:19:22.429 [info] Application authorize exited: :stopped
+00:19:22.429 [info] Application guardian exited: :stopped
+00:19:22.430 [info] Application jose exited: :stopped
+00:19:22.431 [info] Application ecto_sql exited: :stopped
+00:19:22.431 [info] Application bcrypt_elixir exited: :stopped
+00:19:22.431 [info] Application comeonin exited: :stopped
+00:19:22.431 [info] Application jason exited: :stopped
+00:19:22.431 [info] Application ratatouille exited: :stopped
+00:19:22.431 [info] Application asciichart exited: :stopped
+00:19:22.431 [info] Application ex_termbox exited: :stopped
+00:19:22.431 [info] Application pubsub exited: :stopped
+00:19:22.431 [info] Application postgrex exited: :stopped
+00:19:22.432 [info] Application db_connection exited: :stopped
+00:19:22.432 [info] Application connection exited: :stopped
+00:19:22.433 [info] Application ecto exited: :stopped
+00:19:22.433 [info] Application decimal exited: :stopped
+00:19:22.433 [info] Application plug_cowboy exited: :stopped
+00:19:22.433 [info] Application cowboy_telemetry exited: :stopped
+00:19:22.434 [info] Application cowboy exited: :stopped
+00:19:22.434 [info] Application ranch exited: :stopped
+00:19:22.434 [info] Application cowlib exited: :stopped
+00:19:22.435 [info] Application plug exited: :stopped
+00:19:22.435 [info] Application telemetry exited: :stopped
+00:19:22.436 [info] Application plug_crypto exited: :stopped
+00:19:22.436 [info] Application mime exited: :stopped
+00:19:22.436 [info] Application eex exited: :stopped
+00:20:11.509 [info] Starting Blackjack application.
+00:20:11.614 [info] Starting Accounts Supervisor
+00:20:11.617 [info] Starting Accounts Server.
+00:20:11.617 [info] Starting Core Supervisor.
+00:20:11.724 [info] Starting server "high rollers".
+00:20:11.726 [info] Starting server "aces high".
+00:20:11.728 [info] Starting server "big ballers".
+00:20:11.729 [info] Starting server "asdf".
+00:20:11.731 [info] Starting server "plop".
+00:20:11.733 [info] Starting server "new server".
+00:20:11.735 [info] Starting server "another server".
+00:20:11.750 [info] Application blackjack exited: shutdown
+00:21:44.252 [info] Starting Blackjack application.
+00:21:44.348 [info] Starting Accounts Supervisor
+00:21:44.353 [info] Starting Accounts Server.
+00:21:44.353 [info] Starting Core Supervisor.
+00:21:44.479 [info] Starting server "high rollers".
+00:21:44.482 [info] Starting server "aces high".
+00:21:44.488 [info] Starting server "big ballers".
+00:21:44.490 [info] Starting server "asdf".
+00:21:44.493 [info] Starting server "plop".
+00:21:44.495 [info] Starting server "new server".
+00:21:44.497 [info] Starting server "another server".
+00:21:44.506 [info] Application blackjack exited: shutdown
+20:31:35.115 [info] Starting Blackjack application.
+20:31:35.217 [info] Starting Accounts Supervisor
+20:31:35.220 [info] Starting Accounts Server.
+20:31:35.220 [info] Starting Core Supervisor.
+20:31:35.349 [info] Starting server "high rollers".
+20:31:35.351 [info] Starting server "aces high".
+20:31:35.353 [info] Starting server "big ballers".
+20:31:35.354 [info] Starting server "asdf".
+20:31:35.356 [info] Starting server "plop".
+20:31:35.358 [info] Starting server "new server".
+20:31:35.360 [info] Starting server "another server".
+20:31:35.372 [info] Application blackjack exited: shutdown
+20:33:41.474 [info] Starting Blackjack application.
+20:33:41.569 [info] Starting Accounts Supervisor
+20:33:41.574 [info] Starting Accounts Server.
+20:33:41.574 [info] Starting Core Supervisor.
+20:33:41.684 [info] Starting server "high rollers".
+20:33:41.686 [info] Starting server "aces high".
+20:33:41.691 [info] Starting server "big ballers".
+20:33:41.693 [info] Starting server "asdf".
+20:33:41.695 [info] Starting server "plop".
+20:33:41.696 [info] Starting server "new server".
+20:33:41.698 [info] Starting server "another server".
+20:33:41.705 [info] Application blackjack exited: shutdown
+21:20:43.612 [info] Starting Blackjack application.
+21:20:43.712 [info] Starting Accounts Supervisor
+21:20:43.716 [info] Starting Accounts Server.
+21:20:43.716 [info] Starting Core Supervisor.
+21:20:43.835 [info] Starting server "high rollers".
+21:20:43.837 [info] Starting server "aces high".
+21:20:43.839 [info] Starting server "big ballers".
+21:20:43.840 [info] Starting server "asdf".
+21:20:43.844 [info] Starting server "plop".
+21:20:43.846 [info] Starting server "new server".
+21:20:43.850 [info] Starting server "another server".
+21:20:43.860 [info] Application blackjack exited: shutdown
+21:36:25.378 [info] Starting Blackjack application.
+21:36:25.476 [info] Starting Accounts Supervisor
+21:36:25.480 [info] Starting Accounts Server.
+21:36:25.480 [info] Starting Core Supervisor.
+21:36:25.600 [info] Starting server "high rollers".
+21:36:25.602 [info] Starting server "aces high".
+21:36:25.603 [info] Starting server "big ballers".
+21:36:25.605 [info] Starting server "asdf".
+21:36:25.607 [info] Starting server "plop".
+21:36:25.609 [info] Starting server "new server".
+21:36:25.610 [info] Starting server "another server".
+21:36:25.620 [info] Application blackjack exited: shutdown
+21:37:10.805 [info] Starting Blackjack application.
+21:37:10.900 [info] Starting Accounts Supervisor
+21:37:10.904 [info] Starting Accounts Server.
+21:37:10.904 [info] Starting Core Supervisor.
+21:37:11.019 [info] Starting server "high rollers".
+21:37:11.021 [info] Starting server "aces high".
+21:37:11.023 [info] Starting server "big ballers".
+21:37:11.024 [info] Starting server "asdf".
+21:37:11.026 [info] Starting server "plop".
+21:37:11.029 [info] Starting server "new server".
+21:37:11.032 [info] Starting server "another server".
+21:37:11.040 [info] Application blackjack exited: shutdown
+21:41:57.131 [info] Starting Blackjack application.
+21:41:57.227 [info] Starting Accounts Supervisor
+21:41:57.231 [info] Starting Accounts Server.
+21:41:57.231 [info] Starting Core Supervisor.
+21:41:57.353 [info] Starting server "high rollers".
+21:41:57.355 [info] Starting server "aces high".
+21:41:57.356 [info] Starting server "big ballers".
+21:41:57.358 [info] Starting server "asdf".
+21:41:57.359 [info] Starting server "plop".
+21:41:57.362 [info] Starting server "new server".
+21:41:57.364 [info] Starting server "another server".
+21:41:57.376 [info] Application blackjack exited: shutdown
+21:42:39.549 [info] Starting Blackjack application.
+21:42:39.653 [info] Starting Accounts Supervisor
+21:42:39.657 [info] Starting Accounts Server.
+21:42:39.657 [info] Starting Core Supervisor.
+21:42:39.778 [info] Starting server "high rollers".
+21:42:39.780 [info] Starting server "aces high".
+21:42:39.782 [info] Starting server "big ballers".
+21:42:39.783 [info] Starting server "asdf".
+21:42:39.786 [info] Starting server "plop".
+21:42:39.787 [info] Starting server "new server".
+21:42:39.789 [info] Starting server "another server".
+21:42:39.800 [info] Application blackjack exited: shutdown
+21:43:39.954 [info] Starting Blackjack application.
+21:43:40.056 [info] Starting Accounts Supervisor
+21:43:40.060 [info] Starting Accounts Server.
+21:43:40.060 [info] Starting Core Supervisor.
+21:43:40.180 [info] Starting server "high rollers".
+21:43:40.182 [info] Starting server "aces high".
+21:43:40.184 [info] Starting server "big ballers".
+21:43:40.186 [info] Starting server "asdf".
+21:43:40.188 [info] Starting server "plop".
+21:43:40.189 [info] Starting server "new server".
+21:43:40.191 [info] Starting server "another server".
+21:43:40.204 [info] Application blackjack exited: shutdown
+21:43:54.585 [info] Starting Blackjack application.
+21:43:54.681 [info] Starting Accounts Supervisor
+21:43:54.685 [info] Starting Accounts Server.
+21:43:54.686 [info] Starting Core Supervisor.
+21:43:54.805 [info] Starting server "high rollers".
+21:43:54.807 [info] Starting server "aces high".
+21:43:54.808 [info] Starting server "big ballers".
+21:43:54.810 [info] Starting server "asdf".
+21:43:54.812 [info] Starting server "plop".
+21:43:54.813 [info] Starting server "new server".
+21:43:54.816 [info] Starting server "another server".
+21:43:54.827 [info] Application blackjack exited: shutdown
+21:46:49.015 [info] Starting Blackjack application.
+21:46:49.111 [info] Starting Accounts Supervisor
+21:46:49.116 [info] Starting Accounts Server.
+21:46:49.116 [info] Starting Core Supervisor.
+21:46:49.231 [info] Starting server "high rollers".
+21:46:49.233 [info] Starting server "aces high".
+21:46:49.235 [info] Starting server "big ballers".
+21:46:49.236 [info] Starting server "asdf".
+21:46:49.238 [info] Starting server "plop".
+21:46:49.240 [info] Starting server "new server".
+21:46:49.241 [info] Starting server "another server".
+21:46:49.251 [info] Application blackjack exited: shutdown
+21:53:51.504 [info] Starting Blackjack application.
+21:53:51.594 [info] Starting Accounts Supervisor
+21:53:51.604 [info] Starting Accounts Server.
+21:53:51.604 [info] Starting Core Supervisor.
+21:53:51.729 [info] Starting server "high rollers".
+21:53:51.730 [info] Starting server "aces high".
+21:53:51.732 [info] Starting server "big ballers".
+21:53:51.733 [info] Starting server "asdf".
+21:53:51.735 [info] Starting server "plop".
+21:53:51.737 [info] Starting server "new server".
+21:53:51.740 [info] Starting server "another server".
+21:53:51.752 [info] Application blackjack exited: shutdown
+22:10:53.071 [info] Starting Blackjack application.
+22:10:53.173 [info] Starting Accounts Supervisor
+22:10:53.176 [info] Starting Accounts Server.
+22:10:53.177 [info] Starting Core Supervisor.
+22:10:53.300 [info] Starting server "high rollers".
+22:10:53.302 [info] Starting server "aces high".
+22:10:53.303 [info] Starting server "big ballers".
+22:10:53.305 [info] Starting server "asdf".
+22:10:53.307 [info] Starting server "plop".
+22:10:53.308 [info] Starting server "new server".
+22:10:53.311 [info] Starting server "another server".
+22:10:53.323 [info] Application blackjack exited: shutdown
+22:15:17.689 [info] Starting Blackjack application.
+22:15:17.788 [info] Starting Accounts Supervisor
+22:15:17.793 [info] Starting Accounts Server.
+22:15:17.793 [info] Starting Core Supervisor.
+22:15:17.912 [info] Starting server "high rollers".
+22:15:17.915 [info] Starting server "aces high".
+22:15:17.917 [info] Starting server "big ballers".
+22:15:17.919 [info] Starting server "asdf".
+22:15:17.920 [info] Starting server "plop".
+22:15:17.922 [info] Starting server "new server".
+22:15:17.924 [info] Starting server "another server".
+22:15:17.938 [info] Application blackjack exited: shutdown
+22:22:50.460 [info] Starting Blackjack application.
+22:22:50.552 [info] Starting Accounts Supervisor
+22:22:50.556 [info] Starting Accounts Server.
+22:22:50.557 [info] Starting Core Supervisor.
+22:22:50.686 [info] Starting server "high rollers".
+22:22:50.687 [info] Starting server "aces high".
+22:22:50.689 [info] Starting server "big ballers".
+22:22:50.691 [info] Starting server "asdf".
+22:22:50.693 [info] Starting server "plop".
+22:22:50.695 [info] Starting server "new server".
+22:22:50.699 [info] Starting server "another server".
+22:22:50.709 [info] Application blackjack exited: shutdown
+22:26:40.410 [info] Starting Blackjack application.
+22:26:40.507 [info] Starting Accounts Supervisor
+22:26:40.511 [info] Starting Accounts Server.
+22:26:40.511 [info] Starting Core Supervisor.
+22:26:40.641 [info] Starting server "high rollers".
+22:26:40.643 [info] Starting server "aces high".
+22:26:40.645 [info] Starting server "big ballers".
+22:26:40.648 [info] Starting server "asdf".
+22:26:40.651 [info] Starting server "plop".
+22:26:40.653 [info] Starting server "new server".
+22:26:40.656 [info] Starting server "another server".
+22:26:40.665 [info] Application blackjack exited: shutdown
+22:53:51.316 [info] Starting Blackjack application.
+22:53:51.419 [info] Starting Accounts Supervisor
+22:53:51.422 [info] Starting Accounts Server.
+22:53:51.422 [info] Starting Core Supervisor.
+22:53:51.544 [info] Starting server "high rollers".
+22:53:51.546 [info] Starting server "aces high".
+22:53:51.548 [info] Starting server "big ballers".
+22:53:51.550 [info] Starting server "asdf".
+22:53:51.552 [info] Starting server "plop".
+22:53:51.554 [info] Starting server "new server".
+22:53:51.555 [info] Starting server "another server".
+22:56:01.103 [info] Starting Blackjack application.
+22:56:01.201 [info] Starting Accounts Supervisor
+22:56:01.205 [info] Starting Accounts Server.
+22:56:01.205 [info] Starting Core Supervisor.
+22:56:01.327 [info] Starting server "high rollers".
+22:56:01.330 [info] Starting server "aces high".
+22:56:01.332 [info] Starting server "big ballers".
+22:56:01.334 [info] Starting server "asdf".
+22:56:01.335 [info] Starting server "plop".
+22:56:01.337 [info] Starting server "new server".
+22:56:01.338 [info] Starting server "another server".
+22:56:01.352 [info] Application blackjack exited: shutdown
+22:57:00.527 [info] Starting Blackjack application.
+22:57:00.627 [info] Starting Accounts Supervisor
+22:57:00.630 [info] Starting Accounts Server.
+22:57:00.630 [info] Starting Core Supervisor.
+22:57:00.754 [info] Starting server "high rollers".
+22:57:00.756 [info] Starting server "aces high".
+22:57:00.758 [info] Starting server "big ballers".
+22:57:00.760 [info] Starting server "asdf".
+22:57:00.764 [info] Starting server "plop".
+22:57:00.766 [info] Starting server "new server".
+22:57:00.768 [info] Starting server "another server".
+22:57:00.775 [info] Application blackjack exited: shutdown
+23:17:13.402 [info] Starting Blackjack application.
+23:17:13.502 [info] Starting Accounts Supervisor
+23:17:13.505 [info] Starting Accounts Server.
+23:17:13.508 [info] Starting Core Supervisor.
+23:17:13.639 [info] Starting server "high rollers".
+23:17:13.642 [info] Starting server "aces high".
+23:17:13.643 [info] Starting server "big ballers".
+23:17:13.645 [info] Starting server "asdf".
+23:17:13.647 [info] Starting server "plop".
+23:17:13.649 [info] Starting server "new server".
+23:17:13.651 [info] Starting server "another server".
+23:17:13.661 [info] Application blackjack exited: shutdown
+23:18:52.798 [info] Starting Blackjack application.
+23:18:52.899 [info] Starting Accounts Supervisor
+23:18:52.903 [info] Starting Accounts Server.
+23:18:52.903 [info] Starting Core Supervisor.
+23:18:53.022 [info] Starting server "high rollers".
+23:18:53.024 [info] Starting server "aces high".
+23:18:53.025 [info] Starting server "big ballers".
+23:18:53.027 [info] Starting server "asdf".
+23:18:53.029 [info] Starting server "plop".
+23:18:53.030 [info] Starting server "new server".
+23:18:53.032 [info] Starting server "another server".
+23:18:53.040 [info] Application blackjack exited: shutdown
+23:19:35.769 [info] Starting Blackjack application.
+23:19:35.877 [info] Starting Accounts Supervisor
+23:19:35.880 [info] Starting Accounts Server.
+23:19:35.880 [info] Starting Core Supervisor.
+23:19:36.001 [info] Starting server "high rollers".
+23:19:36.007 [info] Starting server "aces high".
+23:19:36.009 [info] Starting server "big ballers".
+23:19:36.010 [info] Starting server "asdf".
+23:19:36.012 [info] Starting server "plop".
+23:19:36.014 [info] Starting server "new server".
+23:19:36.016 [info] Starting server "another server".
+23:19:36.028 [info] Application blackjack exited: shutdown
+23:35:23.000 [info] Starting Blackjack application.
+23:35:23.098 [info] Starting Accounts Supervisor
+23:35:23.102 [info] Starting Accounts Server.
+23:35:23.102 [info] Starting Core Supervisor.
+23:35:23.228 [info] Starting server "high rollers".
+23:35:23.230 [info] Starting server "aces high".
+23:35:23.231 [info] Starting server "big ballers".
+23:35:23.232 [info] Starting server "asdf".
+23:35:23.235 [info] Starting server "plop".
+23:35:23.236 [info] Starting server "new server".
+23:35:23.238 [info] Starting server "another server".
+23:35:23.253 [info] Application blackjack exited: shutdown
+23:37:22.811 [info] Starting Blackjack application.
+23:37:22.910 [info] Starting Accounts Supervisor
+23:37:22.915 [info] Starting Accounts Server.
+23:37:22.915 [info] Starting Core Supervisor.
+23:37:23.037 [info] Starting server "high rollers".
+23:37:23.039 [info] Starting server "aces high".
+23:37:23.041 [info] Starting server "big ballers".
+23:37:23.047 [info] Starting server "asdf".
+23:37:23.049 [info] Starting server "plop".
+23:37:23.051 [info] Starting server "new server".
+23:37:23.053 [info] Starting server "another server".
+23:37:23.064 [info] Application blackjack exited: shutdown
+23:37:46.573 [info] Starting Blackjack application.
+23:37:46.669 [info] Starting Accounts Supervisor
+23:37:46.674 [info] Starting Accounts Server.
+23:37:46.674 [info] Starting Core Supervisor.
+23:37:46.803 [info] Starting server "high rollers".
+23:37:46.804 [info] Starting server "aces high".
+23:37:46.806 [info] Starting server "big ballers".
+23:37:46.807 [info] Starting server "asdf".
+23:37:46.809 [info] Starting server "plop".
+23:37:46.814 [info] Starting server "new server".
+23:37:46.817 [info] Starting server "another server".
+23:37:46.828 [info] Application blackjack exited: shutdown
+23:42:35.139 [info] Starting Blackjack application.
+23:42:35.235 [info] Starting Accounts Supervisor
+23:42:35.239 [info] Starting Accounts Server.
+23:42:35.240 [info] Starting Core Supervisor.
+23:42:35.363 [info] Starting server "high rollers".
+23:42:35.365 [info] Starting server "aces high".
+23:42:35.366 [info] Starting server "big ballers".
+23:42:35.368 [info] Starting server "asdf".
+23:42:35.370 [info] Starting server "plop".
+23:42:35.371 [info] Starting server "new server".
+23:42:35.373 [info] Starting server "another server".
+23:42:35.394 [info] Application blackjack exited: shutdown
+23:45:08.110 [info] Starting Blackjack application.
+23:45:08.209 [info] Starting Accounts Supervisor
+23:45:08.212 [info] Starting Accounts Server.
+23:45:08.212 [info] Starting Core Supervisor.
+23:45:08.336 [info] Starting server "high rollers".
+23:45:08.337 [info] Starting server "aces high".
+23:45:08.339 [info] Starting server "big ballers".
+23:45:08.340 [info] Starting server "asdf".
+23:45:08.342 [info] Starting server "plop".
+23:45:08.343 [info] Starting server "new server".
+23:45:08.345 [info] Starting server "another server".
+23:45:08.355 [info] Application blackjack exited: shutdown
+23:46:01.785 [info] Starting Blackjack application.
+23:46:01.883 [info] Starting Accounts Supervisor
+23:46:01.887 [info] Starting Accounts Server.
+23:46:01.887 [info] Starting Core Supervisor.
+23:46:02.004 [info] Starting server "high rollers".
+23:46:02.005 [info] Starting server "aces high".
+23:46:02.007 [info] Starting server "big ballers".
+23:46:02.010 [info] Starting server "asdf".
+23:46:02.012 [info] Starting server "plop".
+23:46:02.014 [info] Starting server "new server".
+23:46:02.015 [info] Starting server "another server".
+23:46:02.035 [info] Application blackjack exited: shutdown
+23:46:11.448 [info] Starting Blackjack application.
+23:46:11.549 [info] Starting Accounts Supervisor
+23:46:11.553 [info] Starting Accounts Server.
+23:46:11.553 [info] Starting Core Supervisor.
+23:46:11.680 [info] Starting server "high rollers".
+23:46:11.683 [info] Starting server "aces high".
+23:46:11.685 [info] Starting server "big ballers".
+23:46:11.687 [info] Starting server "asdf".
+23:46:11.689 [info] Starting server "plop".
+23:46:11.690 [info] Starting server "new server".
+23:46:11.692 [info] Starting server "another server".
+23:46:11.706 [info] Application blackjack exited: shutdown
+23:46:15.627 [info] Starting Blackjack application.
+23:46:15.727 [info] Starting Accounts Supervisor
+23:46:15.732 [info] Starting Accounts Server.
+23:46:15.732 [info] Starting Core Supervisor.
+23:46:15.852 [info] Starting server "high rollers".
+23:46:15.855 [info] Starting server "aces high".
+23:46:15.856 [info] Starting server "big ballers".
+23:46:15.858 [info] Starting server "asdf".
+23:46:15.860 [info] Starting server "plop".
+23:46:15.867 [info] Starting server "new server".
+23:46:15.871 [info] Starting server "another server".
+23:46:15.886 [info] Application blackjack exited: shutdown
+23:48:31.066 [info] Starting Blackjack application.
+23:48:31.164 [info] Starting Accounts Supervisor
+23:48:31.168 [info] Starting Accounts Server.
+23:48:31.168 [info] Starting Core Supervisor.
+23:48:31.288 [info] Starting server "high rollers".
+23:48:31.289 [info] Starting server "aces high".
+23:48:31.292 [info] Starting server "big ballers".
+23:48:31.293 [info] Starting server "asdf".
+23:48:31.295 [info] Starting server "plop".
+23:48:31.296 [info] Starting server "new server".
+23:48:31.298 [info] Starting server "another server".
+23:48:31.311 [info] Application blackjack exited: shutdown
+23:57:28.819 [info] Starting Blackjack application.
+23:57:28.920 [info] Starting Accounts Supervisor
+23:57:28.924 [info] Starting Accounts Server.
+23:57:28.924 [info] Starting Core Supervisor.
+23:57:29.043 [info] Starting server "high rollers".
+23:57:29.045 [info] Starting server "aces high".
+23:57:29.047 [info] Starting server "big ballers".
+23:57:29.048 [info] Starting server "asdf".
+23:57:29.050 [info] Starting server "plop".
+23:57:29.052 [info] Starting server "new server".
+23:57:29.053 [info] Starting server "another server".
+23:57:29.062 [info] Application blackjack exited: shutdown
+23:59:47.787 [info] Starting Blackjack application.
+23:59:47.887 [info] Starting Accounts Supervisor
+23:59:47.892 [info] Starting Accounts Server.
+23:59:47.892 [info] Starting Core Supervisor.
+23:59:48.010 [info] Starting server "high rollers".
+23:59:48.011 [info] Starting server "aces high".
+23:59:48.013 [info] Starting server "big ballers".
+23:59:48.014 [info] Starting server "asdf".
+23:59:48.017 [info] Starting server "plop".
+23:59:48.018 [info] Starting server "new server".
+23:59:48.020 [info] Starting server "another server".
+23:59:48.033 [info] Application blackjack exited: shutdown
+00:02:02.461 [info] Starting Blackjack application.
+00:02:02.558 [info] Starting Accounts Supervisor
+00:02:02.561 [info] Starting Accounts Server.
+00:02:02.562 [info] Starting Core Supervisor.
+00:02:02.688 [info] Starting server "high rollers".
+00:02:02.695 [info] Starting server "aces high".
+00:02:02.698 [info] Starting server "big ballers".
+00:02:02.700 [info] Starting server "asdf".
+00:02:02.705 [info] Starting server "plop".
+00:02:02.707 [info] Starting server "new server".
+00:02:02.710 [info] Starting server "another server".
+00:02:02.727 [info] Application blackjack exited: shutdown
+00:04:15.402 [info] Starting Blackjack application.
+00:04:15.496 [info] Starting Accounts Supervisor
+00:04:15.499 [info] Starting Accounts Server.
+00:04:15.499 [info] Starting Core Supervisor.
+00:04:15.625 [info] Starting server "high rollers".
+00:04:15.627 [info] Starting server "aces high".
+00:04:15.628 [info] Starting server "big ballers".
+00:04:15.630 [info] Starting server "asdf".
+00:04:15.632 [info] Starting server "plop".
+00:04:15.634 [info] Starting server "new server".
+00:04:15.635 [info] Starting server "another server".
+00:04:15.651 [info] Application blackjack exited: shutdown
+00:05:55.184 [info] Starting Blackjack application.
+00:05:55.282 [info] Starting Accounts Supervisor
+00:05:55.287 [info] Starting Accounts Server.
+00:05:55.287 [info] Starting Core Supervisor.
+00:05:55.409 [info] Starting server "high rollers".
+00:05:55.410 [info] Starting server "aces high".
+00:05:55.412 [info] Starting server "big ballers".
+00:05:55.413 [info] Starting server "asdf".
+00:05:55.416 [info] Starting server "plop".
+00:05:55.417 [info] Starting server "new server".
+00:05:55.419 [info] Starting server "another server".
+00:05:55.435 [info] Application blackjack exited: shutdown
+00:07:30.597 [info] Starting Blackjack application.
+00:07:30.698 [info] Starting Accounts Supervisor
+00:07:30.702 [info] Starting Accounts Server.
+00:07:30.703 [info] Starting Core Supervisor.
+00:07:30.829 [info] Starting server "high rollers".
+00:07:30.831 [info] Starting server "aces high".
+00:07:30.832 [info] Starting server "big ballers".
+00:07:30.834 [info] Starting server "asdf".
+00:07:30.835 [info] Starting server "plop".
+00:07:30.836 [info] Starting server "new server".
+00:07:30.839 [info] Starting server "another server".
+00:07:30.858 [info] Application blackjack exited: shutdown
+00:08:14.289 [info] Starting Blackjack application.
+00:08:14.390 [info] Starting Accounts Supervisor
+00:08:14.394 [info] Starting Accounts Server.
+00:08:14.394 [info] Starting Core Supervisor.
+00:08:14.531 [info] Starting server "high rollers".
+00:08:14.532 [info] Starting server "aces high".
+00:08:14.535 [info] Starting server "big ballers".
+00:08:14.537 [info] Starting server "asdf".
+00:08:14.540 [info] Starting server "plop".
+00:08:14.541 [info] Starting server "new server".
+00:08:14.543 [info] Starting server "another server".
+00:08:14.558 [info] Application blackjack exited: shutdown
+02:07:07.080 [info] Starting Blackjack application.
+02:07:07.180 [info] Starting Accounts Supervisor
+02:07:07.184 [info] Starting Accounts Server.
+02:07:07.184 [info] Starting Core Supervisor.
+02:07:07.314 [info] Starting server "high rollers".
+02:07:07.316 [info] Starting server "aces high".
+02:07:07.318 [info] Starting server "big ballers".
+02:07:07.319 [info] Starting server "asdf".
+02:07:07.322 [info] Starting server "plop".
+02:07:07.324 [info] Starting server "new server".
+02:07:07.329 [info] Starting server "another server".
+02:07:07.342 [info] Application blackjack exited: shutdown
+02:08:16.275 [info] Starting Blackjack application.
+02:08:16.379 [info] Starting Accounts Supervisor
+02:08:16.382 [info] Starting Accounts Server.
+02:08:16.382 [info] Starting Core Supervisor.
+02:08:16.499 [info] Starting server "high rollers".
+02:08:16.500 [info] Starting server "aces high".
+02:08:16.502 [info] Starting server "big ballers".
+02:08:16.504 [info] Starting server "asdf".
+02:08:16.507 [info] Starting server "plop".
+02:08:16.509 [info] Starting server "new server".
+02:08:16.511 [info] Starting server "another server".
+02:08:16.518 [info] Application blackjack exited: shutdown
+02:08:40.251 [info] Starting Blackjack application.
+02:08:40.346 [info] Starting Accounts Supervisor
+02:08:40.350 [info] Starting Accounts Server.
+02:08:40.350 [info] Starting Core Supervisor.
+02:08:40.468 [info] Starting server "high rollers".
+02:08:40.471 [info] Starting server "aces high".
+02:08:40.473 [info] Starting server "big ballers".
+02:08:40.475 [info] Starting server "asdf".
+02:08:40.479 [info] Starting server "plop".
+02:08:40.481 [info] Starting server "new server".
+02:08:40.484 [info] Starting server "another server".
+02:08:40.497 [info] Application blackjack exited: shutdown
+02:08:46.025 [info] Starting Blackjack application.
+02:08:46.120 [info] Starting Accounts Supervisor
+02:08:46.124 [info] Starting Accounts Server.
+02:08:46.124 [info] Starting Core Supervisor.
+02:08:46.258 [info] Starting server "high rollers".
+02:08:46.260 [info] Starting server "aces high".
+02:08:46.261 [info] Starting server "big ballers".
+02:08:46.264 [info] Starting server "asdf".
+02:08:46.265 [info] Starting server "plop".
+02:08:46.267 [info] Starting server "new server".
+02:08:46.269 [info] Starting server "another server".
+02:08:46.279 [info] Application blackjack exited: shutdown
+02:15:01.987 [info] Starting Blackjack application.
+02:15:02.082 [info] Starting Accounts Supervisor
+02:15:02.086 [info] Starting Accounts Server.
+02:15:02.087 [info] Starting Core Supervisor.
+02:15:02.209 [info] Starting server "high rollers".
+02:15:02.211 [info] Starting server "aces high".
+02:15:02.213 [info] Starting server "big ballers".
+02:15:02.216 [info] Starting server "asdf".
+02:15:02.217 [info] Starting server "plop".
+02:15:02.219 [info] Starting server "new server".
+02:15:02.221 [info] Starting server "another server".
+02:15:02.237 [info] Application blackjack exited: shutdown
+02:16:17.333 [info] Starting Blackjack application.
+02:16:17.429 [info] Starting Accounts Supervisor
+02:16:17.433 [info] Starting Accounts Server.
+02:16:17.433 [info] Starting Core Supervisor.
+02:16:17.538 [info] Starting server "high rollers".
+02:16:17.539 [info] Starting server "aces high".
+02:16:17.542 [info] Starting server "big ballers".
+02:16:17.544 [info] Starting server "asdf".
+02:16:17.546 [info] Starting server "plop".
+02:16:17.550 [info] Starting server "new server".
+02:16:17.552 [info] Starting server "another server".
+02:16:17.564 [info] Application blackjack exited: shutdown
+02:16:41.506 [info] Starting Blackjack application.
+02:16:41.604 [info] Starting Accounts Supervisor
+02:16:41.607 [info] Starting Accounts Server.
+02:16:41.607 [info] Starting Core Supervisor.
+02:16:41.727 [info] Starting server "high rollers".
+02:16:41.729 [info] Starting server "aces high".
+02:16:41.731 [info] Starting server "big ballers".
+02:16:41.732 [info] Starting server "asdf".
+02:16:41.734 [info] Starting server "plop".
+02:16:41.735 [info] Starting server "new server".
+02:16:41.737 [info] Starting server "another server".
+02:16:41.742 [info] Application blackjack exited: shutdown
+02:19:17.785 [info] Starting Blackjack application.
+02:19:17.879 [info] Starting Accounts Supervisor
+02:19:17.884 [info] Starting Accounts Server.
+02:19:17.884 [info] Starting Core Supervisor.
+02:19:18.011 [info] Starting server "high rollers".
+02:19:18.012 [info] Starting server "aces high".
+02:19:18.014 [info] Starting server "big ballers".
+02:19:18.016 [info] Starting server "asdf".
+02:19:18.017 [info] Starting server "plop".
+02:19:18.019 [info] Starting server "new server".
+02:19:18.021 [info] Starting server "another server".
+02:19:18.032 [info] Application blackjack exited: shutdown
+02:19:52.381 [info] Starting Blackjack application.
+02:19:52.480 [info] Starting Accounts Supervisor
+02:19:52.483 [info] Starting Accounts Server.
+02:19:52.483 [info] Starting Core Supervisor.
+02:19:52.609 [info] Starting server "high rollers".
+02:19:52.611 [info] Starting server "aces high".
+02:19:52.612 [info] Starting server "big ballers".
+02:19:52.614 [info] Starting server "asdf".
+02:19:52.616 [info] Starting server "plop".
+02:19:52.618 [info] Starting server "new server".
+02:19:52.619 [info] Starting server "another server".
+02:19:52.641 [info] Application blackjack exited: shutdown
+02:21:52.243 [info] Starting Blackjack application.
+02:21:52.347 [info] Starting Accounts Supervisor
+02:21:52.351 [info] Starting Accounts Server.
+02:21:52.351 [info] Starting Core Supervisor.
+02:21:52.470 [info] Starting server "high rollers".
+02:21:52.472 [info] Starting server "aces high".
+02:21:52.474 [info] Starting server "big ballers".
+02:21:52.476 [info] Starting server "asdf".
+02:21:52.478 [info] Starting server "plop".
+02:21:52.479 [info] Starting server "new server".
+02:21:52.482 [info] Starting server "another server".
+02:21:52.487 [info] Application blackjack exited: shutdown
+02:21:52.564 [info] Starting Blackjack application.
+02:21:52.694 [info] Application blackjack exited: Blackjack.Application.start(:normal, []) returned an error: shutdown: failed to start child: Registry.Web
+    ** (EXIT) already started: #PID<0.503.0>
+02:21:52.725 [info] Starting Blackjack application.
+02:21:52.757 [info] Starting Accounts Supervisor
+02:21:52.757 [info] Starting Accounts Server.
+02:21:52.757 [info] Starting Core Supervisor.
+02:21:52.778 [info] Starting server "high rollers".
+02:21:52.783 [info] Starting server "aces high".
+02:21:52.789 [info] Starting server "big ballers".
+02:21:52.793 [info] Starting server "asdf".
+02:21:52.797 [info] Starting server "plop".
+02:21:52.801 [info] Starting server "new server".
+02:21:52.804 [info] Starting server "another server".
+02:21:52.820 [info] Application blackjack exited: shutdown
+02:22:54.074 [info] Starting Blackjack application.
+02:22:54.178 [info] Starting Accounts Supervisor
+02:22:54.181 [info] Starting Accounts Server.
+02:22:54.182 [info] Starting Core Supervisor.
+02:22:54.301 [info] Starting server "high rollers".
+02:22:54.303 [info] Starting server "aces high".
+02:22:54.304 [info] Starting server "big ballers".
+02:22:54.306 [info] Starting server "asdf".
+02:22:54.308 [info] Starting server "plop".
+02:22:54.310 [info] Starting server "new server".
+02:22:54.312 [info] Starting server "another server".
+02:22:54.322 [info] Application blackjack exited: shutdown
+02:22:54.347 [info] Starting Blackjack application.
+02:22:54.357 [info] Starting Accounts Supervisor
+02:22:54.357 [info] Starting Accounts Server.
+02:22:54.357 [info] Starting Core Supervisor.
+02:22:54.364 [info] Starting server "high rollers".
+02:22:54.372 [info] Application blackjack exited: :stopped
+02:22:54.376 [info] Starting Blackjack application.
+02:22:54.384 [info] Starting Accounts Supervisor
+02:22:54.384 [info] Starting Accounts Server.
+02:22:54.384 [info] Starting Core Supervisor.
+02:22:54.395 [info] Starting server "high rollers".
+02:22:54.397 [info] Starting server "aces high".
+02:22:54.398 [info] Starting server "big ballers".
+02:22:54.401 [info] Starting server "asdf".
+02:22:54.404 [info] Starting server "plop".
+02:22:54.405 [info] Starting server "new server".
+02:22:54.407 [info] Starting server "another server".
+02:22:54.411 [info] Application blackjack exited: shutdown
+02:22:54.446 [info] Starting Blackjack application.
+02:22:54.483 [info] Starting Accounts Supervisor
+02:22:54.483 [info] Starting Accounts Server.
+02:22:54.484 [info] Starting Core Supervisor.
+02:22:54.492 [info] Application blackjack exited: :stopped
+02:22:54.492 [info] Starting Blackjack application.
+02:22:54.511 [info] Starting Accounts Supervisor
+02:22:54.511 [info] Starting Accounts Server.
+02:22:54.511 [info] Starting Core Supervisor.
+02:22:54.523 [info] Starting server "high rollers".
+02:22:54.524 [info] Starting server "aces high".
+02:22:54.528 [info] Starting server "big ballers".
+02:22:54.530 [info] Starting server "asdf".
+02:22:54.534 [info] Starting server "plop".
+02:22:54.539 [info] Starting server "new server".
+02:22:54.541 [info] Starting server "another server".
+02:22:54.545 [info] Application blackjack exited: shutdown
+02:23:58.460 [info] Starting Blackjack application.
+02:23:58.557 [info] Starting Accounts Supervisor
+02:23:58.560 [info] Starting Accounts Server.
+02:23:58.560 [info] Starting Core Supervisor.
+02:23:58.695 [info] Starting server "high rollers".
+02:23:58.697 [info] Starting server "aces high".
+02:23:58.699 [info] Starting server "big ballers".
+02:23:58.701 [info] Starting server "asdf".
+02:23:58.703 [info] Starting server "plop".
+02:23:58.705 [info] Starting server "new server".
+02:23:58.708 [info] Starting server "another server".
+02:23:58.719 [info] Application blackjack exited: shutdown
+02:23:58.740 [info] Starting Blackjack application.
+02:23:58.747 [info] Starting Accounts Supervisor
+02:23:58.747 [info] Starting Accounts Server.
+02:23:58.747 [info] Starting Core Supervisor.
+02:23:58.763 [info] Application blackjack exited: :stopped
+02:23:58.763 [info] Starting Blackjack application.
+02:23:58.775 [info] Starting Accounts Supervisor
+02:23:58.775 [info] Starting Accounts Server.
+02:23:58.775 [info] Starting Core Supervisor.
+02:23:58.783 [info] Starting server "high rollers".
+02:23:58.784 [info] Postgrex.Protocol (#PID<0.663.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.795.0> exited
+02:23:58.789 [info] Application blackjack exited: :stopped
+02:23:58.789 [info] Starting Blackjack application.
+02:23:58.803 [info] Starting Accounts Supervisor
+02:23:58.803 [info] Starting Accounts Server.
+02:23:58.803 [info] Starting Core Supervisor.
+02:23:58.805 [info] Postgrex.Protocol (#PID<0.811.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.943.0> exited
+02:23:58.817 [info] Application blackjack exited: :stopped
+02:23:58.818 [info] Starting Blackjack application.
+02:23:58.833 [info] Starting Accounts Supervisor
+02:23:58.833 [info] Starting Accounts Server.
+02:23:58.833 [info] Starting Core Supervisor.
+02:23:58.841 [info] Starting server "high rollers".
+02:23:58.846 [info] Starting server "aces high".
+02:23:58.848 [info] Starting server "big ballers".
+02:31:30.669 [info] Starting Blackjack application.
+02:31:30.766 [info] Starting Accounts Supervisor
+02:31:30.769 [info] Starting Accounts Server.
+02:31:30.770 [info] Starting Core Supervisor.
+02:31:30.894 [info] Starting server "high rollers".
+02:31:30.895 [info] Starting server "aces high".
+02:31:30.897 [info] Starting server "big ballers".
+02:31:30.898 [info] Starting server "asdf".
+02:31:30.900 [info] Starting server "plop".
+02:31:30.902 [info] Starting server "new server".
+02:31:30.903 [info] Starting server "another server".
+02:31:30.913 [info] Application blackjack exited: shutdown
+02:31:30.944 [info] Starting Blackjack application.
+02:31:30.957 [info] Starting Accounts Supervisor
+02:31:30.957 [info] Starting Accounts Server.
+02:31:30.957 [info] Starting Core Supervisor.
+02:31:30.971 [info] Application blackjack exited: :stopped
+02:31:30.971 [info] Starting Blackjack application.
+02:31:30.983 [info] Starting Accounts Supervisor
+02:31:30.983 [info] Starting Accounts Server.
+02:31:30.983 [info] Starting Core Supervisor.
+02:31:30.988 [info] Starting server "high rollers".
+02:31:30.990 [info] Starting server "aces high".
+02:31:30.991 [info] Starting server "big ballers".
+02:31:30.993 [info] Starting server "asdf".
+02:31:30.999 [info] Starting server "plop".
+02:31:31.001 [info] Starting server "new server".
+02:31:31.003 [info] Starting server "another server".
+02:31:31.017 [info] Application blackjack exited: shutdown
+02:31:31.025 [info] Starting Blackjack application.
+02:31:31.032 [info] Starting Accounts Supervisor
+02:31:31.032 [info] Starting Accounts Server.
+02:31:31.032 [info] Starting Core Supervisor.
+02:31:31.038 [info] Application blackjack exited: :stopped
+02:31:31.039 [info] Starting Blackjack application.
+02:31:31.053 [info] Starting Accounts Supervisor
+02:31:31.053 [info] Starting Accounts Server.
+02:31:31.053 [info] Starting Core Supervisor.
+02:31:31.065 [info] Application blackjack exited: shutdown
+02:32:34.597 [info] Starting Blackjack application.
+02:32:34.699 [info] Starting Accounts Supervisor
+02:32:34.702 [info] Starting Accounts Server.
+02:32:34.703 [info] Starting Core Supervisor.
+02:32:34.826 [info] Starting server "high rollers".
+02:32:34.828 [info] Starting server "aces high".
+02:32:34.830 [info] Starting server "big ballers".
+02:32:34.831 [info] Starting server "asdf".
+02:32:34.833 [info] Starting server "plop".
+02:32:34.835 [info] Starting server "new server".
+02:32:34.837 [info] Starting server "another server".
+02:32:34.848 [info] Application blackjack exited: shutdown
+02:33:16.538 [info] Starting Blackjack application.
+02:33:16.644 [info] Starting Accounts Supervisor
+02:33:16.646 [info] Starting Accounts Server.
+02:33:16.646 [info] Starting Core Supervisor.
+02:33:16.760 [info] Starting server "high rollers".
+02:33:16.761 [info] Starting server "aces high".
+02:33:16.763 [info] Starting server "big ballers".
+02:33:16.766 [info] Starting server "asdf".
+02:33:16.767 [info] Starting server "plop".
+02:33:16.769 [info] Starting server "new server".
+02:33:16.771 [info] Starting server "another server".
+02:33:16.782 [info] Application blackjack exited: shutdown
+02:33:16.812 [info] Starting Blackjack application.
+02:33:16.821 [info] Starting Accounts Supervisor
+02:33:16.821 [info] Starting Accounts Server.
+02:33:16.821 [info] Starting Core Supervisor.
+02:33:16.826 [info] Starting server "high rollers".
+02:33:16.828 [info] Starting server "aces high".
+02:33:16.832 [info] Starting server "big ballers".
+02:33:16.833 [info] Starting server "asdf".
+02:33:16.835 [info] Starting server "plop".
+02:33:16.837 [info] Starting server "new server".
+02:33:16.839 [info] Starting server "another server".
+02:33:16.853 [info] Application blackjack exited: :stopped
+02:33:16.853 [info] Starting Blackjack application.
+02:33:16.870 [info] Starting Accounts Supervisor
+02:33:16.871 [info] Starting Accounts Server.
+02:33:16.871 [info] Starting Core Supervisor.
+02:33:16.887 [info] Application blackjack exited: shutdown
+02:33:16.889 [info] Starting Blackjack application.
+02:33:16.901 [info] Starting Accounts Supervisor
+02:33:16.901 [info] Starting Accounts Server.
+02:33:16.909 [info] Starting Core Supervisor.
+02:33:16.913 [info] Postgrex.Protocol (#PID<0.823.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.959.0> exited
+02:33:16.923 [info] Application blackjack exited: :stopped
+02:33:16.923 [info] Starting Blackjack application.
+02:33:16.937 [info] Starting Accounts Supervisor
+02:33:16.937 [info] Starting Accounts Server.
+02:33:16.937 [info] Starting Core Supervisor.
+02:33:16.940 [info] Postgrex.Protocol (#PID<0.971.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.1102.0> exited
+02:33:16.942 [info] Application blackjack exited: shutdown
+02:35:28.014 [info] Starting Blackjack application.
+02:35:28.104 [info] Starting Accounts Supervisor
+02:35:28.108 [info] Starting Accounts Server.
+02:35:28.109 [info] Starting Core Supervisor.
+02:35:28.234 [info] Starting server "high rollers".
+02:35:28.236 [info] Starting server "aces high".
+02:35:28.237 [info] Starting server "big ballers".
+02:35:28.239 [info] Starting server "asdf".
+02:35:28.240 [info] Starting server "plop".
+02:35:28.242 [info] Starting server "new server".
+02:35:28.243 [info] Starting server "another server".
+02:35:28.259 [info] Application blackjack exited: shutdown
+02:35:28.290 [info] Starting Blackjack application.
+02:35:28.302 [info] Starting Accounts Supervisor
+02:35:28.302 [info] Starting Accounts Server.
+02:35:28.302 [info] Starting Core Supervisor.
+02:35:28.311 [info] Application blackjack exited: :stopped
+02:35:28.311 [info] Starting Blackjack application.
+02:35:28.326 [info] Starting Accounts Supervisor
+02:35:28.326 [info] Starting Accounts Server.
+02:35:28.326 [info] Starting Core Supervisor.
+02:35:28.332 [info] Starting server "high rollers".
+02:35:28.335 [info] Starting server "aces high".
+02:35:28.337 [info] Starting server "big ballers".
+02:35:28.339 [info] Starting server "asdf".
+02:35:28.342 [info] Starting server "plop".
+02:35:28.345 [info] Starting server "new server".
+02:35:28.347 [info] Starting server "another server".
+02:35:28.357 [info] Application blackjack exited: shutdown
+02:36:21.306 [info] Starting Blackjack application.
+02:36:21.400 [info] Starting Accounts Supervisor
+02:36:21.403 [info] Starting Accounts Server.
+02:36:21.403 [info] Starting Core Supervisor.
+02:36:21.532 [info] Starting server "high rollers".
+02:36:21.534 [info] Starting server "aces high".
+02:36:21.535 [info] Starting server "big ballers".
+02:36:21.537 [info] Starting server "asdf".
+02:36:21.539 [info] Starting server "plop".
+02:36:21.541 [info] Starting server "new server".
+02:36:21.544 [info] Starting server "another server".
+02:36:21.554 [info] Application blackjack exited: shutdown
+02:36:21.592 [info] Starting Blackjack application.
+02:36:21.604 [info] Starting Accounts Supervisor
+02:36:21.604 [info] Starting Accounts Server.
+02:36:21.604 [info] Starting Core Supervisor.
+02:36:21.617 [info] Application blackjack exited: :stopped
+02:36:21.617 [info] Starting Blackjack application.
+02:36:21.629 [info] Starting Accounts Supervisor
+02:36:21.629 [info] Starting Accounts Server.
+02:36:21.630 [info] Starting Core Supervisor.
+02:36:21.634 [info] Starting server "high rollers".
+02:36:21.636 [info] Starting server "aces high".
+02:36:21.642 [info] Starting server "big ballers".
+02:36:21.643 [info] Starting server "asdf".
+02:36:21.645 [info] Starting server "plop".
+02:36:21.648 [info] Starting server "new server".
+02:36:21.650 [info] Postgrex.Protocol (#PID<0.670.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.810.0> exited
+02:36:21.652 [info] Application blackjack exited: :stopped
+02:36:21.652 [info] Starting Blackjack application.
+02:36:21.665 [info] Starting Accounts Supervisor
+02:36:21.665 [info] Starting Accounts Server.
+02:36:21.665 [info] Starting Core Supervisor.
+02:36:21.670 [info] Starting server "high rollers".
+02:36:21.672 [info] Starting server "aces high".
+02:36:21.673 [info] Starting server "big ballers".
+02:36:21.676 [info] Starting server "asdf".
+02:36:21.677 [info] Starting server "plop".
+02:36:21.679 [info] Starting server "new server".
+02:36:21.682 [info] Starting server "another server".
+02:36:21.695 [info] Application blackjack exited: shutdown
+02:38:24.957 [info] Starting Blackjack application.
+02:38:25.057 [info] Starting Accounts Supervisor
+02:38:25.060 [info] Starting Accounts Server.
+02:38:25.060 [info] Starting Core Supervisor.
+02:38:25.178 [info] Starting server "high rollers".
+02:38:25.181 [info] Starting server "aces high".
+02:38:25.183 [info] Starting server "big ballers".
+02:38:25.185 [info] Starting server "asdf".
+02:38:25.188 [info] Starting server "plop".
+02:38:25.190 [info] Starting server "new server".
+02:38:25.194 [info] Starting server "another server".
+02:38:25.203 [info] Application blackjack exited: shutdown
+02:38:25.243 [info] Starting Blackjack application.
+02:38:25.256 [info] Starting Accounts Supervisor
+02:38:25.256 [info] Starting Accounts Server.
+02:38:25.256 [info] Starting Core Supervisor.
+02:38:25.263 [info] Postgrex.Protocol (#PID<0.520.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.653.0> exited
+02:38:25.264 [info] Application blackjack exited: :stopped
+02:38:25.264 [info] Starting Blackjack application.
+02:38:25.280 [info] Starting Accounts Supervisor
+02:38:25.281 [info] Starting Accounts Server.
+02:38:25.281 [info] Starting Core Supervisor.
+02:38:25.286 [info] Starting server "high rollers".
+02:38:25.290 [info] Starting server "aces high".
+02:38:25.293 [info] Starting server "big ballers".
+02:38:25.295 [info] Starting server "asdf".
+02:38:25.303 [info] Application blackjack exited: :stopped
+02:38:25.303 [info] Starting Blackjack application.
+02:38:25.314 [info] Starting Accounts Supervisor
+02:38:25.314 [info] Starting Accounts Server.
+02:38:25.314 [info] Starting Core Supervisor.
+02:38:25.318 [info] Postgrex.Protocol (#PID<0.823.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.948.0> exited
+02:38:25.321 [info] Application blackjack exited: :stopped
+02:38:25.321 [info] Starting Blackjack application.
+02:38:25.332 [info] Starting Accounts Supervisor
+02:38:25.332 [info] Starting Accounts Server.
+02:38:25.332 [info] Starting Core Supervisor.
+02:38:25.340 [info] Starting server "high rollers".
+02:38:25.342 [info] Starting server "aces high".
+02:38:25.344 [info] Starting server "big ballers".
+02:38:25.345 [info] Starting server "asdf".
+02:38:25.347 [info] Starting server "plop".
+02:38:25.348 [info] Starting server "new server".
+02:38:25.350 [info] Starting server "another server".
+02:38:25.361 [info] Application blackjack exited: shutdown
+02:39:11.713 [info] Starting Blackjack application.
+02:39:11.796 [info] Starting Accounts Supervisor
+02:39:11.807 [info] Starting Accounts Server.
+02:39:11.808 [info] Starting Core Supervisor.
+02:39:11.919 [info] Starting server "high rollers".
+02:39:11.921 [info] Starting server "aces high".
+02:39:11.923 [info] Starting server "big ballers".
+02:39:11.925 [info] Starting server "asdf".
+02:39:11.927 [info] Starting server "plop".
+02:39:11.929 [info] Starting server "new server".
+02:39:11.933 [info] Starting server "another server".
+02:39:11.944 [info] Application blackjack exited: shutdown
+02:39:38.372 [info] Starting Blackjack application.
+02:39:38.467 [info] Starting Accounts Supervisor
+02:39:38.471 [info] Starting Accounts Server.
+02:39:38.471 [info] Starting Core Supervisor.
+02:39:38.595 [info] Starting server "high rollers".
+02:39:38.597 [info] Starting server "aces high".
+02:39:38.599 [info] Starting server "big ballers".
+02:39:38.601 [info] Starting server "asdf".
+02:39:38.602 [info] Starting server "plop".
+02:39:38.603 [info] Starting server "new server".
+02:39:38.605 [info] Starting server "another server".
+02:39:38.615 [info] Application blackjack exited: shutdown
+02:39:38.652 [info] Starting Blackjack application.
+02:39:38.663 [info] Starting Accounts Supervisor
+02:39:38.663 [info] Starting Accounts Server.
+02:39:38.663 [info] Starting Core Supervisor.
+02:39:38.670 [info] Starting server "high rollers".
+02:39:38.672 [info] Starting server "aces high".
+02:39:38.678 [info] Starting server "big ballers".
+02:39:38.684 [info] Starting server "asdf".
+02:39:38.697 [info] Application blackjack exited: :stopped
+02:39:38.697 [info] Starting Blackjack application.
+02:39:38.708 [info] Starting Accounts Supervisor
+02:39:38.708 [info] Starting Accounts Server.
+02:39:38.708 [info] Starting Core Supervisor.
+02:39:38.713 [info] Starting server "high rollers".
+02:39:38.714 [info] Starting server "aces high".
+02:39:38.716 [info] Starting server "big ballers".
+02:39:38.719 [info] Starting server "asdf".
+02:39:38.727 [info] Application blackjack exited: :stopped
+02:39:38.727 [info] Starting Blackjack application.
+02:39:38.741 [info] Starting Accounts Supervisor
+02:39:38.741 [info] Starting Accounts Server.
+02:39:38.741 [info] Starting Core Supervisor.
+02:39:38.745 [info] Starting server "high rollers".
+02:39:38.747 [info] Starting server "aces high".
+02:39:38.749 [info] Starting server "big ballers".
+02:39:38.750 [info] Starting server "asdf".
+02:39:38.752 [info] Starting server "plop".
+02:39:38.756 [info] Starting server "new server".
+02:39:38.759 [info] Starting server "another server".
+02:39:38.764 [info] Application blackjack exited: shutdown
+02:42:01.861 [info] Starting Blackjack application.
+02:42:01.962 [info] Starting Accounts Supervisor
+02:42:01.966 [info] Starting Accounts Server.
+02:42:01.966 [info] Starting Core Supervisor.
+02:42:02.105 [info] Starting server "high rollers".
+02:42:02.107 [info] Starting server "aces high".
+02:42:02.111 [info] Starting server "big ballers".
+02:42:02.124 [info] Application blackjack exited: :stopped
+02:42:02.134 [info] Starting Blackjack application.
+02:42:02.148 [info] Starting Accounts Supervisor
+02:42:02.148 [info] Starting Accounts Server.
+02:42:02.149 [info] Starting Core Supervisor.
+02:42:02.155 [info] Application blackjack exited: :stopped
+02:42:02.156 [info] Starting Blackjack application.
+02:42:02.171 [info] Starting Accounts Supervisor
+02:42:02.172 [info] Starting Accounts Server.
+02:42:02.172 [info] Starting Core Supervisor.
+02:42:02.177 [info] Postgrex.Protocol (#PID<0.683.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.812.0> exited
+02:42:02.187 [info] Application blackjack exited: :stopped
+02:42:02.187 [info] Starting Blackjack application.
+02:42:02.199 [info] Starting Accounts Supervisor
+02:42:02.199 [info] Starting Accounts Server.
+02:42:02.199 [info] Starting Core Supervisor.
+02:42:02.205 [info] Starting server "high rollers".
+02:42:02.208 [info] Starting server "aces high".
+02:42:02.211 [info] Starting server "big ballers".
+02:42:02.213 [info] Starting server "asdf".
+02:42:02.215 [info] Starting server "plop".
+02:42:02.220 [info] Starting server "new server".
+02:42:02.223 [info] Starting server "another server".

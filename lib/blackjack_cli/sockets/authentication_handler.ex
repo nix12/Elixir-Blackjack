@@ -1,5 +1,7 @@
-defmodule BlackjackWeb.Sockets.SocketHandler do
+defmodule BlackjackCLI.Sockets.AuthenticationHandler do
   @behaviour :cowboy_websocket
+
+  alias BlackjackCLI.Controllers.AuthenticationController
 
   def init(request, _state) do
     state = %{registry_key: request.path}
@@ -8,21 +10,21 @@ defmodule BlackjackWeb.Sockets.SocketHandler do
   end
 
   def websocket_init(state) do
-    PubSub.subscribe(self(), state.registry_key)
+    IO.inspect(Node.self(), label: "NODE")
 
     {:ok, state}
   end
 
   def websocket_handle({:text, json}, state) do
+    IO.inspect(self(), label: "HANDLE SOCKET PID")
+    # AuthenticationController.get_credentials()
     payload = Jason.decode!(json)
-    message = payload["data"]["user"]["message"]
-
-    PubSub.publish(state.registry_key, message)
-
-    {:reply, {:text, message}, state}
+    login = payload["data"]
+    {:reply, {:text, login}, state}
   end
 
   def websocket_info(msg, state) do
+    IO.inspect(self(), label: "INFO SOCKET PID")
     {:reply, {:text, msg}, state}
   end
 end

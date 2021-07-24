@@ -1,4 +1,6 @@
 defmodule Blackjack.Accounts.Users do
+  require Logger
+
   use GenServer
 
   alias Blackjack.Repo
@@ -20,7 +22,7 @@ defmodule Blackjack.Accounts.Users do
 
   @impl true
   def init(username) do
-    IO.puts("Retrieving user.")
+    Logger.info(inspect("Retreiving user #{inspect(username)}."))
     user = Repo.get_by!(User, username: username)
 
     {:ok, {self(), user}}

@@ -1,4 +1,10 @@
-import Config
+import(Config)
+
+config :logger, backends: [{LoggerFileBackend, :info_log}]
+
+config :logger, :info_log,
+  path: './lib/blackjack/logs/blackjack_logs.log' |> Path.expand(),
+  level: :info
 
 config :blackjack, ecto_repos: [Blackjack.Repo]
 

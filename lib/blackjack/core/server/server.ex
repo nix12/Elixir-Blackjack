@@ -3,7 +3,7 @@ defmodule Blackjack.Core.Server do
 
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:server_name]}
+  @derive {Jason.Encoder, only: [:server_name, :table_count, :player_count]}
 
   schema "servers" do
     field(:server_name, :string)
