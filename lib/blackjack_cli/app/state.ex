@@ -2,6 +2,7 @@ defmodule BlackjackCLI.App.State do
   @moduledoc """
     Main state for frontend application
   """
+  require Logger
   alias Blackjack.Authentication.Guardian
 
   alias BlackjackCLI.Views.{
@@ -15,8 +16,7 @@ defmodule BlackjackCLI.App.State do
     Games,
     Search,
     Dashboard,
-    Menu,
-    Exit
+    Menu
   }
 
   @initial_state %{
@@ -31,7 +31,20 @@ defmodule BlackjackCLI.App.State do
 
   @spec init() :: map()
   def init() do
-    put_in(@initial_state.data, :httpc.request('http://localhost:4000/servers'))
+    case :httpc.request('http://localhost:4000/servers') do
+      {:ok, {_, _, list_servers}} ->
+        list_servers = list_servers |> Jason.decode!()
+
+        put_in(@initial_state.data, list_servers)
+
+      {:error, reason} ->
+        IO.inspect("ERROR")
+        Logger.info("REASON: #{reason}")
+    end
+
+    # Logger.info("RESPONSE: #{inspect(:httpc.request('http://localhost:4000/servers'))}")
+    # put_in(@initial_state.data, :httpc.request('http://localhost:4000/servers'))
+    # put_in(@initial_state.data, "SOMETHING!")
   end
 
   @spec update(map(), tuple()) :: map()
@@ -74,7 +87,7 @@ defmodule BlackjackCLI.App.State do
         Start.update(model, msg)
 
       {%{screen: :exit}, _} ->
-        Exit.update(model, msg)
+        Application.stop(:blackjack)
 
       {%{token: nil}, _} ->
         put_in(model.screen, :login)
@@ -82,28 +95,28 @@ defmodule BlackjackCLI.App.State do
       {%{token: nil}, _} ->
         put_in(model.screen, :registration)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :account)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :server)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :servers)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :create_server)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :games)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :search)
 
-      {%{token: "" <> token}, _} ->
+      {%{token: "" <> _token}, _} ->
         put_in(model.screen, :dashboard)
 
-      {%{token: "" <> token}, msg} ->
+      {%{token: "" <> _token}, msg} ->
         put_in(model.screen, :menu)
 
       _ ->

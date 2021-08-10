@@ -21,22 +21,25 @@ defmodule BlackjackCLI.Views.Start do
       {:event, %{ch: ?w}} ->
         %{model | input: model.input - 1}
 
-      {:event, %{key: @down}} ->
-        %{model | input: model.input + 1}
+      {:event, %{key: @up}} ->
+        %{model | input: model.input - 1}
 
       {:event, %{ch: ?s}} ->
         %{model | input: model.input + 1}
 
-      {:event, %{key: @up}} ->
-        %{model | input: model.input - 1}
+      {:event, %{key: @down}} ->
+        %{model | input: model.input + 1}
 
       {:event, %{key: @enter}} ->
         case match_screen(model.input) do
-          # :registration ->
-          #   Registration.start_registration()
+          :registration ->
+            Registration.start_registration()
 
           :login ->
             :login
+
+          :exit ->
+            :exit
         end
 
         %{model | screen: match_screen(model.input)}

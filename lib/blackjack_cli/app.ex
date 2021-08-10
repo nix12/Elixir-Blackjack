@@ -26,14 +26,14 @@ defmodule BlackjackCLI.App do
   def update(model, msg), do: State.update(model, msg)
 
   @impl true
-  def render(%{screen: :login, token: nil, input: input} = model) when is_bitstring(model.input),
+  def render(%{screen: :login, token: nil, input: _} = model) when is_bitstring(model.input),
     do: Login.render(model)
 
-  def render(%{screen: :registration, token: nil, input: input} = model)
+  def render(%{screen: :registration, token: nil, input: _} = model)
       when is_integer(model.input),
       do: Registration.render(model)
 
-  def render(%{screen: :create_server, token: token, input: input} = model)
+  def render(%{screen: :create_server, token: _, input: _} = model)
       when is_bitstring(model.input),
       do: CreateServer.render(model)
 
@@ -53,6 +53,7 @@ defmodule BlackjackCLI.App do
   def render(%{screen: :dashboard, token: token} = model), do: Dashboard.render(model)
   def render(%{screen: :settings, token: token} = model), do: Settings.render(model)
   def render(%{screen: :start} = model), do: Start.render(model)
+  def render(%{screen: :exit} = model), do: Application.stop(:blackjack)
 
   # @impl true
   # def subscribe(%{token: nil}), do: Subscription.interval(500, :check_token)

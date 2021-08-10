@@ -2,11 +2,7 @@ defmodule BlackjackCLI.Router do
   require Logger
 
   use Plug.Router
-
-  if Mix.env() == :dev do
-    use Plug.Debugger
-  end
-
+  if Mix.env() == :dev, do: use(Plug.Debugger)
   use Plug.ErrorHandler
 
   alias Blackjack.Accounts
@@ -28,6 +24,10 @@ defmodule BlackjackCLI.Router do
   )
 
   plug(:dispatch)
+
+  get "/ping" do
+    send_resp(conn, 200, "PONG!")
+  end
 
   # User routes
   post "/register" do
@@ -51,11 +51,11 @@ defmodule BlackjackCLI.Router do
       case conn.body_params do
         %{"user" => %{"username" => username, "password_hash" => password}} ->
           case Authentication.authenticate_user(username, password) do
-            {:ok, user} ->
+            {:ok, _user} ->
               Accounts.spawn_user(username)
               {200, AuthenticationController.login(conn)}
 
-            {:error, user} ->
+            {:error, _user} ->
               {422, "ERROR"}
           end
 
@@ -81,7 +81,7 @@ defmodule BlackjackCLI.Router do
 
   get "/server/:server_name" do
     {status, body} = {200, ServersController.get_server(conn)}
-    Logger.info(inspect(body))
+
     send_resp(conn, status, body)
   end
 
@@ -92,6 +92,6 @@ defmodule BlackjackCLI.Router do
   end
 
   defp handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
-    send_resp(conn, conn.status, "Something went wrong")
+    send_resp(conn, conn.status, "Something went wrong!")
   end
 end

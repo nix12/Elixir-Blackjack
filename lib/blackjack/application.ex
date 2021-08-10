@@ -12,9 +12,7 @@ defmodule Blackjack.Application do
     children = [
       {Blackjack.Repo, []},
       {Plug.Cowboy,
-       scheme: :http,
-       plug: BlackjackCLI.Router,
-       options: [port: Application.get_env(:blackjack, :port), dispatch: dispatch()]},
+       scheme: :http, plug: BlackjackCLI.Router, options: [port: 4000, dispatch: dispatch()]},
       {Registry, keys: :unique, name: Registry.Accounts},
       {Registry, keys: :unique, name: Registry.Core},
       {Registry, keys: :unique, name: Registry.Web},
@@ -22,11 +20,13 @@ defmodule Blackjack.Application do
       {Cachex, name: Blackjack.Cache},
       {Blackjack.Accounts.Supervisor, name: Blackjack.Accounts.Supervisor},
       {Blackjack.Core.Supervisor, name: Blackjack.Core.Supervisor},
+      {Task.Supervisor, name: Blackjack.TaskSupervisor},
       {Registry, keys: :unique, name: Registry.App},
-      # {Ratatouille.Runtime.Supervisor, runtime: [app: BlackjackCLI.App]},
+      # {Ratatouille.Runtime.Supervisor,
+      #  runtime: [app: BlackjackCLI.App, quit_events: [{:key, 0x1B}]]},
       %{
         id: Task,
-        start: {Task, :start_link, [&Blackjack.Core.Servers.start_all/0]}
+        start: {Task, :start, [&Blackjack.Core.Servers.start_all_servers/0]}
       }
     ]
 
@@ -37,8 +37,8 @@ defmodule Blackjack.Application do
     [
       {:_,
        [
-         {"/", BlackjackCLI.Sockets.AuthenticationHandler, []},
-         {"/ws/[...]", BlackjackCLI.Sockets.SocketHandler, []},
+         #  {"/", BlackjackCLI.Sockets.AuthenticationHandler, []},
+         {"/game/[...]", BlackjackCLI.Sockets.SocketHandler, []},
          {:_, Plug.Cowboy.Handler, {BlackjackCLI.Router, []}}
        ]}
     ]

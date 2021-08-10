@@ -1,7 +1,4 @@
 defmodule Blackjack do
-  alias Blackjack.Authentication.Guardian
-  alias BlackjackCLI.Controllers.{RegistrationsController, AuthenticationController}
-
   # Development Commands
 
   ###### END ######

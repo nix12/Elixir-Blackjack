@@ -1,73 +1,63 @@
 defmodule BlackjackCLI.Views.StartTest do
-  use ExUnit.Case, async: true
+  use Blackjack.RepoCase, async: true
+  @doctest BlackjackCLI.Views.Start
 
   import Ratatouille.Constants, only: [key: 1]
-  import BlackjackCLI.Views.Start
 
   @up key(:arrow_up)
   @down key(:arrow_down)
   @enter key(:enter)
 
-  # setup do
-  #   Application.stop(:blackjack)
-  #   :ok = Application.start(:blackjack)
-  # end
+  setup do
+    Application.stop(:blackjack)
+    :ok = Application.start(:blackjack)
+  end
 
   setup do
-    [
-      initial_state: %{
-        input: 0,
-        user: %{
-          username: ""
-        },
-        screen: :start,
-        token: nil,
-        data: nil
-      }
-    ]
+    [initial_state: %{BlackjackCLI.App.State.init() | screen: :start}]
   end
 
   describe "update/2" do
     test "should move menu select down one when down arrow is pressed", %{
       initial_state: initial_state
     } do
-      assert update(initial_state, {:event, %{key: @down}}) == %{initial_state | input: 1}
+      assert %{input: 1, user: _, screen: :start, token: nil, data: _} =
+               BlackjackCLI.Views.Start.update(initial_state, {:event, %{key: @down}})
     end
 
     test "should move menu select down one when s key is pressed", %{
       initial_state: initial_state
     } do
-      assert update(initial_state, {:event, %{ch: ?s}}) == %{initial_state | input: 1}
+      assert %{input: 1, user: _, screen: :start, token: nil, data: _} =
+               BlackjackCLI.Views.Start.update(initial_state, {:event, %{ch: ?s}})
     end
 
     test "should move menu select up one when up arrow is pressed", %{
       initial_state: initial_state
     } do
-      assert update(%{initial_state | input: 1}, {:event, %{key: @up}}) == %{
-               initial_state
-               | input: 0
-             }
+      assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
+               BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{key: @up}})
     end
 
     test "should move menu select down one when w key is pressed", %{
       initial_state: initial_state
     } do
-      assert update(%{initial_state | input: 1}, {:event, %{ch: ?w}}) == %{
-               initial_state
-               | input: 0
-             }
+      assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
+               BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{ch: ?w}})
     end
 
     test "change screen when enter is pressed", %{
       initial_state: initial_state
     } do
-      assert update(initial_state, {:event, %{key: @enter}}) == %{initial_state | screen: :login}
+      %{input: 1, user: _, screen: :registration, token: nil, data: _} =
+        BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{key: @enter}})
     end
 
     test "should return state for all other input", %{
       initial_state: initial_state
     } do
-      assert update(initial_state, nil) == initial_state
+      assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
+               BlackjackCLI.Views.Start.update(initial_state, {:event, nil})
     end
   end
 end

@@ -10,11 +10,11 @@ defmodule Blackjack.Authentication do
 
     case Repo.one(query) do
       nil ->
-        Bcrypt.no_user_verify()
+        no_user_verify()
         {:error, :invalid_credentials}
 
       user ->
-        if Bcrypt.verify_pass(password, user.password_hash) do
+        if verify_pass(password, user.password_hash) do
           {:ok, user}
         else
           {:error, :invalid_credentials}

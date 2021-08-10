@@ -2,6 +2,7 @@ defmodule BlackjackCLI.Views.Registration do
   @moduledoc """
     Registration form for blackjack application
   """
+  require Logger
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
@@ -26,6 +27,20 @@ defmodule BlackjackCLI.Views.Registration do
   def update(model, msg) do
     case msg do
       {:event, %{key: @tab}} ->
+        # Agent.get_and_update(
+        #   Blackjack.via_tuple(@registry, :registration),
+        #   fn %{tab_count: tab_count} = registration ->
+        #     {registration,
+        #      %{
+        #        tab_count: tab_count + 1,
+        #        username: "",
+        #        password: "",
+        #        password_confirmation: "",
+        #        error: ""
+        #      }}
+        #   end
+        # )
+
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
           fn %{tab_count: tab_count} = registration ->
@@ -33,25 +48,24 @@ defmodule BlackjackCLI.Views.Registration do
           end
         )
 
-        update_user(model)
+        update_user(%{model | input: ""})
 
       {:event, %{key: key}} when key in @delete_keys ->
-        model = %{model | input: String.slice(model.input, 0..-2)}
-
-        update_user(model)
+        update_user(%{model | input: String.slice(model.input, 0..-2)})
 
       {:event, %{key: @space_bar}} ->
-        model = %{
+        update_user(%{
           model
           | input: (model.input |> to_string |> String.replace(~r/^[[:digit:]]+$/, "")) <> " "
-        }
-
-        update_user(model)
+        })
 
       {:event, %{ch: ch}} when ch > 0 ->
-        model = %{model | input: model.input <> <<ch::utf8>>}
-
-        update_user(model)
+        update_user(%{
+          model
+          | input:
+              (model.input |> to_string |> String.replace(~r/^[[:digit:]]+$/, "")) <>
+                <<ch::utf8>>
+        })
 
       {:event, %{key: @enter}} ->
         password = Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
@@ -68,14 +82,13 @@ defmodule BlackjackCLI.Views.Registration do
 
         if password == password_confirmation do
           case RegistrationsController.send_credentials(%Plug.Conn{assigns: assigns}) do
-            {:ok, {_, status, _}, token} = something when status == 201 ->
+            {:ok, {_, status, _}, token} when status == 201 ->
               AuthenticationController.send_credentials(%Plug.Conn{assigns: assigns})
               Agent.stop(Blackjack.via_tuple(@registry, :registration), :normal)
-              %{model | screen: :dashboard, token: token}
+              %{model | input: "", screen: :dashboard, token: token}
 
             {:error, msg} ->
               Agent.update(Blackjack.via_tuple(@registry, :registration), &%{&1 | error: msg})
-
               %{model | screen: :registration}
 
             _ ->
@@ -91,11 +104,12 @@ defmodule BlackjackCLI.Views.Registration do
         end
 
       _ ->
-        model
+        IO.inspect(model, label: "MODEL MODEL MODEL")
+        update_user(model)
     end
   end
 
-  def render(model) do
+  def render(_model) do
     view top_bar:
            label(content: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.error)) do
       panel title: "Register" do
@@ -125,11 +139,16 @@ defmodule BlackjackCLI.Views.Registration do
             panel title: "PASSWORD" do
               label do
                 text(
-                  content: Agent.get(:registration, fn registration -> registration.password end)
+                  content:
+                    Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
+                      registration.password
+                    end)
                 )
 
-                if Agent.get(:registration, fn registration -> registration.tab_count end) == 1 do
-                  text(content: "W", color: :black, background: :white)
+                if Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
+                     registration.tab_count
+                   end) == 1 do
+                  text(content: "W", color: :white, background: :white)
                 end
               end
             end
@@ -140,12 +159,14 @@ defmodule BlackjackCLI.Views.Registration do
               label do
                 text(
                   content:
-                    Agent.get(:registration, fn registration ->
+                    Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
                       registration.password_confirmation
                     end)
                 )
 
-                if Agent.get(:registration, fn registration -> registration.tab_count end) == 2 do
+                if Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
+                     registration.tab_count
+                   end) == 2 do
                   text(content: "W", color: :white, background: :white)
                 end
               end
@@ -159,22 +180,23 @@ defmodule BlackjackCLI.Views.Registration do
   @doc """
     Starts a process for maintianing registration form state
   """
-  @spec start_registration :: {:ok, pid()}
+  @spec start_registration :: :ok
   def start_registration do
-    Agent.start_link(
-      fn ->
-        %{
-          tab_count: 0,
-          # first_name: "",
-          # last_name: "",
-          username: "",
-          password: "",
-          password_confirmation: "",
-          error: ""
-        }
-      end,
-      name: Blackjack.via_tuple(@registry, :registration)
-    )
+    {:ok, _pid} =
+      Agent.start_link(
+        fn ->
+          %{
+            tab_count: 0,
+            username: "",
+            password: "",
+            password_confirmation: "",
+            error: ""
+          }
+        end,
+        name: Blackjack.via_tuple(@registry, :registration)
+      )
+
+    :ok
   end
 
   @doc """
@@ -182,12 +204,23 @@ defmodule BlackjackCLI.Views.Registration do
   """
   @spec update_user(map()) :: map()
   defp update_user(%{input: input, screen: screen} = model) do
-    case Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.tab_count) do
+    tab_count =
+      Agent.get(Blackjack.via_tuple(@registry, :registration), fn %{
+                                                                    tab_count: tab_count,
+                                                                    username: _,
+                                                                    password: _,
+                                                                    password_confirmation: _,
+                                                                    error: _
+                                                                  } ->
+        tab_count
+      end)
+
+    case tab_count do
       0 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          fn %{username: username, tab_count: tab_count} = registration ->
-            %{registration | username: model.input}
+          fn registration ->
+            %{registration | username: input}
           end
         )
 
@@ -196,8 +229,8 @@ defmodule BlackjackCLI.Views.Registration do
       1 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          fn %{password: password, tab_count: tab_count} = registration ->
-            %{registration | password: model.input}
+          fn registration ->
+            %{registration | password: input}
           end
         )
 
@@ -206,12 +239,22 @@ defmodule BlackjackCLI.Views.Registration do
       2 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          fn %{password_confirmation: password_confirmation} = registration ->
-            %{registration | password_confirmation: model.input, tab_count: 0}
+          fn registration ->
+            %{registration | password_confirmation: input}
           end
         )
 
         %{model | input: input, screen: screen}
+
+      _ ->
+        Agent.update(
+          Blackjack.via_tuple(@registry, :registration),
+          fn registration ->
+            %{registration | tab_count: 0}
+          end
+        )
+
+        model
     end
   end
 end

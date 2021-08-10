@@ -1,11 +1,8 @@
 defmodule BlackjackCLI.App.StateTest do
-  use ExUnit.Case, async: true
-
-  import Ratatouille.Constants, only: [key: 1]
+  use Blackjack.RepoCase, async: true
   @doctest BlackjackCLI.App.State
-  import BlackjackCLI.Views.Registration, only: [start_registration: 0]
 
-  @tab key(:tab)
+  alias BlackjackCLI.Views.Registration
 
   setup do
     Application.stop(:blackjack)
@@ -13,58 +10,25 @@ defmodule BlackjackCLI.App.StateTest do
   end
 
   setup do
-    # start_supervised!({Registry, keys: :unique, name: Registry.WebTest})
-    # %{registry: Registry.WebTest}
-    pid = Process.whereis(Registry.Web)
-    # on_exit(fn -> Process.exit(pid, :kill) end)
-    :ok
+    [initial_state: BlackjackCLI.App.State.init()]
   end
 
   setup do
-    [
-      initial_state: %{
-        input: 0,
-        user: %{
-          username: ""
-        },
-        screen: :start,
-        token: nil,
-        data: nil
-      }
-    ]
-  end
-
-  setup do
-    {:ok, pid} =
-      Agent.start_link(
-        fn ->
-          %{
-            tab_count: 0,
-            # first_name: "",
-            # last_name: "",
-            username: "",
-            password: "",
-            password_confirmation: "",
-            error: ""
-          }
-        end,
-        name: Blackjack.via_tuple(Registry.Web, :registration)
-      )
-
-    on_exit(fn -> Process.exit(pid, :kill) end)
-
+    Registration.start_registration()
     %{registry: Registry.Web}
   end
 
   describe "init/0" do
-    test "initialize application state" do
+    test "initialize application state", %{initial_state: initial_state} do
       assert %{
                input: 0,
-               user: _,
+               user: %{
+                 username: ""
+               },
                screen: :start,
                token: nil,
                data: _
-             } = BlackjackCLI.App.State.init()
+             } = initial_state
     end
   end
 
@@ -81,7 +45,7 @@ defmodule BlackjackCLI.App.StateTest do
              } =
                BlackjackCLI.App.State.update(
                  %{initial_state | screen: :registration, input: 1},
-                 {:event, %{key: @tab}}
+                 {:event, nil}
                )
     end
   end

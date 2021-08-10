@@ -15,8 +15,7 @@ defmodule BlackjackCLI.Controllers.AuthenticationController do
     {:ok, {response, _, body}} =
       :httpc.request(
         :post,
-        {"http://localhost:#{Application.get_env(:blackjack, :port)}/login", [],
-         'application/json', Jason.encode!(conn.assigns)},
+        {"http://localhost:4000/login", [], 'application/json', Jason.encode!(conn.assigns)},
         [],
         []
       )

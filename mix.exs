@@ -6,8 +6,10 @@ defmodule Blackjack.MixProject do
       app: :blackjack,
       version: "0.1.0",
       elixir: "~> 1.12.0",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -18,9 +20,9 @@ defmodule Blackjack.MixProject do
       applications: [:guardian, :authorize, :cachex],
       extra_applications: [
         :logger,
-        :plug_cowboy,
-        :ecto,
         :postgrex,
+        :ecto,
+        :plug_cowboy,
         :pubsub,
         :ratatouille,
         :inets,
@@ -55,4 +57,13 @@ defmodule Blackjack.MixProject do
       {:logger_file_backend, "~> 0.0"}
     ]
   end
+
+  defp aliases do
+    [
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate", "test"]
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 end

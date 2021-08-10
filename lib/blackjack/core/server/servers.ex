@@ -54,7 +54,7 @@ defmodule Blackjack.Core.Servers do
     Cachex.put(Blackjack.Cache, server_name, server_players())
   end
 
-  def start_all do
+  def start_all_servers do
     for server <- Repo.all(Server) do
       start_link({:start, server.server_name})
     end
