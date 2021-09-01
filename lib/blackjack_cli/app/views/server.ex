@@ -13,8 +13,8 @@ defmodule BlackjackCLI.Views.Server do
   @tab key(:tab)
 
   def update(model, msg) do
-    {:ok, {_, _, server}} = model.data
-    server = server |> Jason.decode!()
+    # {:ok, {_, _, server}} = model.data
+    # server = server |> Jason.decode!()
 
     case msg do
       {:event, %{key: @up}} ->
@@ -22,6 +22,9 @@ defmodule BlackjackCLI.Views.Server do
 
       {:event, %{key: @down}} ->
         nil
+
+      _ ->
+        model
     end
   end
 

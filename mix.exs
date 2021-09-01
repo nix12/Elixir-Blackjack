@@ -17,7 +17,7 @@ defmodule Blackjack.MixProject do
   def application do
     [
       mod: {Blackjack.Application, []},
-      applications: [:guardian, :authorize, :cachex],
+      applications: [:guardian, :bodyguard, :cachex],
       extra_applications: [
         :logger,
         :postgrex,
@@ -44,23 +44,24 @@ defmodule Blackjack.MixProject do
       {:cowboy, "~> 2.8"},
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      {:authorize, "~> 1.0.0"},
+      {:bodyguard, "~> 2.4"},
       {:jason, "~> 1.2"},
       {:bcrypt_elixir, "~> 2.3"},
       {:ratatouille, "~> 0.5.1"},
       {:gen_stage, "~> 1.0"},
       {:broadway, "~> 0.6.0"},
-      {:hashids, "~> 2.0"},
+      {:oban, "~> 2.8"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:cachex, "~> 3.3"},
       {:distillery, "~> 2.1"},
-      {:logger_file_backend, "~> 0.0"}
+      {:logger_file_backend, "~> 0.0"},
+      {:dotenvy, "~> 0.3.0"}
     ]
   end
 
   defp aliases do
     [
-      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 

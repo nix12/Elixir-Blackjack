@@ -5,82 +5,79 @@ defmodule BlackjackCLI.Router do
   if Mix.env() == :dev, do: use(Plug.Debugger)
   use Plug.ErrorHandler
 
-  alias Blackjack.Accounts
-  alias Blackjack.Authentication
+  import Plug.Conn
 
   alias BlackjackCLI.Controllers.{
-    AuthenticationController,
-    UsersController,
-    ServersController
+    AccountsController,
+    CoreController
   }
 
   plug(Plug.Logger)
   plug(:match)
 
   plug(Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:json],
     pass: ["application/json"],
     json_decoder: Jason
   )
 
   plug(:dispatch)
 
-  get "/ping" do
-    send_resp(conn, 200, "PONG!")
-  end
-
   # User routes
   post "/register" do
-    {status, body} =
-      case conn.body_params do
-        %{"user" => user} ->
-          {201, UsersController.create(conn, user)}
+    {status, conn_or_errors} =
+      case AccountsController.register_user(conn) do
+        {:ok, user} ->
+          {201, assign(conn, :user, user)}
 
-        error ->
-          %{errors: [{name, err}]} = UsersController.create(conn, error)
-
-          {422, "#{name} #{err |> elem(0)}\n"}
+        {:errors, error_message} ->
+          Logger.info(inspect(error_message))
+          {500, assign(conn, :errors, error_message)}
       end
 
-    send_resp(conn, status, body)
+    send_resp(conn, status, Jason.encode!(conn_or_errors.assigns))
   end
 
   # Authentication routes
   post "/login" do
-    {status, token} =
-      case conn.body_params do
-        %{"user" => %{"username" => username, "password_hash" => password}} ->
-          case Authentication.authenticate_user(username, password) do
-            {:ok, _user} ->
-              Accounts.spawn_user(username)
-              {200, AuthenticationController.login(conn)}
+    {status, conn_or_reason} =
+      case AccountsController.login(conn) do
+        {:ok, conn} ->
+          Logger.info("USER: #{inspect(conn.assigns.user)}")
+          {200, conn}
 
-            {:error, _user} ->
-              {422, "ERROR"}
-          end
+        {:error, reason} ->
+          {422, assign(conn, :errors, reason)}
 
         _ ->
-          {422, "ERROR"}
+          {500, "Internal Server Error"}
       end
 
-    send_resp(conn, status, token)
+    Logger.info("CONN OR REASON: #{inspect(conn_or_reason.assigns)}")
+    send_resp(conn, status, Jason.encode!(conn_or_reason.assigns))
   end
 
   delete "/logout" do
-    {status, _body} = {200, AuthenticationController.logout(conn)}
+    {status, _body} = {200, AccountsController.logout(conn)}
     send_resp(conn, status, "User is logged out.")
   end
 
   # Server routes
 
   get "/servers" do
-    {status, body} = {200, ServersController.get_servers(conn)}
+    {status, body} = {200, CoreController.get_servers(conn)}
 
     send_resp(conn, status, body)
   end
 
   get "/server/:server_name" do
-    {status, body} = {200, ServersController.get_server(conn)}
+    {status, body} = {200, CoreController.get_server(conn)}
+
+    send_resp(conn, status, body)
+  end
+
+  get "/server/create" do
+    {status, body} = {200, CoreController.create_server(conn)}
 
     send_resp(conn, status, body)
   end

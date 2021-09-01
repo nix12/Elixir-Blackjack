@@ -1,18 +1,16 @@
 defmodule Blackjack.Accounts.Supervisor do
   require Logger
 
-  use Supervisor
+  use DynamicSupervisor
 
-  def start_link(_) do
-    Logger.info("Starting Accounts Supervisor")
-    Supervisor.start_link(__MODULE__, :ok, name: :user_supervisor)
+  @registry Registry.Accounts
+
+  def start_link(_ \\ []) do
+    DynamicSupervisor.start_link(__MODULE__, :ok, name: Blackjack.via_tuple(@registry, __MODULE__))
   end
 
-  def init(:ok) do
-    children = [
-      {Blackjack.Accounts.Server, name: Blackjack.Accounts.Server}
-    ]
-
-    Supervisor.init(children, strategy: :one_for_one)
+  def init(_) do
+    Logger.info("Starting Accounts Server.")
+    DynamicSupervisor.init(strategy: :one_for_one)
   end
 end

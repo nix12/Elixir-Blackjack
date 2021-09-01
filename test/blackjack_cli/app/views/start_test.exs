@@ -1,6 +1,6 @@
 defmodule BlackjackCLI.Views.StartTest do
   use Blackjack.RepoCase, async: true
-  @doctest BlackjackCLI.Views.Start
+  @doctest BlackjackCLI.Views.Start.State
 
   import Ratatouille.Constants, only: [key: 1]
 
@@ -22,42 +22,57 @@ defmodule BlackjackCLI.Views.StartTest do
       initial_state: initial_state
     } do
       assert %{input: 1, user: _, screen: :start, token: nil, data: _} =
-               BlackjackCLI.Views.Start.update(initial_state, {:event, %{key: @down}})
+               BlackjackCLI.Views.Start.State.update(initial_state, {:event, %{key: @down}})
     end
 
     test "should move menu select down one when s key is pressed", %{
       initial_state: initial_state
     } do
       assert %{input: 1, user: _, screen: :start, token: nil, data: _} =
-               BlackjackCLI.Views.Start.update(initial_state, {:event, %{ch: ?s}})
+               BlackjackCLI.Views.Start.State.update(initial_state, {:event, %{ch: ?s}})
     end
 
     test "should move menu select up one when up arrow is pressed", %{
       initial_state: initial_state
     } do
       assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
-               BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{key: @up}})
+               BlackjackCLI.Views.Start.State.update(
+                 %{initial_state | input: 1},
+                 {:event, %{key: @up}}
+               )
     end
 
     test "should move menu select down one when w key is pressed", %{
       initial_state: initial_state
     } do
       assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
-               BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{ch: ?w}})
+               BlackjackCLI.Views.Start.State.update(
+                 %{initial_state | input: 1},
+                 {:event, %{ch: ?w}}
+               )
     end
 
     test "change screen when enter is pressed", %{
       initial_state: initial_state
     } do
-      %{input: 1, user: _, screen: :registration, token: nil, data: _} =
-        BlackjackCLI.Views.Start.update(%{initial_state | input: 1}, {:event, %{key: @enter}})
+      assert %{input: 1, user: _, screen: :registration, token: nil, data: _} =
+               BlackjackCLI.Views.Start.State.update(
+                 %{initial_state | input: 1},
+                 {:event, %{key: @enter}}
+               )
+
+      assert %{input: 0, user: _, screen: :login, token: nil, data: _} =
+               BlackjackCLI.Views.Start.State.update(
+                 %{initial_state | input: 0},
+                 {:event, %{key: @enter}}
+               )
     end
 
     test "should return state for all other input", %{
       initial_state: initial_state
     } do
       assert %{input: 0, user: _, screen: :start, token: nil, data: _} =
-               BlackjackCLI.Views.Start.update(initial_state, {:event, nil})
+               BlackjackCLI.Views.Start.State.update(initial_state, {:event, nil})
     end
   end
 end

@@ -1,10 +1,12 @@
 defmodule Blackjack.Accounts.User do
+  require Logger
   use Ecto.Schema
 
   import Ecto.Changeset
   import Bcrypt
 
-  @derive {Jason.Encoder, only: [:username]}
+  @derive {Jason.Encoder, only: [:username, :password_hash]}
+  @primary_key {:uuid, Ecto.UUID, autogenerate: true}
 
   schema "users" do
     field(:username, :string)
@@ -17,7 +19,7 @@ defmodule Blackjack.Accounts.User do
     user
     |> cast(params, [:username, :password_hash])
     |> validate_required([:username, :password_hash])
-    |> unique_constraint(:username)
+    |> unique_constraint([:username])
     |> put_pass_hash
   end
 

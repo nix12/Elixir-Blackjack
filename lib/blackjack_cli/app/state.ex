@@ -3,7 +3,8 @@ defmodule BlackjackCLI.App.State do
     Main state for frontend application
   """
   require Logger
-  alias Blackjack.Authentication.Guardian
+
+  alias Blackjack.Accounts.Authentication.Guardian
 
   alias BlackjackCLI.Views.{
     Start,
@@ -38,13 +39,8 @@ defmodule BlackjackCLI.App.State do
         put_in(@initial_state.data, list_servers)
 
       {:error, reason} ->
-        IO.inspect("ERROR")
         Logger.info("REASON: #{reason}")
     end
-
-    # Logger.info("RESPONSE: #{inspect(:httpc.request('http://localhost:4000/servers'))}")
-    # put_in(@initial_state.data, :httpc.request('http://localhost:4000/servers'))
-    # put_in(@initial_state.data, "SOMETHING!")
   end
 
   @spec update(map(), tuple()) :: map()
@@ -54,10 +50,10 @@ defmodule BlackjackCLI.App.State do
       #   check_token(model)
 
       {%{screen: :login} = model, _} ->
-        Login.update(model, msg)
+        Login.State.update(model, msg)
 
       {%{screen: :registration} = model, _} ->
-        Registration.update(model, msg)
+        Registration.State.update(model, msg)
 
       {%{screen: :account} = model, _} ->
         Account.update(model, msg)
@@ -81,10 +77,10 @@ defmodule BlackjackCLI.App.State do
         Dashboard.update(model, msg)
 
       {%{screen: :menu} = model, _} ->
-        Menu.update(model, msg)
+        Menu.State.update(model, msg)
 
       {%{token: nil} = model, _} ->
-        Start.update(model, msg)
+        Start.State.update(model, msg)
 
       {%{screen: :exit}, _} ->
         Application.stop(:blackjack)

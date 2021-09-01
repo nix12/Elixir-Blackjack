@@ -23,7 +23,7 @@ defmodule Blackjack.Application do
       {Task.Supervisor, name: Blackjack.TaskSupervisor},
       {Registry, keys: :unique, name: Registry.App},
       # {Ratatouille.Runtime.Supervisor,
-      #  runtime: [app: BlackjackCLI.App, quit_events: [{:key, 0x1B}]]},
+      #  runtime: [app: BlackjackCLI.App, interval: 100, quit_events: [{:key, 0x1B}]]},
       %{
         id: Task,
         start: {Task, :start, [&Blackjack.Core.Servers.start_all_servers/0]}

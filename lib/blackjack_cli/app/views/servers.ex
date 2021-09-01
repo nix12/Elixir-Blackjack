@@ -1,54 +1,52 @@
 defmodule BlackjackCLI.Views.Servers do
-  require Logger
-
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
   alias Ratatouille.Runtime.Command
   alias Blackjack.Core
-  alias BlackjackCLI.Controllers.ServersController
 
   @up key(:arrow_up)
   @down key(:arrow_down)
   @enter key(:enter)
   @tab key(:tab)
 
+  @spec update(any, any) :: any
   def update(model, msg) do
-    {:ok, {_, _, list_servers}} = model.data
-    list_servers = list_servers |> Jason.decode!()
-
     case msg do
+      {:event, %{key: @tab}} ->
+        switch_menus(model)
+
       {:event, %{ch: ?w}} ->
-        %{model | input: model.input - 1}
+        update_cmd(%{model | input: max(model.input - 1, 0), data: model.data})
 
       {:event, %{key: @down}} ->
-        updated_model = %{
-          model
-          | input: min(model.input + 1, length(list_servers) - 1)
-        }
-
-        update_cmd(updated_model)
+        if Map.has_key?(model, :menu) and model.menu == true do
+          %{model | input: model.input + 1}
+        else
+          update_cmd(%{
+            model
+            | input: min(model.input + 1, length(model.data) - 1)
+          })
+        end
 
       {:event, %{ch: ?s}} ->
-        %{model | input: model.input + 1}
+        update_cmd(%{
+          model
+          | input: min(model.input + 1, length(model.data) - 1)
+        })
 
       {:event, %{key: @up}} ->
-        updated_model = %{model | input: max(model.input - 1, 0), data: list_servers}
-
-        update_cmd(updated_model)
+        if Map.has_key?(model, :menu) and model.menu == true do
+          %{model | input: model.input - 1}
+        else
+          update_cmd(%{model | input: max(model.input - 1, 0), data: model.data})
+        end
 
       {:event, %{key: @enter}} ->
         if Map.has_key?(model, :menu) == false or model.menu == false do
-          %{"server_name" => server_name} = match_servers(list_servers, model.input)
+          %{"server_name" => server_name} = match_servers(model.data, model.input)
 
-          Logger.info(
-            inspect(~c(http://localhost:4000/server/#{server_name |> Blackjack.format_name()}))
-          )
-
-          Core.join_server(
-            model.user.username,
-            server_name
-          )
+          Core.join_server(model.user.username, server_name)
 
           %{
             model
@@ -69,23 +67,12 @@ defmodule BlackjackCLI.Views.Servers do
           end
         end
 
-      {:event, %{key: @tab}} ->
-        if Map.has_key?(model, :menu) == false or model.menu == false do
-          %{model | input: 0}
-          |> Map.put(:menu, true)
-        else
-          Map.put(model, :menu, false)
-        end
-
       _ ->
         model
     end
   end
 
   def render(model) do
-    {:ok, {_, _, list_servers}} = model.data
-    list_servers = list_servers |> Jason.decode!()
-
     view do
       panel title: "BLACKJACK" do
         row do
@@ -93,9 +80,9 @@ defmodule BlackjackCLI.Views.Servers do
             panel title: "Servers", height: 10 do
               viewport offset_y: scroll(model) do
                 Enum.with_index(
-                  list_servers,
-                  fn %{"server_name" => server_name}, idx ->
-                    if model.input == idx and
+                  model.data,
+                  fn %{"server_name" => server_name}, index ->
+                    if model.input == index and
                          (Map.has_key?(model, :menu) == false or
                             (Map.has_key?(model, :menu) == true and model.menu == false)) do
                       label(
@@ -115,7 +102,7 @@ defmodule BlackjackCLI.Views.Servers do
           column size: 8 do
             panel title: "Server Info", height: 10 do
               Enum.with_index(
-                list_servers,
+                model.data,
                 fn %{
                      "server_name" => server_name,
                      "player_count" => player_count,
@@ -175,24 +162,33 @@ defmodule BlackjackCLI.Views.Servers do
   end
 
   defp update_cmd(model) do
-    {:ok, {_, _, list_servers}} = :httpc.request('http://localhost:4000/servers')
-    list_servers = list_servers |> Jason.decode!()
+    list_servers =
+      if Enum.count(model.data) > 0 do
+        {:ok, {_, _, list_servers}} = :httpc.request('http://localhost:4000/servers')
+        list_servers |> Jason.decode!()
+      else
+        []
+      end
 
-    Command.new(
-      fn ->
-        list_servers
-      end,
-      :servers_updated
-    )
+    Command.new(fn -> list_servers end, :servers_updated)
 
     model
   end
 
-  def scroll(model) do
+  defp scroll(model) do
     if Map.has_key?(model, :menu) == false or model.menu == false do
       model.input
     else
       0
+    end
+  end
+
+  def switch_menus(model) do
+    if Map.has_key?(model, :menu) == false or model.menu == false do
+      %{model | input: 0}
+      |> Map.put(:menu, true)
+    else
+      Map.put(model, :menu, false)
     end
   end
 end

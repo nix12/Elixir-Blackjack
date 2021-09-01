@@ -28,7 +28,14 @@ defmodule BlackjackCLI.Views.CreateServer do
       {:event, %{key: @enter}} ->
         case ServersController.create_server(model.input) do
           {:ok, _server} ->
-            %{model | input: 0, screen: :servers}
+            {:ok, {_, _, list_servers}} = :httpc.request("http://localhost:4000/servers")
+
+            %{
+              model
+              | input: 0,
+                screen: :servers,
+                data: list_servers |> Jason.decode!()
+            }
 
           {:error, _server} ->
             %{model | input: model.input, screen: :create_server}

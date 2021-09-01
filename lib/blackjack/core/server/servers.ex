@@ -27,10 +27,10 @@ defmodule Blackjack.Core.Servers do
 
     server =
       case server_options do
-        {:create, server_name} ->
+        {:create, ^server_name} ->
           create(changeset)
 
-        {:start, server_name} ->
+        {:start, ^server_name} ->
           start(server_name)
       end
 
