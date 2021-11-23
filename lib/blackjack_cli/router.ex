@@ -12,6 +12,7 @@ defmodule BlackjackCLI.Router do
     CoreController
   }
 
+  System.get_env()
   plug(Plug.Logger)
   plug(:match)
 
@@ -26,13 +27,12 @@ defmodule BlackjackCLI.Router do
   # User routes
   post "/register" do
     {status, conn_or_errors} =
-      case AccountsController.register_user(conn) do
+      case AccountsController.create_user(conn) do
         {:ok, user} ->
           {201, assign(conn, :user, user)}
 
-        {:errors, error_message} ->
-          Logger.info(inspect(error_message))
-          {500, assign(conn, :errors, error_message)}
+        {:error, error_message} ->
+          {500, assign(conn, :error, error_message)}
       end
 
     send_resp(conn, status, Jason.encode!(conn_or_errors.assigns))
@@ -40,11 +40,10 @@ defmodule BlackjackCLI.Router do
 
   # Authentication routes
   post "/login" do
-    {status, conn_or_reason} =
+    {status, user_or_reason} =
       case AccountsController.login(conn) do
-        {:ok, conn} ->
-          Logger.info("USER: #{inspect(conn.assigns.user)}")
-          {200, conn}
+        {:ok, user} ->
+          {200, user}
 
         {:error, reason} ->
           {422, assign(conn, :errors, reason)}
@@ -53,12 +52,13 @@ defmodule BlackjackCLI.Router do
           {500, "Internal Server Error"}
       end
 
-    Logger.info("CONN OR REASON: #{inspect(conn_or_reason.assigns)}")
-    send_resp(conn, status, Jason.encode!(conn_or_reason.assigns))
+    Logger.error(user_or_reason)
+    send_resp(conn, status, user_or_reason)
   end
 
   delete "/logout" do
     {status, _body} = {200, AccountsController.logout(conn)}
+
     send_resp(conn, status, "User is logged out.")
   end
 
@@ -76,10 +76,22 @@ defmodule BlackjackCLI.Router do
     send_resp(conn, status, body)
   end
 
-  get "/server/create" do
+  post "/server/create" do
     {status, body} = {200, CoreController.create_server(conn)}
 
-    send_resp(conn, status, body)
+    send_resp(conn, status, Jason.encode!(body))
+  end
+
+  post "/server/:server_name/join" do
+    {status, _body} = {200, AccountsController.join_server(conn)}
+
+    send_resp(conn, status, "something")
+  end
+
+  post "/server/:server_name/leave" do
+    {status, _body} = {200, AccountsController.leave_server(conn)}
+
+    send_resp(conn, status, "something")
   end
 
   # Catch all routes and error handling.

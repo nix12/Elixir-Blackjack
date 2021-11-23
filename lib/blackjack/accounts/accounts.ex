@@ -1,14 +1,31 @@
 defmodule Blackjack.Accounts do
   require Logger
 
-  import Ecto.Query, only: [from: 2]
+  import Ecto.Query
   import Bcrypt
 
   alias Blackjack.Repo
-  alias Blackjack.Accounts.{Users, User}
+  alias Blackjack.Core
+  alias Blackjack.Accounts.{Users, User, Supervisor}
+
+  def register_user(conn) do
+    changeset = User.changeset(%User{}, conn.body_params["user"])
+
+    case Repo.insert(changeset) do
+      {:ok, user} ->
+        {:ok, user}
+
+      {:error, %{errors: [{field, {error, _}}]}} ->
+        {:error, "#{field} #{error}."}
+    end
+  end
 
   def authenticate_user(username, password) do
-    query = from(u in User, where: u.username == ^username)
+    query =
+      from(u in "users",
+        where: u.username == ^username,
+        select: [:username, :password_hash]
+      )
 
     case Repo.one(query) do
       nil ->
@@ -18,23 +35,33 @@ defmodule Blackjack.Accounts do
       user ->
         case check_pass(user, password) do
           {:error, reason} ->
-            Logger.error("PASSWORD: #{inspect(password)}")
-            Logger.error("USER PASS: #{inspect(user.password_hash)}")
-            Logger.error("CHECK PASS ERROR: #{inspect(reason)}")
             {:error, reason}
 
           {:ok, _hashed_password} ->
-            Logger.info("USER USER USER: #{inspect(user)}")
             {:ok, user}
         end
     end
   end
 
   def spawn_user(user) do
-    Users.start_link(user)
+    Supervisor.register(user)
   end
 
-  def get_user(uuid) do
-    Users.get_user(uuid)
+  def get_user(username) do
+    Users.get_user(username)
+  end
+
+  def join_server(username, server_name) do
+    # Users.join_server(username, server_name)
+    # Node.spawn_link(Node.self(), fn ->
+    Core.add_user_to_server(server_name, username)
+    # end)
+  end
+
+  def leave_server(username, server_name) do
+    # Users.leave_server(username, server_name)
+    # Node.spawn_link(Node.self(), fn ->
+    Core.remove_user_from_server(server_name, username)
+    # end)
   end
 end

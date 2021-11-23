@@ -2,7 +2,10 @@ defmodule BlackjackCLI.Views.RegistrationTest do
   use Blackjack.RepoCase
   @doctest BlackjackCLI.Views.Registration.State
 
+  import BlackjackTest.Helpers
   import Ratatouille.Constants, only: [key: 1]
+
+  alias BlackjackCLI.Views.Registration.State
 
   @space_bar key(:space)
   @tab key(:tab)
@@ -14,80 +17,71 @@ defmodule BlackjackCLI.Views.RegistrationTest do
     key(:backspace2)
   ]
 
-  setup do
+  setup_all do
     Application.stop(:blackjack)
     :ok = Application.start(:blackjack)
   end
 
-  setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :registration}]
+  setup_all do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blackjack.Repo)
+    Ecto.Adapters.SQL.Sandbox.mode(Blackjack.Repo, {:shared, self()})
   end
 
   setup do
-    BlackjackCLI.Views.Registration.State.start_registration()
+    [initial_state: %{BlackjackCLI.App.State.init() | screen: :registration, menu: false}]
+  end
+
+  setup do
+    State.start_registration()
+    BlackjackCLI.Views.Login.State.start_login()
 
     %{registry: Registry.Web}
   end
 
+  setup do
+    on_exit(fn ->
+      Blackjack.Repo.delete_all(Blackjack.Accounts.User)
+    end)
+  end
+
   describe "update/2" do
-    test "update registration agent username with state after tab", %{
-      initial_state: initial_state,
-      registry: registry
-    } do
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), fn registration ->
-               registration.tab_count
-             end) == 0
-
-      assert username(initial_state)
-
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), fn registration ->
-               registration.username
-             end) ==
-               "username"
-    end
-
-    test "update registration agent password with state after tab", %{
-      initial_state: initial_state,
-      registry: registry
-    } do
-      assert tab(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), & &1.tab_count) == 1
-      assert password(initial_state)
-
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), & &1.password) ==
-               "password"
-    end
-
-    test "update registration agent password confirmation with state after tab", %{
-      initial_state: initial_state,
-      registry: registry
-    } do
-      assert tab(initial_state)
-      assert password(initial_state)
-
-      assert %{input: "", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | screen: :registration},
-                 {:event, %{key: @tab}}
-               )
-
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), & &1.tab_count) == 2
-      assert password(initial_state)
-
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), & &1.password_confirmation) ==
-               "password"
-
-      assert Agent.get(Blackjack.via_tuple(registry, :registration), & &1.password) ==
-               Agent.get(Blackjack.via_tuple(registry, :registration), & &1.password_confirmation)
-    end
-
     test "behavior after pressing enter when password and password confirmation match",
          %{initial_state: initial_state, registry: registry} do
-      assert username(initial_state)
-      assert tab(initial_state)
-      assert password(initial_state)
-      assert tab(initial_state)
-      assert password(initial_state)
+      assert input(initial_state, State, %{input: "username"}) ==
+               %{
+                 input: "username",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{
+                 input: "password",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{
+                 input: "password",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
 
       assert %{
                errors: "",
@@ -97,32 +91,41 @@ defmodule BlackjackCLI.Views.RegistrationTest do
                tab_count: 2
              } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
 
-      assert enter(initial_state, :menu)
+      %{token: token} =
+        registered_user =
+        key(initial_state, @enter, State, %{
+          input: 0,
+          user: %{username: "username"},
+          screen: :login
+        })
+
+      assert registered_user ==
+               %{
+                 input: 0,
+                 user: %{username: "username"},
+                 screen: :login,
+                 token: token,
+                 data: [],
+                 menu: false
+               }
     end
 
     test "behavior after pressing enter when username, password, and password confirmation are empty",
          %{initial_state: initial_state, registry: registry} do
-      assert %{input: "", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: ""},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
 
-      assert tab(initial_state)
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
 
-      assert %{input: "", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: ""},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
 
-      assert tab(initial_state)
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
 
-      assert %{input: "", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: ""},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
 
       assert %{
                errors: "",
@@ -132,11 +135,19 @@ defmodule BlackjackCLI.Views.RegistrationTest do
                tab_count: 2
              } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
 
-      assert %{input: 0, user: _, screen: :registration, token: _, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 initial_state,
-                 {:event, %{key: @enter}}
-               )
+      assert key(initial_state, @enter, State, %{
+               input: 0,
+               user: nil,
+               screen: :registration
+             }) ==
+               %{
+                 input: 0,
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
 
       assert %{
                errors: "username cannot be blank.",
@@ -149,16 +160,41 @@ defmodule BlackjackCLI.Views.RegistrationTest do
 
     test "behavior after pressing enter when password and password confirmation do not match",
          %{initial_state: initial_state, registry: registry} do
-      assert username(initial_state)
-      assert tab(initial_state)
-      assert password(initial_state)
-      assert tab(initial_state)
+      assert input(initial_state, State, %{input: "username"}) ==
+               %{
+                 input: "username",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
 
-      assert %{input: "notpassword", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: "notpassword"},
-                 {:event, nil}
-               )
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{
+                 input: "password",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "notpassword"}) ==
+               %{
+                 input: "notpassword",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
 
       assert %{
                errors: "",
@@ -168,11 +204,11 @@ defmodule BlackjackCLI.Views.RegistrationTest do
                tab_count: 2
              } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
 
-      assert %{input: 0, user: _, screen: :registration, token: _, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 initial_state,
-                 {:event, %{key: @enter}}
-               )
+      assert key(initial_state, @enter, State, %{
+               input: 0,
+               screen: :registration
+             }) ==
+               %{input: 0, user: nil, screen: :registration, token: nil, data: [], menu: false}
 
       assert %{
                errors: "password and password_confirmation must match.",
@@ -183,66 +219,226 @@ defmodule BlackjackCLI.Views.RegistrationTest do
              } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
     end
 
+    test "registration of an already registered user",
+         %{initial_state: initial_state, registry: registry} do
+      mock_user("username", "password")
+
+      assert input(initial_state, State, %{input: "username"}) ==
+               %{
+                 input: "username",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{
+                 input: "password",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{
+                 input: "password",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert %{
+               errors: "",
+               username: "username",
+               password: "password",
+               password_confirmation: "password",
+               tab_count: 2
+             } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
+
+      assert key(initial_state, @enter, State, %{
+               input: "",
+               screen: :registration
+             }) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+    end
+
+    test "registration of an already registered user, but with wrong password",
+         %{initial_state: initial_state, registry: registry} do
+      mock_user("username", "password")
+
+      assert input(initial_state, State, %{input: "username"}) ==
+               %{
+                 input: "username",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "wrongpassword"}) ==
+               %{
+                 input: "wrongpassword",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "wrongpassword"}) ==
+               %{
+                 input: "wrongpassword",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert %{
+               errors: "",
+               username: "username",
+               password: "wrongpassword",
+               password_confirmation: "wrongpassword",
+               tab_count: 2
+             } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
+
+      assert key(initial_state, @enter, State, %{input: ""})
+    end
+
+    # test "login failure after redirect",
+    #      %{initial_state: initial_state, registry: registry} do
+    #   Agent.stop(Blackjack.via_tuple(registry, :login), :normal)
+
+    #   assert input(initial_state, State, %{input: "username"}) ==
+    #            %{
+    #              input: "username",
+    #              user: nil,
+    #              screen: :registration,
+    #              token: nil,
+    #              data: [],
+    #              menu: false
+    #            }
+
+    #   assert key(initial_state, @tab, State, %{input: ""}) ==
+    #            %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+    #   assert input(initial_state, State, %{input: "password"}) ==
+    #            %{
+    #              input: "password",
+    #              user: nil,
+    #              screen: :registration,
+    #              token: nil,
+    #              data: [],
+    #              menu: false
+    #            }
+
+    #   assert key(initial_state, @tab, State, %{input: ""}) ==
+    #            %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
+
+    #   assert input(initial_state, State, %{input: "password"}) ==
+    #            %{
+    #              input: "password",
+    #              user: nil,
+    #              screen: :registration,
+    #              token: nil,
+    #              data: [],
+    #              menu: false
+    #            }
+
+    #   assert %{
+    #            errors: "",
+    #            username: "username",
+    #            password: "password",
+    #            password_confirmation: "password",
+    #            tab_count: 2
+    #          } = Agent.get(Blackjack.via_tuple(registry, :registration), & &1)
+
+    #   %{token: token} =
+    #     registered_user =
+    #     key(initial_state, @enter, State, %{
+    #       input: 0,
+    #       user: %{username: "username"},
+    #       screen: :login
+    #     })
+
+    #   assert registered_user ==
+    #            %{
+    #              input: 0,
+    #              user: %{username: "username"},
+    #              screen: :login,
+    #              token: token,
+    #              data: [],
+    #              menu: false
+    #            }
+
+    #   assert %{
+    #            errors: "created account but failed to login due to server error.",
+    #            username: "",
+    #            password: "",
+    #            active: true
+    #          } = Agent.get(Blackjack.via_tuple(registry, :login), & &1)
+    # end
+
     test "character input", %{initial_state: initial_state} do
-      assert %{input: "a", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: ""},
-                 {:event, %{ch: ?a}}
-               )
+      assert input(initial_state, State, %{input: "a"}) ==
+               %{input: "a", user: nil, screen: :registration, token: nil, data: [], menu: false}
     end
 
     test "space bar input", %{initial_state: initial_state} do
-      assert %{input: " ", user: _, screen: :registration, token: nil, data: _} =
-               BlackjackCLI.Views.Registration.State.update(
-                 %{initial_state | input: ""},
-                 {:event, %{key: @space_bar}}
-               )
+      assert key(initial_state, @space_bar, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :registration, token: nil, data: [], menu: false}
     end
 
     test "character deletion", %{initial_state: initial_state} do
-      assert delete(initial_state, 0)
-      assert delete(initial_state, 1)
-      assert delete(initial_state, 2)
+      assert delete(initial_state, @delete_keys, 0, State, %{input: "asdf"}) ==
+               %{
+                 input: "asd",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert delete(initial_state, @delete_keys, 1, State, %{input: "asdf"}) ==
+               %{
+                 input: "asd",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
+
+      assert delete(initial_state, @delete_keys, 2, State, %{input: "asdf"}) ==
+               %{
+                 input: "asd",
+                 user: nil,
+                 screen: :registration,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
     end
-  end
-
-  defp username(initial_state, override \\ %{}) do
-    %{input: "username", user: _, screen: :registration, token: nil, data: _} =
-      BlackjackCLI.Views.Registration.State.update(
-        %{initial_state | input: "username"},
-        {:event, nil}
-      )
-  end
-
-  defp password(initial_state, override \\ %{}) do
-    %{input: "password", user: _, screen: :registration, token: nil, data: _} =
-      BlackjackCLI.Views.Registration.State.update(
-        %{initial_state | input: "password"},
-        {:event, nil}
-      )
-  end
-
-  defp tab(initial_state) do
-    %{input: "", user: _, screen: :registration, token: nil, data: _} =
-      BlackjackCLI.Views.Registration.State.update(
-        %{initial_state | screen: :registration},
-        {:event, %{key: @tab}}
-      )
-  end
-
-  def enter(initial_state, screen) do
-    %{input: _, user: _, screen: screen, token: _, data: _} =
-      BlackjackCLI.Views.Registration.State.update(
-        %{initial_state | input: ""},
-        {:event, %{key: @enter}}
-      )
-  end
-
-  defp delete(initial_state, index) do
-    %{input: "asd", user: _, screen: :registration, token: nil, data: _} =
-      BlackjackCLI.Views.Registration.State.update(
-        %{initial_state | input: "asdf"},
-        {:event, %{key: @delete_keys |> Enum.at(index)}}
-      )
   end
 end

@@ -5,7 +5,7 @@ defmodule Blackjack.MixProject do
     [
       app: :blackjack,
       version: "0.1.0",
-      elixir: "~> 1.12.0",
+      elixir: "~> 1.12.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -17,13 +17,14 @@ defmodule Blackjack.MixProject do
   def application do
     [
       mod: {Blackjack.Application, []},
-      applications: [:guardian, :bodyguard, :cachex],
       extra_applications: [
         :logger,
+        :guardian,
+        :bodyguard,
+        :cachex,
         :postgrex,
         :ecto,
         :plug_cowboy,
-        :pubsub,
         :ratatouille,
         :inets,
         :jason,
@@ -40,7 +41,6 @@ defmodule Blackjack.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:pubsub, "~> 1.0"},
       {:cowboy, "~> 2.8"},
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
@@ -48,14 +48,16 @@ defmodule Blackjack.MixProject do
       {:jason, "~> 1.2"},
       {:bcrypt_elixir, "~> 2.3"},
       {:ratatouille, "~> 0.5.1"},
-      {:gen_stage, "~> 1.0"},
       {:broadway, "~> 0.6.0"},
       {:oban, "~> 2.8"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:cachex, "~> 3.3"},
       {:distillery, "~> 2.1"},
       {:logger_file_backend, "~> 0.0"},
-      {:dotenvy, "~> 0.3.0"}
+      {:dotenvy, "~> 0.3.0"},
+      {:poolboy, "~> 1.5.2"},
+      {:libcluster, "~> 3.3"},
+      {:swarm, "~> 3.4"}
     ]
   end
 

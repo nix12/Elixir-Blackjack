@@ -12,16 +12,16 @@ defmodule BlackjackCLI.Views.Start.State do
   def update(model, msg) do
     case msg do
       {:event, %{ch: ?w}} ->
-        %{model | input: model.input - 1}
+        %{model | input: max(model.input - 1, 0)}
 
       {:event, %{key: @up}} ->
-        %{model | input: model.input - 1}
+        %{model | input: max(model.input - 1, 0)}
 
       {:event, %{ch: ?s}} ->
-        %{model | input: model.input + 1}
+        %{model | input: min(model.input + 1, length(screens()) - 1)}
 
       {:event, %{key: @down}} ->
-        %{model | input: model.input + 1}
+        %{model | input: min(model.input + 1, length(screens()) - 1)}
 
       {:event, %{key: @enter}} ->
         case match_screen(model.input) do
@@ -30,26 +30,25 @@ defmodule BlackjackCLI.Views.Start.State do
 
           :registration ->
             BlackjackCLI.Views.Registration.State.start_registration()
-            BlackjackCLI.Views.Login.State.start_login()
 
           :exit ->
             :exit
         end
 
-        %{model | screen: match_screen(model.input)}
+        %{model | screen: match_screen(model.input), menu: false}
 
       _ ->
         model
     end
   end
 
-  @spec screens() :: tuple()
+  @spec screens() :: list()
   defp screens do
-    {:login, :registration, :exit}
+    [:login, :registration, :exit]
   end
 
   @spec match_screen(integer()) :: atom()
   defp match_screen(index) do
-    Enum.find(screens() |> Tuple.to_list(), &(screens() |> elem(index) == &1))
+    Enum.find(screens(), &(screens() |> Enum.at(index) == &1))
   end
 end

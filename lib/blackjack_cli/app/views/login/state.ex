@@ -74,11 +74,17 @@ defmodule BlackjackCLI.Views.Login.State do
 
   defp update_user(%{input: input, screen: screen} = model) do
     if Agent.get(Blackjack.via_tuple(@registry, :login), & &1.active) do
-      Agent.update(Blackjack.via_tuple(@registry, :login), &%{&1 | username: input})
+      Agent.update(
+        Blackjack.via_tuple(@registry, :login),
+        &%{&1 | username: input}
+      )
 
       %{model | input: input, screen: screen}
     else
-      Agent.update(Blackjack.via_tuple(@registry, :login), &%{&1 | password: input})
+      Agent.update(
+        Blackjack.via_tuple(@registry, :login),
+        &%{&1 | password: input}
+      )
 
       %{model | input: input, screen: screen}
     end
@@ -88,12 +94,13 @@ defmodule BlackjackCLI.Views.Login.State do
     {:ok, {{_protocol, code, _message}, _meta, resource}} =
       :httpc.request(
         :post,
-        {'http://localhost:4000/login', [], 'application/json', Jason.encode!(user_data)},
+        {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [],
+         'application/json', Jason.encode!(user_data)},
         [],
         []
       )
 
-    IO.inspect(resource, label: "HERE HERE HERE")
+    Logger.info("RESOURCE: #{inspect(resource)}")
     {code, Jason.decode!(resource)}
   end
 
@@ -107,7 +114,8 @@ defmodule BlackjackCLI.Views.Login.State do
           | screen: :menu,
             token: resource["token"],
             input: 0,
-            user: %{username: resource["user"]["username"]}
+            user: %{username: resource["user"]["username"]},
+            menu: true
         }
 
       _ ->

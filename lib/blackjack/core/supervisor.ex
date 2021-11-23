@@ -3,15 +3,12 @@ defmodule Blackjack.Core.Supervisor do
 
   use DynamicSupervisor
 
-  alias Blackjack.Repo
-  alias Blackjack.Core.{Servers, Server}
-
-  @registry Registry.Core
+  alias Blackjack.Core.Servers
 
   # Client
 
-  def start_link(_) do
-    DynamicSupervisor.start_link(__MODULE__, :ok, name: Blackjack.via_tuple(@registry, __MODULE__))
+  def start_link(_ \\ []) do
+    DynamicSupervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   # Server
@@ -19,35 +16,27 @@ defmodule Blackjack.Core.Supervisor do
   @impl true
   def init(_) do
     Logger.info("Starting Core Supervisor.")
-
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  def list_servers_by_pid do
-    Task.async_stream(
-      children(),
-      fn {_, pid, _, _} ->
-        pid
-      end,
-      ordered: true
-    )
-    |> Enum.to_list()
-    |> Keyword.get_values(:ok)
+  @spec start_child(any) :: :ignore | {:error, any} | {:ok, pid} | {:ok, pid, any}
+  def start_child(server_options) do
+    child_spec = %{
+      id: Servers,
+      start: {Servers, :start_link, [server_options]},
+      restart: :transient
+    }
+
+    DynamicSupervisor.start_child(__MODULE__, child_spec)
   end
 
-  def list_servers_by_name do
-    Enum.map(list_servers_by_pid(), fn pid ->
-      Blackjack.unformat_name(Blackjack.name(@registry, pid))
-    end)
-  end
+  def register({_options, server_name, _username} = server_options) do
+    case Swarm.whereis_or_register_name(server_name, __MODULE__, :start_child, [server_options]) do
+      {:ok, pid} ->
+        Swarm.join(:servers, pid)
 
-  def children do
-    Blackjack.lookup(@registry, __MODULE__)
-    |> DynamicSupervisor.which_children()
-  end
-
-  def count_children do
-    Blackjack.lookup(@registry, __MODULE__)
-    |> DynamicSupervisor.count_children()
+      {:error, term} ->
+        Logger.info("ERROR JOINING SWARM: #{inspect(term)}")
+    end
   end
 end

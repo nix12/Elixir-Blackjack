@@ -1,12 +1,28 @@
 defmodule Blackjack do
-  # Development Commands
-
-  ###### END ######
+  require Logger
 
   # Utilities
 
+  def start_gui do
+    Supervisor.start_link(
+      [
+        {Ratatouille.Runtime.Supervisor,
+         runtime: [app: BlackjackCLI.App, interval: 100, quit_events: [{:key, 0x1B}]]}
+      ],
+      strategy: :one_for_one
+    )
+  end
+
+  def stop_gui do
+    Supervisor.stop(Ratatouille.Runtime.Supervisor, :normal)
+  end
+
   def via_tuple(registry, name) do
     {:via, Registry, {registry, name}}
+  end
+
+  def via_swarm(name) do
+    Swarm.whereis_name(name)
   end
 
   def format_name(name) do
@@ -31,12 +47,16 @@ defmodule Blackjack do
     Registry.keys(registry, pid) |> Enum.at(0)
   end
 
-  @spec blank?(string() | nil) :: boolean()
+  @spec blank?(charlist() | nil) :: boolean()
   def blank?(str_or_nil) do
     case str_or_nil do
       "" -> true
       nil -> true
       _ -> false
     end
+  end
+
+  def clear_string(string) do
+    String.replace(string, ~r/^#{string}+$/, "")
   end
 end

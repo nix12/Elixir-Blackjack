@@ -44,12 +44,6 @@ defmodule Blackjack.Core.Players do
     )
   end
 
-  def join_server(player_name, server_name) do
-    Logger.info("players #{inspect(player_name)}")
-    Logger.info("players2 #{inspect(Blackjack.lookup(@registry, player_name))}")
-    GenServer.call(Blackjack.lookup(@registry, player_name), {:join_server, server_name})
-  end
-
   # Server
 
   # Setup through top level api file
@@ -74,15 +68,6 @@ defmodule Blackjack.Core.Players do
   end
 
   @impl true
-  def handle_call({:join_server, server_name}, _from, player) do
-    # server = Repo.get_by!(Server, server_name: server_name)
-
-    [player.user_pid | Servers.server_players()]
-    Servers.cache_server_players(server_name)
-    {:reply, "#{Blackjack.name(@registry, player.user_pid)} joined server #{server_name}", player}
-  end
-
-  @impl true
   def handle_call({:join_table, table_name, player_name}, _from, player) do
     if check_table?(table_name) do
       Tables.update_table(
@@ -90,8 +75,8 @@ defmodule Blackjack.Core.Players do
         add_user_to_table(table_name)
       )
 
-      PubSub.subscribe(Blackjack.lookup(@registry, player_name), table_name)
-      PubSub.publish(table_name, {:join_message, table_name, player_name})
+      # PubSub.subscribe(Blackjack.lookup(@registry, player_name), table_name)
+      # PubSub.publish(table_name, {:join_message, table_name, player_name})
     else
       IO.inspect({:error, "Table is full or does not exist."})
     end
@@ -132,7 +117,7 @@ defmodule Blackjack.Core.Players do
   @impl true
   def handle_info({:hit, table_name, player_name}, player) do
     IO.puts("HITTING")
-    PubSub.publish(table_name, {:message, "#{player_name} hits."})
+    # PubSub.publish(table_name, {:message, "#{player_name} hits."})
     Dealers.deal_single(table_name, player_name)
 
     {:noreply, player}

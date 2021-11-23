@@ -10,6 +10,7 @@ defmodule Blackjack.Repo.Migrations.CreateUsersTable do
       timestamps()
     end
 
-    create(unique_index(:users, [:uuid, :username]))
+    create(unique_index(:users, [:uuid]))
+    create(unique_index(:users, [:username]))
   end
 end

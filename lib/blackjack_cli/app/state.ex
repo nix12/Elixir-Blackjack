@@ -4,8 +4,6 @@ defmodule BlackjackCLI.App.State do
   """
   require Logger
 
-  alias Blackjack.Accounts.Authentication.Guardian
-
   alias BlackjackCLI.Views.{
     Start,
     Login,
@@ -22,32 +20,26 @@ defmodule BlackjackCLI.App.State do
 
   @initial_state %{
     input: 0,
-    user: %{
-      username: ""
-    },
+    menu: true,
+    user: nil,
     screen: :start,
     token: nil,
-    data: nil
+    data: []
   }
 
   @spec init() :: map()
   def init() do
-    case :httpc.request('http://localhost:4000/servers') do
-      {:ok, {_, _, list_servers}} ->
-        list_servers = list_servers |> Jason.decode!()
+    Process.register(self(), :gui)
 
-        put_in(@initial_state.data, list_servers)
-
-      {:error, reason} ->
-        Logger.info("REASON: #{reason}")
-    end
+    [servers] = BlackjackCLI.get_servers()
+    put_in(@initial_state.data, servers)
   end
 
-  @spec update(map(), tuple()) :: map()
+  # @spec update(map(), tuple()) :: map()
   def update(model, msg) do
     case {model, msg} do
-      # {%{token: nil, user: %{username: nil}}, :check_token} ->
-      #   check_token(model)
+      {%{token: nil}, :check_token} ->
+        check_token(model)
 
       {%{screen: :login} = model, _} ->
         Login.State.update(model, msg)
@@ -58,11 +50,11 @@ defmodule BlackjackCLI.App.State do
       {%{screen: :account} = model, _} ->
         Account.update(model, msg)
 
-      {%{screen: :server} = model, _} ->
-        Server.update(model, msg)
+      {%{screen: :server} = model, msg} ->
+        Server.State.update(model, msg)
 
       {%{screen: :servers} = model, _} ->
-        Servers.update(model, msg)
+        Servers.State.update(model, msg)
 
       {%{screen: :create_server} = model, _} ->
         CreateServer.update(model, msg)
@@ -82,51 +74,19 @@ defmodule BlackjackCLI.App.State do
       {%{token: nil} = model, _} ->
         Start.State.update(model, msg)
 
-      {%{screen: :exit}, _} ->
-        Application.stop(:blackjack)
-
-      {%{token: nil}, _} ->
-        put_in(model.screen, :login)
-
-      {%{token: nil}, _} ->
-        put_in(model.screen, :registration)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :account)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :server)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :servers)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :create_server)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :games)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :search)
-
-      {%{token: "" <> _token}, _} ->
-        put_in(model.screen, :dashboard)
-
-      {%{token: "" <> _token}, msg} ->
-        put_in(model.screen, :menu)
-
       _ ->
         model
     end
   end
 
   defp check_token(model) do
-    case Guardian.encode_and_sign(model.user) do
-      {:ok, token, claim} ->
-        put_in(model.token, token)
+    case model.token do
+      token when is_nil(token) == false or token != "" ->
+        model
 
       _ ->
-        model
+        BlackjackCLI.Views.Login.State.start_login()
+        put_in(model.screen, :login)
     end
   end
 end

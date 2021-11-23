@@ -5,12 +5,16 @@ defmodule Blackjack.Accounts.User do
   import Ecto.Changeset
   import Bcrypt
 
-  @derive {Jason.Encoder, only: [:username, :password_hash]}
+  alias Blackjack.Core.Server
+
+  @derive {Jason.Encoder, only: [:uuid, :username, :password_hash]}
   @primary_key {:uuid, Ecto.UUID, autogenerate: true}
 
   schema "users" do
     field(:username, :string)
     field(:password_hash, :string)
+
+    has_one(:server, Server, foreign_key: :user_uuid)
 
     timestamps()
   end
@@ -19,7 +23,7 @@ defmodule Blackjack.Accounts.User do
     user
     |> cast(params, [:username, :password_hash])
     |> validate_required([:username, :password_hash])
-    |> unique_constraint([:username])
+    |> unique_constraint([:username, :uuid], name: :users_username_index)
     |> put_pass_hash
   end
 

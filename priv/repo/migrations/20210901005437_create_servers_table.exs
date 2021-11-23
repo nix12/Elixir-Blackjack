@@ -10,6 +10,6 @@ defmodule Blackjack.Repo.Migrations.CreateServersTable do
       timestamps()
     end
 
-    create(unique_index(:servers, [:server_name, :player_count]))
+    create(unique_index(:servers, [:server_name]))
   end
 end

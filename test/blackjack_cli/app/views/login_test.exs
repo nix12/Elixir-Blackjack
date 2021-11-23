@@ -1,8 +1,12 @@
 defmodule BlackjackCLI.Views.LoginTest do
   use Blackjack.RepoCase
   @doctest BlackjackCLI.Views.Login.State
+  use Plug.Test
 
+  import BlackjackTest.Helpers
   import Ratatouille.Constants, only: [key: 1]
+
+  alias BlackjackCLI.Views.Login.State
 
   @space_bar key(:space)
   @tab key(:tab)
@@ -14,170 +18,136 @@ defmodule BlackjackCLI.Views.LoginTest do
     key(:backspace2)
   ]
 
-  setup do
+  setup_all do
     Application.stop(:blackjack)
     :ok = Application.start(:blackjack)
   end
 
-  setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :login}]
+  setup_all do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blackjack.Repo)
+    Ecto.Adapters.SQL.Sandbox.mode(Blackjack.Repo, {:shared, self()})
   end
 
   setup do
-    BlackjackCLI.Views.Login.State.start_login()
+    mock_user("username", "password")
+    :ok
+  end
+
+  setup do
+    [initial_state: %{BlackjackCLI.App.State.init() | screen: :login, menu: false}]
+  end
+
+  setup do
+    State.start_login()
+
     %{registry: Registry.Web}
   end
 
+  setup do
+    on_exit(fn ->
+      Blackjack.Repo.delete_all(Blackjack.Accounts.User)
+    end)
+  end
+
   describe "update/2" do
-    test "update login agent username with state", %{
-      initial_state: initial_state,
-      registry: registry
-    } do
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.active) == true
-      assert username(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.username) == "username"
-    end
-
-    test " update login agent password with state", %{
-      initial_state: initial_state,
-      registry: registry
-    } do
-      assert tab(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.active) == false
-      assert password(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.password) == "password"
-    end
-
     test "update login agent username and password", %{
       initial_state: initial_state,
       registry: registry
     } do
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.active) == true
-      assert username(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.username) == "username"
-      assert tab(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.active) == false
-      assert password(initial_state)
-      assert Agent.get(Blackjack.via_tuple(registry, :login), & &1.password) == "password"
+      assert input(initial_state, State, %{input: "username"}) ==
+               %{input: "username", user: nil, screen: :login, token: nil, data: [], menu: false}
+
+      assert key(initial_state, @tab, State) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
+
+      assert input(initial_state, State, %{input: "password"}) ==
+               %{input: "password", user: nil, screen: :login, token: nil, data: [], menu: false}
 
       assert %{active: false, username: "username", password: "password", errors: ""} =
                Agent.get(Blackjack.via_tuple(registry, :login), & &1)
 
-      IO.inspect(Agent.get(Blackjack.via_tuple(registry, :login), & &1),
-        label: "INITIAL STATE FROM LOGIN"
-      )
+      %{token: token} = logged_in_user = key(initial_state, @enter, State)
 
-      assert enter(initial_state, :menu)
+      %{
+        input: 0,
+        user: %{username: "username"},
+        screen: :menu,
+        token: token,
+        data: [],
+        menu: true
+      } = logged_in_user
     end
 
     test "update agent login errors from no password or username", %{
       initial_state: initial_state,
       registry: registry
     } do
-      assert %{input: "", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: ""},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      tab(initial_state)
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      assert %{input: "", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: ""},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      assert %{active: false, username: "", password: "", errors: ""} =
+      assert key(initial_state, @enter, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
+
+      assert %{active: false, username: "", password: "", errors: "username cannot be blank."} =
                Agent.get(Blackjack.via_tuple(registry, :login), & &1)
-
-      assert enter(initial_state, :login)
     end
 
     test "update agent login errors from bad password", %{
       initial_state: initial_state,
       registry: registry
     } do
-      assert %{input: "badname", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: "badname"},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: "badname"}) ==
+               %{input: "badname", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      tab(initial_state)
+      assert key(initial_state, @tab, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      assert %{input: "notpassword", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: "notpassword"},
-                 {:event, nil}
-               )
+      assert input(initial_state, State, %{input: "notpassword"}) ==
+               %{
+                 input: "notpassword",
+                 user: nil,
+                 screen: :login,
+                 token: nil,
+                 data: [],
+                 menu: false
+               }
 
-      assert %{active: false, username: "badname", password: "notpassword", errors: ""} =
-               Agent.get(Blackjack.via_tuple(registry, :login), & &1)
+      assert key(initial_state, @enter, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
 
-      assert enter(initial_state, :login)
+      assert %{
+               active: false,
+               username: "badname",
+               password: "notpassword",
+               errors: "invalid_credentials"
+             } = Agent.get(Blackjack.via_tuple(registry, :login), & &1)
     end
 
     test "character input", %{initial_state: initial_state} do
-      assert %{input: "a", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: ""},
-                 {:event, %{ch: ?a}}
-               )
+      assert input(initial_state, State, %{input: "a", screen: :login}) ==
+               %{input: "a", user: nil, screen: :login, token: nil, data: [], menu: false}
     end
 
     test "space bar input", %{initial_state: initial_state} do
-      assert %{input: " ", user: _, screen: :login, token: nil, data: _} =
-               BlackjackCLI.Views.Login.State.update(
-                 %{initial_state | input: ""},
-                 {:event, %{key: @space_bar}}
-               )
+      assert key(initial_state, @space_bar, State, %{input: ""}) ==
+               %{input: "", user: nil, screen: :login, token: nil, data: [], menu: false}
     end
 
     test "character deletion", %{initial_state: initial_state} do
-      assert delete(initial_state, 0)
-      assert delete(initial_state, 1)
-      assert delete(initial_state, 2)
+      assert delete(initial_state, @delete_keys, 0, State, %{input: "asdf"}) ==
+               %{input: "asd", user: nil, screen: :login, token: nil, data: [], menu: false}
+
+      assert delete(initial_state, @delete_keys, 1, State, %{input: "asdf"}) ==
+               %{input: "asd", user: nil, screen: :login, token: nil, data: [], menu: false}
+
+      assert delete(initial_state, @delete_keys, 2, State, %{input: "asdf"}) ==
+               %{input: "asd", user: nil, screen: :login, token: nil, data: [], menu: false}
     end
-  end
-
-  defp username(initial_state) do
-    %{input: "username", user: _, screen: :login, token: nil, data: _} =
-      BlackjackCLI.Views.Login.State.update(
-        %{initial_state | input: "username"},
-        {:event, nil}
-      )
-  end
-
-  defp password(initial_state) do
-    %{input: "password", user: _, screen: :login, token: nil, data: _} =
-      BlackjackCLI.Views.Login.State.update(
-        %{initial_state | input: "password"},
-        {:event, nil}
-      )
-  end
-
-  defp tab(initial_state) do
-    %{input: "", user: _, screen: :login, token: nil, data: _} =
-      BlackjackCLI.Views.Login.State.update(
-        %{initial_state | screen: :login},
-        {:event, %{key: @tab}}
-      )
-  end
-
-  def enter(initial_state, screen) do
-    %{input: _, user: _, screen: screen, token: _, data: _} =
-      BlackjackCLI.Views.Login.State.update(
-        %{initial_state | input: ""},
-        {:event, %{key: @enter}}
-      )
-  end
-
-  defp delete(initial_state, index) do
-    %{input: "asd", user: _, screen: :login, token: nil, data: _} =
-      BlackjackCLI.Views.Login.State.update(
-        %{initial_state | input: "asdf"},
-        {:event, %{key: @delete_keys |> Enum.at(index)}}
-      )
   end
 end

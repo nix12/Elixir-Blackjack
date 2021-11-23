@@ -1,17 +1,43 @@
 defmodule BlackjackCLI.Views.ServersTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.Views.Servers
+  @doctest BlackjackCLI.Views.Servers.State
 
+  import BlackjackTest.Helpers
   import Ratatouille.Constants, only: [key: 1]
+
+  alias BlackjackCLI.Views.Servers.State
 
   @up key(:arrow_up)
   @down key(:arrow_down)
   @enter key(:enter)
   @tab key(:tab)
 
-  setup do
+  setup_all do
     Application.stop(:blackjack)
     :ok = Application.start(:blackjack)
+  end
+
+  setup_all do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blackjack.Repo)
+    Ecto.Adapters.SQL.Sandbox.mode(Blackjack.Repo, {:shared, self()})
+  end
+
+  setup_all do
+    for num <- 0..4 do
+      mock_server("server#{num}")
+    end
+  end
+
+  setup_all do
+    data = [
+      %{"player_count" => 0, "server_name" => "server0", "table_count" => 0},
+      %{"player_count" => 0, "server_name" => "server1", "table_count" => 0},
+      %{"player_count" => 0, "server_name" => "server2", "table_count" => 0},
+      %{"player_count" => 0, "server_name" => "server3", "table_count" => 0},
+      %{"player_count" => 0, "server_name" => "server4", "table_count" => 0}
+    ]
+
+    [data: data]
   end
 
   setup do
@@ -19,99 +45,97 @@ defmodule BlackjackCLI.Views.ServersTest do
   end
 
   describe "update/2" do
-    test "when tab is pressed", %{initial_state: initial_state} do
-      assert tab(initial_state)
-    end
-
-    test "should move the servers menu down 1 when down arrow is pressed", %{
-      initial_state: initial_state
+    test "should move the servers menu down one when down arrow is pressed", %{
+      initial_state: initial_state,
+      data: data
     } do
-      assert %{input: -1, user: _, screen: :servers, token: _, data: _} =
-               BlackjackCLI.Views.Servers.update(
-                 initial_state,
-                 {:event, %{key: @down}}
-               )
+      assert key(initial_state, @down, State, %{input: 1}) ==
+               %{input: 1, user: nil, screen: :servers, token: nil, data: data, menu: true}
     end
 
     test "should move menu select down one when s key is pressed", %{
-      initial_state: initial_state
+      initial_state: initial_state,
+      data: data
     } do
-      assert %{input: -1, user: _, screen: :servers, token: _, data: _} =
-               BlackjackCLI.Views.Servers.update(%{initial_state | input: 1}, {:event, %{ch: ?s}})
+      assert input(initial_state, State, %{input: ?s}) ==
+               %{input: 1, user: nil, screen: :servers, token: nil, data: data, menu: true}
     end
 
     test "should move menu select up one when up arrow is pressed", %{
-      initial_state: initial_state
+      initial_state: initial_state,
+      data: data
     } do
-      assert %{input: 0, user: _, screen: :servers, token: _, data: _} =
-               BlackjackCLI.Views.Servers.update(
-                 %{initial_state | input: 1},
-                 {:event, %{key: @up}}
-               )
+      assert key(initial_state, @up, State, %{input: 0, screen: :servers}) ==
+               %{input: 0, user: nil, screen: :servers, token: nil, data: data, menu: true}
     end
 
     test "should move menu select down one when w key is pressed", %{
-      initial_state: initial_state
+      initial_state: initial_state,
+      data: data
     } do
-      assert %{input: 0, user: _, screen: :servers, token: _, data: _} =
-               BlackjackCLI.Views.Servers.update(%{initial_state | input: 1}, {:event, %{ch: ?w}})
+      assert input(%{initial_state | input: 1}, State, %{input: ?s}) ==
+               %{input: 1, user: nil, screen: :servers, token: nil, data: data, menu: true}
     end
 
     test "should move from servers to server menu", %{
-      initial_state: initial_state
+      initial_state: initial_state,
+      data: data
     } do
-      assert tab(initial_state)
-
-      assert %{input: 0, user: _, screen: :servers, token: _, data: _} =
-               BlackjackCLI.Views.Servers.update(initial_state, {:event, nil})
+      assert key(initial_state, @tab, State, %{input: 0, menu: true}) ==
+               %{input: 0, user: nil, screen: :servers, token: nil, data: data, menu: true}
     end
 
-    test "should change screen based on servers menu options", %{initial_state: initial_state} do
-      updated_state =
-        BlackjackCLI.Views.Servers.update(
-          initial_state,
-          {:event, %{key: @tab}}
-        )
+    test "should change screen based on menu options", %{initial_state: initial_state, data: data} do
+      assert key(initial_state, @tab, State, %{menu: true, input: 0}) ==
+               %{input: 0, user: nil, screen: :servers, token: nil, data: data, menu: true}
 
-      assert %{input: 0, menu: true, user: _, screen: :servers, token: nil, data: _} =
-               BlackjackCLI.Views.Servers.update(
-                 updated_state,
-                 {:event, nil}
-               )
+      assert key(initial_state, @down, State, %{menu: true, input: 1}) ==
+               %{input: 1, user: nil, screen: :servers, token: nil, data: data, menu: true}
 
-      assert down_menu(updated_state, 0, :create_server)
-      assert down_menu(updated_state, 1, :find_server)
-      assert down_menu(updated_state, 2, :menu)
+      assert key(initial_state, @down, State, %{menu: true, input: 2}) ==
+               %{input: 2, user: nil, screen: :servers, token: nil, data: data, menu: true}
+
+      assert key(initial_state, @enter, State, %{input: 2, menu: true, screen: :menu}) ==
+               %{input: 2, user: nil, screen: :menu, token: nil, data: data, menu: true}
+    end
+
+    test "should change screen to chosen server", %{initial_state: initial_state} do
+      mock_user("username", "password")
+
+      BlackjackCLI.Views.Login.State.start_login()
+
+      assert input(initial_state, BlackjackCLI.Views.Login.State, %{
+               input: "username",
+               screen: :login
+             })
+
+      assert key(initial_state, @tab, BlackjackCLI.Views.Login.State, %{input: "", screen: :login})
+
+      assert input(initial_state, BlackjackCLI.Views.Login.State, %{
+               input: "password",
+               screen: :login
+             })
+
+      assert %{active: false, username: "username", password: "password", errors: ""} =
+               Agent.get(Blackjack.via_tuple(Registry.Web, :login), & &1)
+
+      assert key(initial_state, @enter, BlackjackCLI.Views.Login.State, %{
+               input: 0,
+               screen: :menu,
+               user: %{username: "username"}
+             })
+
+      assert key(initial_state, @enter, State, %{
+               screen: :server,
+               input: 0,
+               user: %{username: "username"}
+             })
     end
   end
 
   describe "switch_menus/1" do
     test "when :menu is not included in model", %{initial_state: initial_state} do
-      assert %{input: 0, menu: true, data: _, user: _, screen: :servers, token: _} =
-               BlackjackCLI.Views.Servers.switch_menus(initial_state)
+      assert key(initial_state, @tab, State, %{menu: true, input: 0})
     end
-
-    test "when :menu is included in model", %{initial_state: initial_state} do
-      updated_state = BlackjackCLI.Views.Servers.switch_menus(initial_state)
-
-      assert %{input: 0, menu: false, data: _, user: _, screen: :servers, token: _} =
-               BlackjackCLI.Views.Servers.switch_menus(%{updated_state | menu: true})
-    end
-  end
-
-  defp tab(initial_state) do
-    %{input: 0, user: _, screen: :servers, token: nil, data: _} =
-      BlackjackCLI.Views.Servers.update(
-        initial_state,
-        {:event, %{key: @tab}}
-      )
-  end
-
-  def down_menu(initial_state, index, screen) do
-    %{input: index, menu: true, user: _, screen: screen, token: _, data: _} =
-      BlackjackCLI.Views.Servers.update(
-        %{initial_state | input: index, screen: screen},
-        {:event, %{key: @down}}
-      )
   end
 end

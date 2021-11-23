@@ -1,4 +1,4 @@
 defmodule BlackjackTest do
-  use ExUnit.Case, async: true
+  use Blackjack.RepoCase
   doctest Blackjack
 end

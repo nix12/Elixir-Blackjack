@@ -4,6 +4,7 @@ defmodule BlackjackCLI.Views.Registration.State do
     and maintains form state by using an Agent
   """
   require Logger
+
   import Ratatouille.Constants, only: [key: 1]
 
   @registry Registry.Web
@@ -60,9 +61,9 @@ defmodule BlackjackCLI.Views.Registration.State do
 
         with :ok <- validate_username(user_data.user.username),
              :ok <- validate_password(password, password_confirmation) do
-          {code, _resource} = register_request(user_data)
+          {code, resource} = register_request(user_data)
 
-          register_verify(model, code, user_data)
+          register_verify(model, code, resource)
         else
           {:error, message} ->
             update_errors(message)
@@ -109,7 +110,10 @@ defmodule BlackjackCLI.Views.Registration.State do
       0 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          &%{&1 | username: input}
+          &%{
+            &1
+            | username: input
+          }
         )
 
         %{model | input: input, screen: screen}
@@ -117,7 +121,10 @@ defmodule BlackjackCLI.Views.Registration.State do
       1 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          &%{&1 | password: input}
+          &%{
+            &1
+            | password: input
+          }
         )
 
         %{model | input: input, screen: screen}
@@ -125,7 +132,10 @@ defmodule BlackjackCLI.Views.Registration.State do
       2 ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
-          &%{&1 | password_confirmation: input}
+          &%{
+            &1
+            | password_confirmation: input
+          }
         )
 
         %{model | input: input, screen: screen}
@@ -146,7 +156,21 @@ defmodule BlackjackCLI.Views.Registration.State do
     {:ok, {{_protocol, code, _message}, _meta, resource}} =
       :httpc.request(
         :post,
-        {'http://localhost:4000/register', [], 'application/json', Jason.encode!(user_data)},
+        {'http://localhost:#{Application.get_env(:blackjack, :port)}/register', [],
+         'application/json', Jason.encode!(user_data)},
+        [],
+        []
+      )
+
+    {code, Jason.decode!(resource)}
+  end
+
+  defp login_request(user) do
+    {:ok, {{_protocol, code, _message}, _meta, resource}} =
+      :httpc.request(
+        :post,
+        {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [],
+         'application/json', Jason.encode!(user)},
         [],
         []
       )
@@ -155,37 +179,32 @@ defmodule BlackjackCLI.Views.Registration.State do
     {code, Jason.decode!(resource)}
   end
 
-  defp login_request(user) do
-    {:ok, {{_protocol, code, _message}, _meta, resource}} =
-      :httpc.request(
-        :post,
-        {'http://localhost:4000/login', [], 'application/json', Jason.encode!(user)},
-        [],
-        []
-      )
-
-    {code, Jason.decode!(resource)}
-  end
-
   defp register_verify(model, code, user) do
+    user_data = %{
+      user: %{
+        username: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.username),
+        password_hash: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
+      }
+    }
+
     case code do
       code when code >= 200 and code < 300 ->
-        case login_request(user) do
-          {code, resource} when code >= 200 and code < 300 ->
+        case login_request(user_data) do
+          {login_code, resource} when login_code >= 200 and login_code < 300 ->
             Agent.stop(Blackjack.via_tuple(@registry, :registration), :normal)
-            %{model | input: 0, screen: :menu, token: resource["token"]}
+            %{model | input: 0, screen: :login, token: resource["token"]}
 
-          {_, error} ->
+          {_, _error} ->
             Agent.update(
               Blackjack.via_tuple(@registry, :login),
-              &%{&1 | errors: "created account but failed to login due to #{error["errors"]}"}
+              &%{&1 | errors: "created account but failed to login due to server error."}
             )
 
             %{model | input: 0, screen: :login}
         end
 
       _ ->
-        update_errors(user["errors"])
+        update_errors(user["error"])
         %{model | input: "", screen: :registration}
     end
   end

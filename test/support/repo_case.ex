@@ -8,6 +8,7 @@ defmodule Blackjack.RepoCase do
       import Ecto
       import Ecto.Query
       import Blackjack.RepoCase
+      import BlackjackTest.Helpers
     end
   end
 

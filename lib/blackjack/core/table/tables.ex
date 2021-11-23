@@ -122,23 +122,23 @@ defmodule Blackjack.Core.Tables do
 
   @impl true
   def handle_info({:table_action, action, player_pid}, table) do
-    case action do
-      :hit ->
-        send(
-          player_pid,
-          {:hit, Blackjack.name(@registry, self()), Blackjack.name(@registry, player_pid)}
-        )
+    # case action do
+    #   :hit ->
+    #     send(
+    #       player_pid,
+    #       {:hit, Blackjack.name(@registry, self()), Blackjack.name(@registry, player_pid)}
+    #     )
 
-      :stand ->
-        PubSub.publish(
-          Registry.keys(@registry, self()) |> Enum.at(0),
-          {:stand, Registry.keys(@registry, self()) |> Enum.at(0),
-           Registry.keys(@registry, player_pid) |> Enum.at(0)}
-        )
+    #   :stand ->
+    #     PubSub.publish(
+    #       Registry.keys(@registry, self()) |> Enum.at(0),
+    #       {:stand, Registry.keys(@registry, self()) |> Enum.at(0),
+    #        Registry.keys(@registry, player_pid) |> Enum.at(0)}
+    #     )
 
-      nil ->
-        IO.puts("SOMETHING WENT WRONG")
-    end
+    #   nil ->
+    #     IO.puts("SOMETHING WENT WRONG")
+    # end
 
     {:noreply, table}
   end
