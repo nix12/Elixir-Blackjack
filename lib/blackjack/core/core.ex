@@ -1,6 +1,10 @@
 defmodule Blackjack.Core do
+  require Logger
+
+  import Ecto.Query, only: [from: 2]
+
   alias Blackjack.Repo
-  alias Blackjack.Core.{Servers, Server, Supervisor}
+  alias Blackjack.Core.{Servers, Supervisor}
 
   # Player
 
@@ -12,19 +16,23 @@ defmodule Blackjack.Core do
   # Server
 
   def get_servers do
-    Repo.all(Server)
-    |> Enum.map(& &1)
-    |> Repo.preload(:user)
+    query =
+      from(s in "servers",
+        select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at]
+      )
+
+    Repo.all(query)
+    |> tap(&Logger.info("GET SERVERS: #{inspect(&1)}"))
     |> Jason.encode!()
   end
 
   def create_server(server_name, username) do
-    Supervisor.register({:create, server_name, username})
+    Supervisor.start_child({:create, server_name, username})
     |> then(fn _server -> get_server(server_name) end)
   end
 
   def get_server(server_name) do
-    Servers.get_server(server_name)
+    Servers.get_server(server_name) |> Jason.encode!()
   end
 
   def sync_server(server) do

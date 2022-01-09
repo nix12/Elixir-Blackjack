@@ -19,8 +19,6 @@ defmodule BlackjackCLI.Controllers.CoreController do
   # end
 
   def get_server(%{params: %{"server_name" => server_name}}) do
-    Core.get_server(server_name |> Blackjack.unformat_name())
-    |> Repo.preload(:user)
-    |> Jason.encode!()
+    Core.get_server(server_name)
   end
 end

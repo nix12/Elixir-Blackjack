@@ -16,6 +16,7 @@ defmodule BlackjackCLI.Views.Servers do
               viewport offset_y: scroll(model) do
                 if model.menu == false do
                   model.data
+                  |> Enum.sort_by(& &1["inserted_at"], :asc)
                   |> Enum.slice(
                     max(model.input - length(model.data), 0),
                     min(model.input + 7, length(model.data))
@@ -33,6 +34,7 @@ defmodule BlackjackCLI.Views.Servers do
                   end)
                 else
                   model.data
+                  |> Enum.sort_by(& &1["inserted_at"], :asc)
                   |> Enum.slice(0, 7)
                   |> Enum.map(fn %{"server_name" => server_name} ->
                     label(content: "#{server_name}")
@@ -46,7 +48,7 @@ defmodule BlackjackCLI.Views.Servers do
             panel title: "SERVER INFO", height: 10 do
               # if model.menu == false do
               Enum.with_index(
-                model.data,
+                model.data |> Enum.sort_by(& &1["inserted_at"], :asc),
                 fn %{
                      "server_name" => server_name,
                      "player_count" => player_count,

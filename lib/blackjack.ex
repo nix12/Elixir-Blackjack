@@ -21,8 +21,8 @@ defmodule Blackjack do
     {:via, Registry, {registry, name}}
   end
 
-  def via_swarm(name) do
-    Swarm.whereis_name(name)
+  def via_horde(opts) do
+    {:via, Horde.Registry, opts}
   end
 
   def format_name(name) do

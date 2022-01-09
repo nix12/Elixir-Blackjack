@@ -1,28 +1,55 @@
 defmodule Blackjack.Core.Server do
-  use Ecto.Schema
+  require Logger
 
   import Ecto.Changeset
 
-  alias Blackjack.Accounts.User
+  defstruct [
+    :server_name,
+    :user_uuid,
+    :inserted_at,
+    :updated_at,
+    table_count: 0,
+    player_count: 0,
+    lock_version: 1
+  ]
 
-  @derive {Jason.Encoder, only: [:server_name, :user_uuid, :table_count, :player_count]}
+  def prepare(%{} = server, params \\ %{}) do
+    types = %{
+      server_name: :string,
+      user_uuid: :string,
+      table_count: :integer,
+      player_count: :integer,
+      lock_version: :integer,
+      inserted_at: :utc_datetime,
+      updated_at: :utc_datetime
+    }
 
-  schema "servers" do
-    field(:server_name, :string)
-    field(:table_count, :integer, default: 0)
-    field(:player_count, :integer, default: 0)
-    field(:lock_version, :integer, default: 1)
-
-    belongs_to(:user, User, foreign_key: :user_uuid, references: :uuid, type: :string)
-
-    timestamps()
+    {server, types}
+    |> cast(params, Map.keys(types))
+    |> optimistic_lock(:lock_version)
+    |> validate_required([:server_name, :user_uuid])
+    |> unique_constraint(:server_name, name: :servers_server_name_index)
   end
 
-  def changeset(server, params \\ %{}) do
-    server
-    |> cast(params, [:server_name, :table_count, :player_count])
-    |> optimistic_lock(:lock_version)
-    |> validate_required([:server_name])
-    |> unique_constraint(:server_name)
+  def insert(%__MODULE__{} = record) do
+    changeset = prepare(record)
+
+    case changeset.valid? do
+      true ->
+        Blackjack.Repo.ups("servers", [changeset |> apply_changes() |> Map.from_struct()],
+          returning: [
+            :server_name,
+            :user_uuid,
+            :inserted_at,
+            :updated_at,
+            :table_count,
+            :player_count
+          ]
+        )
+
+      _ ->
+        Logger.info("ERROR")
+        {:error, %{changeset | action: :insert}}
+    end
   end
 end

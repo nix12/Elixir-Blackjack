@@ -45,7 +45,7 @@ defmodule BlackjackCLI.App do
   def render(%{screen: :menu} = model) when is_integer(model.input),
     do: Menu.render(model)
 
-  def render(%{screen: :login, token: nil} = model), do: Login.render(model)
+  def render(%{screen: :login} = model), do: Login.render(model)
   def render(%{screen: :registration, token: nil} = model), do: Registration.render(model)
   def render(%{screen: :servers} = model), do: Servers.render(model)
   def render(%{screen: :server} = model), do: Server.render(model)

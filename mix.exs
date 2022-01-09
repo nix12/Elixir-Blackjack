@@ -17,20 +17,7 @@ defmodule Blackjack.MixProject do
   def application do
     [
       mod: {Blackjack.Application, []},
-      extra_applications: [
-        :logger,
-        :guardian,
-        :bodyguard,
-        :cachex,
-        :postgrex,
-        :ecto,
-        :plug_cowboy,
-        :ratatouille,
-        :inets,
-        :jason,
-        :bcrypt_elixir,
-        :ecto_sql
-      ]
+      extra_applications: [:logger]
     ]
   end
 
@@ -45,7 +32,7 @@ defmodule Blackjack.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:bodyguard, "~> 2.4"},
-      {:jason, "~> 1.2"},
+      {:jason, "~> 1.3"},
       {:bcrypt_elixir, "~> 2.3"},
       {:ratatouille, "~> 0.5.1"},
       {:broadway, "~> 0.6.0"},
@@ -56,8 +43,9 @@ defmodule Blackjack.MixProject do
       {:logger_file_backend, "~> 0.0"},
       {:dotenvy, "~> 0.3.0"},
       {:poolboy, "~> 1.5.2"},
-      {:libcluster, "~> 3.3"},
-      {:swarm, "~> 3.4"}
+      {:libcluster, git: "https://github.com/bitwalker/libcluster.git", ref: "a18a19c"},
+      {:horde, "~> 0.8.5"},
+      {:pubsub, "~> 1.1.1"}
     ]
   end
 

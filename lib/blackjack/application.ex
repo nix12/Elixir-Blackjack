@@ -5,12 +5,19 @@ defmodule Blackjack.Application do
 
   @impl true
   def start(_type, _args) do
-    # topologies = Application.get_env(:libcluster, :topologies)
-
     children = [
-      {Cluster.Supervisor, [topologies(), [name: Blackjack.ClusterSupervisor]]},
-      # {Blackjack.Supervisor, []},
-      {Blackjack.Starter, [self()]},
+      {Cluster.Supervisor,
+       [Application.get_env(:libcluster, :topologies), [name: Blackjack.ClusterSupervisor]]},
+      {Blackjack.Repo, []},
+      {Plug.Cowboy,
+       scheme: :http,
+       plug: BlackjackCLI.Router,
+       options: [
+         port: Application.get_env(:blackjack, :port),
+         dispatch: dispatch()
+       ]},
+      {Blackjack.Supervisor, []},
+      {PubSub, name: Blackjack.Pubsub},
       {Registry, keys: :unique, name: Registry.Web},
       {Registry, keys: :unique, name: Registry.App},
       {Ratatouille.Runtime.Supervisor,
@@ -20,7 +27,14 @@ defmodule Blackjack.Application do
     Supervisor.start_link(children, strategy: :one_for_one)
   end
 
-  defp topologies do
-    [blackjack: [strategy: Cluster.Strategy.Gossip]]
+  defp dispatch do
+    [
+      {:_,
+       [
+         #  {"/", BlackjackCLI.Sockets.AuthenticationHandler, []},
+         {"/game/[...]", BlackjackCLI.Sockets.SocketHandler, []},
+         {:_, Plug.Cowboy.Handler, {BlackjackCLI.Router, []}}
+       ]}
+    ]
   end
 end

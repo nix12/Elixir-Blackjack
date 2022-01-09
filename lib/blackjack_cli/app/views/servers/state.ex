@@ -47,7 +47,7 @@ defmodule BlackjackCLI.Views.Servers.State do
         if model.menu == false do
           %{"server_name" => server_name} = match_servers(model.data, model.input)
 
-          BlackjackCLI.join_server(model)
+          BlackjackCLI.join_server(model.user.username, server_name)
           BlackjackCLI.subscribe_server(model)
           %{model | screen: :server, data: BlackjackCLI.get_server(server_name)}
         else

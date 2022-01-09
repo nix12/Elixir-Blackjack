@@ -26,6 +26,8 @@ defmodule BlackjackCLI.Controllers.AccountsController do
           |> tap(&get_user(&1))
           |> then(&Jason.encode!(&1.assigns))
 
+        Logger.info("ENCODED USER: #{inspect(user)}")
+
         {:ok, user}
     end
   end

@@ -77,7 +77,7 @@ defmodule BlackjackCLI.Router do
   end
 
   post "/server/create" do
-    {status, body} = {200, CoreController.create_server(conn)}
+    {status, body} = {201, CoreController.create_server(conn)}
 
     send_resp(conn, status, Jason.encode!(body))
   end

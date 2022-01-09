@@ -191,8 +191,19 @@ defmodule BlackjackCLI.Views.Registration.State do
       code when code >= 200 and code < 300 ->
         case login_request(user_data) do
           {login_code, resource} when login_code >= 200 and login_code < 300 ->
+            BlackjackCLI.Views.Login.State.start_login()
             Agent.stop(Blackjack.via_tuple(@registry, :registration), :normal)
-            %{model | input: 0, screen: :login, token: resource["token"]}
+
+            %{
+              model
+              | input: 0,
+                screen: :menu,
+                token: resource["token"],
+                user: %{
+                  username: resource["user"]["username"],
+                  password_hash: resource["user"]["password_hash"]
+                }
+            }
 
           {_, _error} ->
             Agent.update(

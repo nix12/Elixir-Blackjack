@@ -13,23 +13,25 @@ defmodule BlackjackCLI.Views.Server.State do
   def update(model, msg) do
     case msg do
       {:event, :subscribe_server} ->
-        %{data: [%{"server_name" => server_name}] = data} = model
-        response = Swarm.multi_call(server_name, {:sync_server, data})
-        collapsed_response = response |> Enum.uniq()
+        %{data: [%{"server_name" => server_name}]} = model
 
-        if Node.list() |> Enum.empty?() do
-          %{model | data: collapsed_response}
-        else
-          [ok: new_model] =
-            :erpc.multicall(Node.list(), fn ->
+        nodes =
+          Blackjack.Core.Supervisor
+          |> Horde.Cluster.members()
+          |> Enum.map_every(1, fn {_k, v} -> v end)
+
+        [{:ok, new_model} | _] =
+          :erpc.multicall(
+            nodes,
+            fn ->
               BlackjackCLI.App.update(
-                %{model | data: collapsed_response},
+                %{model | data: BlackjackCLI.get_server(server_name)},
                 :none
               )
-            end)
+            end
+          )
 
-          new_model
-        end
+        new_model
 
       {:event, %{key: @tab}} ->
         switch_menus(model)
@@ -78,16 +80,16 @@ defmodule BlackjackCLI.Views.Server.State do
               }
 
             :servers ->
-              :httpc.request(
-                :post,
-                {'http://localhost:#{Application.get_env(:blackjack, :port)}/server/#{server_name |> Blackjack.format_name()}/leave',
-                 [], 'application/json',
-                 Jason.encode!(%{server_name: server_name, username: model.user.username})},
-                [],
-                []
-              )
+              BlackjackCLI.leave_server(model.user.username, server_name)
 
-              %{model | screen: match_menu(model), input: 0, data: fetch_servers()}
+              %{
+                model
+                | screen: match_menu(model),
+                  input: 0,
+                  data:
+                    BlackjackCLI.get_servers()
+                    |> tap(&Logger.info("SWITCH TO SERVERS SCREEN: #{inspect(&1)}"))
+              }
 
             _ ->
               %{model | screen: match_menu(model), input: ""}
@@ -112,7 +114,7 @@ defmodule BlackjackCLI.Views.Server.State do
     # Setup to list tables
     list_servers =
       if Enum.count(model.data) > 0 and model.menu == false do
-        {:ok, {_, _, list_servers}} = BlackjackCLI.get_servers()
+        {:ok, {_, _, [list_servers]}} = BlackjackCLI.get_servers()
         list_servers |> Jason.decode!()
       else
         []
@@ -125,12 +127,5 @@ defmodule BlackjackCLI.Views.Server.State do
 
   defp switch_menus(model) do
     %{model | menu: !model.menu}
-  end
-
-  defp fetch_servers() do
-    {:ok, {_, _, list_servers}} =
-      :httpc.request("http://localhost:#{Application.get_env(:blackjack, :port)}/servers")
-
-    Jason.decode!(list_servers) |> tap(&Logger.info/1)
   end
 end

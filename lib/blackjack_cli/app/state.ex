@@ -30,9 +30,7 @@ defmodule BlackjackCLI.App.State do
   @spec init() :: map()
   def init() do
     Process.register(self(), :gui)
-
-    [servers] = BlackjackCLI.get_servers()
-    put_in(@initial_state.data, servers)
+    put_in(@initial_state.data, BlackjackCLI.get_servers())
   end
 
   # @spec update(map(), tuple()) :: map()

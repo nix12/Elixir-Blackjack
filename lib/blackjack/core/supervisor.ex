@@ -1,42 +1,44 @@
 defmodule Blackjack.Core.Supervisor do
   require Logger
 
-  use DynamicSupervisor
+  use Horde.DynamicSupervisor
 
   alias Blackjack.Core.Servers
 
   # Client
 
-  def start_link(_ \\ []) do
-    DynamicSupervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+  def start_link(_) do
+    Horde.DynamicSupervisor.start_link(__MODULE__, [strategy: :one_for_one, shutdown: 1000],
+      name: __MODULE__
+    )
   end
 
   # Server
 
   @impl true
-  def init(_) do
+  def init(init_arg) do
     Logger.info("Starting Core Supervisor.")
-    DynamicSupervisor.init(strategy: :one_for_one)
+
+    [strategy: :one_for_one, members: members()]
+    |> Keyword.merge(init_arg)
+    |> Horde.DynamicSupervisor.init()
   end
 
-  @spec start_child(any) :: :ignore | {:error, any} | {:ok, pid} | {:ok, pid, any}
   def start_child(server_options) do
     child_spec = %{
       id: Servers,
       start: {Servers, :start_link, [server_options]},
+      type: :worker,
       restart: :transient
     }
 
-    DynamicSupervisor.start_child(__MODULE__, child_spec)
+    Horde.DynamicSupervisor.start_child(
+      __MODULE__,
+      child_spec
+    )
   end
 
-  def register({_options, server_name, _username} = server_options) do
-    case Swarm.whereis_or_register_name(server_name, __MODULE__, :start_child, [server_options]) do
-      {:ok, pid} ->
-        Swarm.join(:servers, pid)
-
-      {:error, term} ->
-        Logger.info("ERROR JOINING SWARM: #{inspect(term)}")
-    end
+  defp members() do
+    Enum.map([Node.self() | Node.list()], &{__MODULE__, &1})
   end
 end

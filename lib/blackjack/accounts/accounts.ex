@@ -8,6 +8,18 @@ defmodule Blackjack.Accounts do
   alias Blackjack.Core
   alias Blackjack.Accounts.{Users, User, Supervisor}
 
+  # defmacrop uuid_eq(user_uuid) do
+  #   quote bind_quoted: [user_uuid: user_uuid] do
+  #     {:ok, binary_user_uuid} =
+  #       user_uuid |> Ecto.UUID.dump() |> tap(&Logger.info("DUMP: #{inspect(&1)}"))
+
+  #     {:ok, string_user_uuid} =
+  #       binary_user_uuid |> Ecto.UUID.load() |> tap(&Logger.info("LOAD: #{inspect(&1)}"))
+
+  #     unquote(string_user_uuid)
+  #   end
+  # end
+
   def register_user(conn) do
     changeset = User.changeset(%User{}, conn.body_params["user"])
 
@@ -23,9 +35,15 @@ defmodule Blackjack.Accounts do
   def authenticate_user(username, password) do
     query =
       from(u in "users",
-        where: u.username == ^username,
-        select: [:username, :password_hash]
+        where: [username: ^username],
+        select: %{
+          username: u.username,
+          password_hash: u.password_hash,
+          uuid: type(u.uuid, :string)
+        }
       )
+
+    # Logger.info("QUERY: #{inspect(Repo.one(query))}")
 
     case Repo.one(query) do
       nil ->
@@ -38,13 +56,15 @@ defmodule Blackjack.Accounts do
             {:error, reason}
 
           {:ok, _hashed_password} ->
+            Logger.info("RETURNED AUTH USER: #{inspect(user)}")
             {:ok, user}
         end
     end
   end
 
   def spawn_user(user) do
-    Supervisor.register(user)
+    Logger.info("SPAWN USER ACCOUNT: #{inspect(user)}")
+    Supervisor.start_child(user)
   end
 
   def get_user(username) do
@@ -52,16 +72,10 @@ defmodule Blackjack.Accounts do
   end
 
   def join_server(username, server_name) do
-    # Users.join_server(username, server_name)
-    # Node.spawn_link(Node.self(), fn ->
     Core.add_user_to_server(server_name, username)
-    # end)
   end
 
   def leave_server(username, server_name) do
-    # Users.leave_server(username, server_name)
-    # Node.spawn_link(Node.self(), fn ->
     Core.remove_user_from_server(server_name, username)
-    # end)
   end
 end
