@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Views.CreateServer.State do
+defmodule BlackjackCli.Views.CreateServer.State do
   require Logger
 
   import Ratatouille.Constants, only: [key: 1]

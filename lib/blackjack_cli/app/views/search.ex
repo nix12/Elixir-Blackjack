@@ -1,7 +1,7 @@
-defmodule BlackjackCLI.Views.Search do
+defmodule BlackjackCli.Views.Search do
   import Ratatouille.View
 
-  alias BlackjackCLI.Controllers.ServersController
+  alias BlackjackCli.Controllers.ServersController
 
   def update(model, msg), do: model
 

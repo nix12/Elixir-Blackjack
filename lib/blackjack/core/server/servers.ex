@@ -3,7 +3,7 @@ defmodule Blackjack.Core.Servers do
 
   use GenServer
 
-  import Ecto.Query
+  import Ecto.Query, only: [from: 2]
 
   alias Blackjack.{Repo, Accounts}
   alias Blackjack.Core.{CoreRegistry, Server, Supervisor, StateManager}

@@ -1,10 +1,10 @@
-defmodule BlackjackCLI.Views.Server do
+defmodule BlackjackCli.Views.Server do
   require Logger
 
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.Server.State
+  alias BlackjackCli.Views.Server.State
 
   @up key(:arrow_up)
   @down key(:arrow_down)

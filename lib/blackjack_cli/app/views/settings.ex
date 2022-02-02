@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Views.Settings do
+defmodule BlackjackCli.Views.Settings do
   import Ratatouille.View
 
   def update(model, msg), do: model

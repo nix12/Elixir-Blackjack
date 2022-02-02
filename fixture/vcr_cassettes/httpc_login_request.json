@@ -1,0 +1,26 @@
+[
+  {
+    "request": {
+      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username\"}}",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "http://localhost:4000/login"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"errors\":\"invalid credentials\"}",
+      "headers": {
+        "cache-control": "max-age=0, private, must-revalidate",
+        "content-length": "32",
+        "date": "Wed, 02 Feb 2022 02:06:11 GMT",
+        "server": "Cowboy"
+      },
+      "status_code": 422,
+      "type": "ok"
+    }
+  }
+]

@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Views.Registration.State do
+defmodule BlackjackCli.Views.Registration.State do
   @doc """
     Updates registration form state based on key and input actions
     and maintains form state by using an Agent
@@ -7,11 +7,13 @@ defmodule BlackjackCLI.Views.Registration.State do
 
   import Ratatouille.Constants, only: [key: 1]
 
-  @registry Registry.Web
+  @registry Registry.App
 
   @space_bar key(:space)
   @tab key(:tab)
   @enter key(:enter)
+  @up key(:arrow_up)
+  @down key(:arrow_down)
 
   @delete_keys [
     key(:delete),
@@ -38,6 +40,18 @@ defmodule BlackjackCLI.Views.Registration.State do
           | input: (model.input |> to_string |> String.replace(~r/^[[:digit:]]+$/, "")) <> " "
         })
 
+      {:event, %{ch: ?w}} ->
+        %{model | input: max(model.input - 1, 0)}
+
+      {:event, %{key: @up}} ->
+        %{model | input: max(model.input - 1, 0)}
+
+      {:event, %{ch: ?s}} ->
+        %{model | input: min(model.input + 1, length(menu()) - 1)}
+
+      {:event, %{key: @down}} ->
+        %{model | input: min(model.input + 1, length(menu()) - 1)}
+
       {:event, %{ch: ch}} when ch > 0 ->
         update_user(%{
           model
@@ -47,32 +61,30 @@ defmodule BlackjackCLI.Views.Registration.State do
         })
 
       {:event, %{key: @enter}} ->
-        password = Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
+        case model.menu do
+          false ->
+            register(model)
 
-        password_confirmation =
-          Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password_confirmation)
-
-        user_data = %{
-          user: %{
-            username: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.username),
-            password_hash: password
-          }
-        }
-
-        with :ok <- validate_username(user_data.user.username),
-             :ok <- validate_password(password, password_confirmation) do
-          {code, resource} = register_request(user_data)
-
-          register_verify(model, code, resource)
-        else
-          {:error, message} ->
-            update_errors(message)
-            %{model | input: model.input, screen: :registration}
+          _ ->
+            if match_menu(model) == :registration do
+              register(model)
+            else
+              %{model | screen: match_menu(model), input: 0}
+            end
         end
 
       _ ->
         update_user(model)
     end
+  end
+
+  defp menu do
+    [:start, :registration]
+  end
+
+  defp match_menu(model) do
+    menu()
+    |> Enum.at(model.input)
   end
 
   @doc """
@@ -140,6 +152,15 @@ defmodule BlackjackCLI.Views.Registration.State do
 
         %{model | input: input, screen: screen}
 
+      3 ->
+        case model.menu do
+          true ->
+            %{model | menu: false, input: ""}
+
+          _ ->
+            %{model | menu: true, input: 0}
+        end
+
       _ ->
         Agent.update(
           Blackjack.via_tuple(@registry, :registration),
@@ -175,7 +196,6 @@ defmodule BlackjackCLI.Views.Registration.State do
         []
       )
 
-    Logger.info(inspect(resource))
     {code, Jason.decode!(resource)}
   end
 
@@ -191,7 +211,7 @@ defmodule BlackjackCLI.Views.Registration.State do
       code when code >= 200 and code < 300 ->
         case login_request(user_data) do
           {login_code, resource} when login_code >= 200 and login_code < 300 ->
-            BlackjackCLI.Views.Login.State.start_login()
+            BlackjackCli.Views.Login.State.start_login()
             Agent.stop(Blackjack.via_tuple(@registry, :registration), :normal)
 
             %{
@@ -217,6 +237,31 @@ defmodule BlackjackCLI.Views.Registration.State do
       _ ->
         update_errors(user["error"])
         %{model | input: "", screen: :registration}
+    end
+  end
+
+  def register(model) do
+    password = Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
+
+    password_confirmation =
+      Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password_confirmation)
+
+    user_data = %{
+      user: %{
+        username: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.username),
+        password_hash: password
+      }
+    }
+
+    with :ok <- validate_username(user_data.user.username),
+         :ok <- validate_password(password, password_confirmation) do
+      {code, resource} = register_request(user_data)
+
+      register_verify(model, code, resource)
+    else
+      {:error, message} ->
+        update_errors(message)
+        %{model | input: model.input, screen: :registration}
     end
   end
 

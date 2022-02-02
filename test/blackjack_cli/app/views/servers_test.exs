@@ -1,11 +1,11 @@
-defmodule BlackjackCLI.Views.ServersTest do
+defmodule BlackjackCli.Views.ServersTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.Views.Servers.State
+  @doctest BlackjackCli.Views.Servers.State
 
-  import BlackjackTest.Helpers
+  import Blackjack.Helpers
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.Servers.State
+  alias BlackjackCli.Views.Servers.State
 
   @up key(:arrow_up)
   @down key(:arrow_down)
@@ -41,7 +41,7 @@ defmodule BlackjackCLI.Views.ServersTest do
   end
 
   setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :servers}]
+    [initial_state: %{BlackjackCli.App.State.init() | screen: :servers}]
   end
 
   describe "update/2" do
@@ -100,26 +100,28 @@ defmodule BlackjackCLI.Views.ServersTest do
     end
 
     test "should change screen to chosen server", %{initial_state: initial_state} do
-      mock_user("username", "password")
+      build(:custom_user, username: "username")
+      |> set_password("password")
+      |> insert()
 
-      BlackjackCLI.Views.Login.State.start_login()
+      BlackjackCli.Views.Login.State.start_login()
 
-      assert input(initial_state, BlackjackCLI.Views.Login.State, %{
+      assert input(initial_state, BlackjackCli.Views.Login.State, %{
                input: "username",
                screen: :login
              })
 
-      assert key(initial_state, @tab, BlackjackCLI.Views.Login.State, %{input: "", screen: :login})
+      assert key(initial_state, @tab, BlackjackCli.Views.Login.State, %{input: "", screen: :login})
 
-      assert input(initial_state, BlackjackCLI.Views.Login.State, %{
+      assert input(initial_state, BlackjackCli.Views.Login.State, %{
                input: "password",
                screen: :login
              })
 
       assert %{active: false, username: "username", password: "password", errors: ""} =
-               Agent.get(Blackjack.via_tuple(Registry.Web, :login), & &1)
+               Agent.get(Blackjack.via_tuple(Registry.App, :login), & &1)
 
-      assert key(initial_state, @enter, BlackjackCLI.Views.Login.State, %{
+      assert key(initial_state, @enter, BlackjackCli.Views.Login.State, %{
                input: 0,
                screen: :menu,
                user: %{username: "username"}

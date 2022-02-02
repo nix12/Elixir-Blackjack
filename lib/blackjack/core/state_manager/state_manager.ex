@@ -7,6 +7,7 @@ defmodule Blackjack.Core.StateManager do
 
   def prepare(%{} = state, params \\ %{}) do
     types = %{
+      # Change to lookup through association(schemaless)
       server_name: :string,
       data: :string,
       inserted_at: :utc_datetime,

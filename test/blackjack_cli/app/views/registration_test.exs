@@ -1,11 +1,11 @@
-defmodule BlackjackCLI.Views.RegistrationTest do
+defmodule BlackjackCli.Views.RegistrationTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.Views.Registration.State
+  @doctest BlackjackCli.Views.Registration.State
 
-  import BlackjackTest.Helpers
+  import Blackjack.Helpers
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.Registration.State
+  alias BlackjackCli.Views.Registration.State
 
   @space_bar key(:space)
   @tab key(:tab)
@@ -28,14 +28,14 @@ defmodule BlackjackCLI.Views.RegistrationTest do
   end
 
   setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :registration, menu: false}]
+    [initial_state: %{BlackjackCli.App.State.init() | screen: :registration, menu: false}]
   end
 
   setup do
     State.start_registration()
-    BlackjackCLI.Views.Login.State.start_login()
+    BlackjackCli.Views.Login.State.start_login()
 
-    %{registry: Registry.Web}
+    %{registry: Registry.App}
   end
 
   setup do
@@ -221,7 +221,9 @@ defmodule BlackjackCLI.Views.RegistrationTest do
 
     test "registration of an already registered user",
          %{initial_state: initial_state, registry: registry} do
-      mock_user("username", "password")
+      build(:custom_user, username: "username")
+      |> set_password("password")
+      |> insert()
 
       assert input(initial_state, State, %{input: "username"}) ==
                %{
@@ -276,7 +278,9 @@ defmodule BlackjackCLI.Views.RegistrationTest do
 
     test "registration of an already registered user, but with wrong password",
          %{initial_state: initial_state, registry: registry} do
-      mock_user("username", "password")
+      build(:custom_user, username: "username")
+      |> set_password("password")
+      |> insert()
 
       assert input(initial_state, State, %{input: "username"}) ==
                %{

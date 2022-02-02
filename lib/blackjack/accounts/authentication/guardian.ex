@@ -1,6 +1,6 @@
 defmodule Blackjack.Accounts.Authentication.Guardian do
   use Guardian, otp_app: :blackjack
-  require Logger
+
   alias Blackjack.Accounts
 
   def subject_for_token(%{username: username}, _claims) do
@@ -18,7 +18,7 @@ defmodule Blackjack.Accounts.Authentication.Guardian do
 
   def resource_from_claims(%{"sub" => username}) do
     resource = Accounts.get_user(username)
-    Logger.info("CLAIMS: #{inspect(resource)}")
+
     {:ok, resource}
   end
 

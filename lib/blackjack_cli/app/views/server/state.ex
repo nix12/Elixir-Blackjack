@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Views.Server.State do
+defmodule BlackjackCli.Views.Server.State do
   require Logger
 
   import Ratatouille.Constants, only: [key: 1]
@@ -24,8 +24,8 @@ defmodule BlackjackCLI.Views.Server.State do
           :erpc.multicall(
             nodes,
             fn ->
-              BlackjackCLI.App.update(
-                %{model | data: BlackjackCLI.get_server(server_name)},
+              BlackjackCli.App.update(
+                %{model | data: BlackjackCli.get_server(server_name)},
                 :none
               )
             end
@@ -76,18 +76,18 @@ defmodule BlackjackCLI.Views.Server.State do
             :reload ->
               %{
                 model
-                | data: BlackjackCLI.get_server(server_name)
+                | data: BlackjackCli.get_server(server_name)
               }
 
             :servers ->
-              BlackjackCLI.leave_server(model.user.username, server_name)
+              BlackjackCli.leave_server(model.user.username, server_name)
 
               %{
                 model
                 | screen: match_menu(model),
                   input: 0,
                   data:
-                    BlackjackCLI.get_servers()
+                    BlackjackCli.get_servers()
                     |> tap(&Logger.info("SWITCH TO SERVERS SCREEN: #{inspect(&1)}"))
               }
 
@@ -114,7 +114,7 @@ defmodule BlackjackCLI.Views.Server.State do
     # Setup to list tables
     list_servers =
       if Enum.count(model.data) > 0 and model.menu == false do
-        {:ok, {_, _, [list_servers]}} = BlackjackCLI.get_servers()
+        {:ok, {_, _, [list_servers]}} = BlackjackCli.get_servers()
         list_servers |> Jason.decode!()
       else
         []

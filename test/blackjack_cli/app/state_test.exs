@@ -1,6 +1,6 @@
-defmodule BlackjackCLI.App.StateTest do
+defmodule BlackjackCli.App.StateTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.App.State
+  @doctest BlackjackCli.App.State
 
   setup do
     Application.stop(:blackjack)
@@ -8,13 +8,13 @@ defmodule BlackjackCLI.App.StateTest do
   end
 
   setup do
-    [initial_state: BlackjackCLI.App.State.init()]
+    [initial_state: BlackjackCli.App.State.init()]
   end
 
   setup do
-    BlackjackCLI.Views.Login.State.start_login()
-    BlackjackCLI.Views.Registration.State.start_registration()
-    %{registry: Registry.Web}
+    BlackjackCli.Views.Login.State.start_login()
+    BlackjackCli.Views.Registration.State.start_registration()
+    %{registry: Registry.App}
   end
 
   describe "init/0" do
@@ -57,7 +57,7 @@ defmodule BlackjackCLI.App.StateTest do
       token: nil,
       data: _
     } =
-      BlackjackCLI.App.State.update(
+      BlackjackCli.App.State.update(
         %{initial_state | screen: screen},
         {:event, nil}
       )

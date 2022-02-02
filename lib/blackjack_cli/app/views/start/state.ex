@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Views.Start.State do
+defmodule BlackjackCli.Views.Start.State do
   import Ratatouille.Constants, only: [key: 1]
 
   @up key(:arrow_up)
@@ -8,7 +8,7 @@ defmodule BlackjackCLI.Views.Start.State do
    Updates the model state based upon keypress and
    menu selection
   """
-  @spec update(map(), tuple()) :: map()
+  @spec update(map(), {:event, map()} | map()) :: map()
   def update(model, msg) do
     case msg do
       {:event, %{ch: ?w}} ->
@@ -26,10 +26,10 @@ defmodule BlackjackCLI.Views.Start.State do
       {:event, %{key: @enter}} ->
         case match_screen(model.input) do
           :login ->
-            BlackjackCLI.Views.Login.State.start_login()
+            BlackjackCli.Views.Login.State.start_login()
 
           :registration ->
-            BlackjackCLI.Views.Registration.State.start_registration()
+            BlackjackCli.Views.Registration.State.start_registration()
 
           :exit ->
             :exit

@@ -1,10 +1,10 @@
-defmodule BlackjackCLI.App.State do
+defmodule BlackjackCli.App.State do
   @moduledoc """
     Main state for frontend application
   """
   require Logger
 
-  alias BlackjackCLI.Views.{
+  alias BlackjackCli.Views.{
     Start,
     Login,
     Registration,
@@ -30,7 +30,7 @@ defmodule BlackjackCLI.App.State do
   @spec init() :: map()
   def init() do
     Process.register(self(), :gui)
-    put_in(@initial_state.data, BlackjackCLI.get_servers())
+    put_in(@initial_state.data, BlackjackCli.get_servers())
   end
 
   # @spec update(map(), tuple()) :: map()
@@ -39,7 +39,7 @@ defmodule BlackjackCLI.App.State do
       {%{token: nil}, :check_token} ->
         check_token(model)
 
-      {%{screen: :login} = model, _} ->
+      {%{screen: :login}, _} ->
         Login.State.update(model, msg)
 
       {%{screen: :registration} = model, _} ->
@@ -83,7 +83,7 @@ defmodule BlackjackCLI.App.State do
         model
 
       _ ->
-        BlackjackCLI.Views.Login.State.start_login()
+        BlackjackCli.Views.Login.State.start_login()
         put_in(model.screen, :login)
     end
   end

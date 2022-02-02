@@ -1,11 +1,11 @@
-defmodule BlackjackCLI.Views.MenuTest do
+defmodule BlackjackCli.Views.MenuTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.Views.Menu.State
+  @doctest BlackjackCli.Views.Menu.State
 
-  import BlackjackTest.Helpers
+  import Blackjack.Helpers
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.Menu.State
+  alias BlackjackCli.Views.Menu.State
 
   @up key(:arrow_up)
   @down key(:arrow_down)
@@ -17,7 +17,7 @@ defmodule BlackjackCLI.Views.MenuTest do
   end
 
   setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :menu}]
+    [initial_state: %{BlackjackCli.App.State.init() | screen: :menu}]
   end
 
   describe "update/2" do
@@ -52,7 +52,11 @@ defmodule BlackjackCLI.Views.MenuTest do
     test "change screen when enter is pressed", %{
       initial_state: initial_state
     } do
-      {:ok, _resource} = mock_user("username", "password")
+      {:ok, _resource} =
+        build(:custom_user, username: "username")
+        |> set_password("password")
+        |> insert()
+
       {:ok, %{"user" => %{"username" => username}}} = mock_login("username", "password")
 
       assert key(initial_state, @enter, State, %{user: %{username: username}}) ==

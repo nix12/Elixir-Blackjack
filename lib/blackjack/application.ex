@@ -11,29 +11,46 @@ defmodule Blackjack.Application do
       {Blackjack.Repo, []},
       {Plug.Cowboy,
        scheme: :http,
-       plug: BlackjackCLI.Router,
+       plug: BlackjackCli.Router,
        options: [
-         port: Application.get_env(:blackjack, :port),
+         port: port(),
          dispatch: dispatch()
        ]},
       {Blackjack.Supervisor, []},
       {PubSub, name: Blackjack.Pubsub},
-      {Registry, keys: :unique, name: Registry.Web},
-      {Registry, keys: :unique, name: Registry.App},
-      {Ratatouille.Runtime.Supervisor,
-       runtime: [app: BlackjackCLI.App, interval: 100, quit_events: [{:key, 0x1B}]]}
+      {Registry, keys: :unique, name: Registry.App}
     ]
 
+    children =
+      if Mix.env() != :test do
+        [gui() | children]
+      else
+        children
+      end
+
     Supervisor.start_link(children, strategy: :one_for_one)
+  end
+
+  defp gui do
+    {Ratatouille.Runtime.Supervisor,
+     runtime: [app: BlackjackCli.App, interval: 100, quit_events: [{:key, 0x1B}]]}
+  end
+
+  defp port do
+    if Mix.env() == :test do
+      4000
+    else
+      Application.get_env(:blackjack, :port)
+    end
   end
 
   defp dispatch do
     [
       {:_,
        [
-         #  {"/", BlackjackCLI.Sockets.AuthenticationHandler, []},
-         {"/game/[...]", BlackjackCLI.Sockets.SocketHandler, []},
-         {:_, Plug.Cowboy.Handler, {BlackjackCLI.Router, []}}
+         #  {"/", BlackjackCli.Sockets.AuthenticationHandler, []},
+         {"/game/[...]", BlackjackCli.Sockets.SocketHandler, []},
+         {:_, Plug.Cowboy.Handler, {BlackjackCli.Router, []}}
        ]}
     ]
   end

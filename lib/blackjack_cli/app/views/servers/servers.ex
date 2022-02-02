@@ -1,9 +1,9 @@
-defmodule BlackjackCLI.Views.Servers do
+defmodule BlackjackCli.Views.Servers do
   require Logger
 
   import Ratatouille.View
 
-  alias BlackjackCLI.Views.Servers.State
+  alias BlackjackCli.Views.Servers.State
 
   def update(model, msg), do: State.update(model, msg)
 

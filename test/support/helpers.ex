@@ -1,16 +1,5 @@
-defmodule BlackjackTest.Helpers do
-  def mock_user(username, password) do
-    {:ok, {_status, _meta, resource}} =
-      :httpc.request(
-        :post,
-        {'http://localhost:4000/register', [], 'application/json',
-         Jason.encode!(%{user: %{username: username, password_hash: password}})},
-        [],
-        []
-      )
-
-    {:ok, resource}
-  end
+defmodule Blackjack.Helpers do
+  require Logger
 
   def mock_login(username, password) do
     {:ok, {_status, _meta, resource}} =
@@ -35,16 +24,21 @@ defmodule BlackjackTest.Helpers do
     )
   end
 
-  def input(initial_state, module_state, override \\ %{})
+  def input(initial_state, module, override \\ %{})
 
-  @spec input(%{:input => any, optional(any) => any}, any) :: any
-  def input(initial_state, module_state, override) when override.input |> is_bitstring do
-    charlist = override.input |> to_charlist |> tap(&IO.inspect(&1, label: "CHARLIST"))
-    state = Map.merge(initial_state, override)
-    state = %{state | input: ""}
+  def input(initial_state, module, override) when override.input |> is_bitstring do
+    charlist =
+      override.input
+      |> to_charlist
+      |> tap(&IO.inspect(&1, label: "CHARLIST"))
+
+    # Update intial_state with an empty input so the initial input is not include in the test.
+    state =
+      Map.merge(initial_state, %{override | input: ""})
+      |> tap(&IO.inspect(&1, label: "STATE"))
 
     for ch <- charlist do
-      module_state.update(state, {:event, %{ch: ch}})
+      module.update(state, {:event, %{ch: ch}})
     end
     |> Enum.reduce(
       state,
@@ -56,34 +50,39 @@ defmodule BlackjackTest.Helpers do
     )
   end
 
-  def input(initial_state, module_state, override) when override.input |> is_integer do
+  def input(initial_state, module, override) when override.input |> is_integer do
     charlist = override.input |> tap(&IO.inspect(&1, label: "CHARLIST"))
-    state = Map.merge(initial_state, override)
-    state = %{state | input: 0}
+    state = Map.merge(initial_state, %{override | input: 0})
 
-    %{input: _input, user: _user, screen: _screen, token: _token, data: _data, menu: _menu} =
-      module_state.update(state, {:event, %{ch: charlist}})
+    module.update(state, {:event, %{ch: charlist}})
   end
 
-  def key(initial_state, key, module_state, override \\ %{}) do
+  def key(initial_state, key, module, override \\ %{}) do
     state = Map.merge(initial_state, override)
+    IO.inspect(initial_state, label: "INITIAL STATE KEY")
 
     returned_state =
-      %{input: _input, user: _user, screen: _screen, token: _token, data: _data, menu: _menu} =
-      module_state.update(state, {:event, %{key: key}})
+      module.update(state, {:event, %{key: key}})
       |> tap(&IO.inspect(&1, label: "RETURNED STATE"))
 
     Map.merge(returned_state, override)
+    |> tap(&IO.inspect(&1, label: "MERGED KEY STATE"))
   end
 
-  @spec delete(map, any, integer, atom, map) :: boolean
-  def delete(initial_state, delete_keys, index, module_state, override \\ %{}) do
+  def delete(initial_state, delete_keys, index, module, override \\ %{}) do
     state = Map.merge(initial_state, override)
 
-    %{input: input, user: _user, screen: _screen, token: _token, data: _data} =
-      module_state.update(
-        state,
-        {:event, %{key: delete_keys |> Enum.at(index)}}
-      )
+    module.update(state, {:event, %{key: delete_keys |> Enum.at(index)}})
   end
+
+  # User Behaviour
+  # def get_user(user_params) do
+  #   IO.inspect("GET USER")
+  #   user_impl().get_user(user_params) |> tap(&IO.inspect(&1, label: "GET USER"))
+  # end
+
+  # defp user_impl() do
+  #   IO.inspect("USER IMPL")
+  #   Application.get_env(:blackjack, :user, UserImpl) |> tap(&IO.inspect("GET USER IMPL: #{&1}"))
+  # end
 end

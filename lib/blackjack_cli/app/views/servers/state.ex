@@ -1,10 +1,7 @@
-defmodule BlackjackCLI.Views.Servers.State do
-  require Logger
-
+defmodule BlackjackCli.Views.Servers.State do
   import Ratatouille.Constants, only: [key: 1]
 
   alias Ratatouille.Runtime.Command
-  alias BlackjackCLI.Controllers.AccountsController
 
   @up key(:arrow_up)
   @down key(:arrow_down)
@@ -21,7 +18,7 @@ defmodule BlackjackCLI.Views.Servers.State do
         update_cmd(%{model | input: max(model.input - 1, 0), data: model.data})
 
       {:event, %{key: @down}} ->
-        if model.menu == true do
+        if model.menu do
           %{model | input: min(model.input + 1, length(menu()) - 1), data: model.data}
         else
           update_cmd(%{
@@ -37,7 +34,7 @@ defmodule BlackjackCLI.Views.Servers.State do
         })
 
       {:event, %{key: @up}} ->
-        if model.menu == true do
+        if model.menu do
           %{model | input: max(model.input - 1, 0)}
         else
           update_cmd(%{model | input: max(model.input - 1, 0), data: model.data})
@@ -47,9 +44,9 @@ defmodule BlackjackCLI.Views.Servers.State do
         if model.menu == false do
           %{"server_name" => server_name} = match_servers(model.data, model.input)
 
-          BlackjackCLI.join_server(model.user.username, server_name)
-          BlackjackCLI.subscribe_server(model)
-          %{model | screen: :server, data: BlackjackCLI.get_server(server_name)}
+          BlackjackCli.join_server(model.user.username, server_name)
+          BlackjackCli.subscribe_server(model)
+          %{model | screen: :server, data: BlackjackCli.get_server(server_name)}
         else
           case match_menu(model) do
             :menu ->
@@ -84,10 +81,7 @@ defmodule BlackjackCLI.Views.Servers.State do
   defp update_cmd(model) do
     list_servers =
       if Enum.count(model.data) > 0 and model.menu == false do
-        {:ok, {_, _, list_servers}} =
-          :httpc.request('http://localhost:#{Application.get_env(:blackjack, :port)}/servers')
-
-        list_servers |> Jason.decode!()
+        BlackjackCli.get_servers()
       else
         []
       end

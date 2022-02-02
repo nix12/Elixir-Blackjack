@@ -1,4 +1,4 @@
-# defmodule BlackjackCLI.Sockets.SocketHandler do
+# defmodule BlackjackCli.Sockets.SocketHandler do
 #   @behaviour :cowboy_websocket
 
 #   def init(request, _state) do

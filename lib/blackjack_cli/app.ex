@@ -1,12 +1,12 @@
-defmodule BlackjackCLI.App do
+defmodule BlackjackCli.App do
   @behaviour Ratatouille.App
 
   require Logger
 
   alias Ratatouille.Runtime.Subscription
-  alias BlackjackCLI.App.State
+  alias BlackjackCli.App.State
 
-  alias BlackjackCLI.Views.{
+  alias BlackjackCli.Views.{
     Start,
     Login,
     Registration,

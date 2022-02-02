@@ -1,7 +1,7 @@
-defmodule BlackjackCLI.Views.Menu do
+defmodule BlackjackCli.Views.Menu do
   import Ratatouille.View
 
-  alias BlackjackCLI.Views.Menu.State
+  alias BlackjackCli.Views.Menu.State
 
   def update(model, msg), do: State.update(model, msg)
 

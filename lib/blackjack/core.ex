@@ -22,8 +22,6 @@ defmodule Blackjack.Core do
       )
 
     Repo.all(query)
-    |> tap(&Logger.info("GET SERVERS: #{inspect(&1)}"))
-    |> Jason.encode!()
   end
 
   def create_server(server_name, username) do

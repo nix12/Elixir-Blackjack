@@ -3,12 +3,11 @@ defmodule Blackjack.RepoCase do
 
   using do
     quote do
-      alias Blackjack.Repo
-
       import Ecto
       import Ecto.Query
-      import Blackjack.RepoCase
-      import BlackjackTest.Helpers
+      import Blackjack.{RepoCase, Helpers, Factory}
+
+      alias Blackjack.Repo
     end
   end
 

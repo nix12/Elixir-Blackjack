@@ -1,11 +1,11 @@
-defmodule BlackjackCLI.Views.StartTest do
+defmodule BlackjackCli.Views.StartTest do
   use Blackjack.RepoCase, async: true
-  @doctest BlackjackCLI.Views.Start.State
+  @doctest BlackjackCli.Views.Start.State
 
-  import BlackjackTest.Helpers
+  import Blackjack.Helpers
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.Start.State
+  alias BlackjackCli.Views.Start.State
 
   @up key(:arrow_up)
   @down key(:arrow_down)
@@ -17,7 +17,7 @@ defmodule BlackjackCLI.Views.StartTest do
   end
 
   setup do
-    [initial_state: BlackjackCLI.App.State.init()]
+    [initial_state: BlackjackCli.App.State.init()]
   end
 
   describe "update/2" do

@@ -1,12 +1,12 @@
-defmodule BlackjackCLI.Views.CreateServerTest do
+defmodule BlackjackCli.Views.CreateServerTest do
   use Blackjack.RepoCase
-  @doctest BlackjackCLI.Views.CreateServer.State
+  @doctest BlackjackCli.Views.CreateServer.State
   use Plug.Test
 
-  import BlackjackTest.Helpers
+  import Blackjack.Helpers
   import Ratatouille.Constants, only: [key: 1]
 
-  alias BlackjackCLI.Views.CreateServer.State
+  alias BlackjackCli.Views.CreateServer.State
 
   @space_bar key(:space)
   @tab key(:tab)
@@ -34,13 +34,13 @@ defmodule BlackjackCLI.Views.CreateServerTest do
   end
 
   setup do
-    [initial_state: %{BlackjackCLI.App.State.init() | screen: :create_server}]
+    [initial_state: %{BlackjackCli.App.State.init() | screen: :create_server}]
   end
 
   setup do
     mock_login("username", "password")
 
-    %{registry: Registry.Web}
+    %{registry: Registry.App}
   end
 
   setup do

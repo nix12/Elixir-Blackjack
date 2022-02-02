@@ -1,7 +1,7 @@
-defmodule BlackjackCLI.Views.CreateServer do
+defmodule BlackjackCli.Views.CreateServer do
   import Ratatouille.View
 
-  alias BlackjackCLI.Views.CreateServer.State
+  alias BlackjackCli.Views.CreateServer.State
 
   def update(model, msg), do: State.update(model, msg)
 

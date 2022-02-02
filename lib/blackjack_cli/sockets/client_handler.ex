@@ -1,7 +1,7 @@
-defmodule BlackjackCLI.Sockets.ClientHandler do
+defmodule BlackjackCli.Sockets.ClientHandler do
   @behaviour :cowboy_websocket
 
-  alias BlackjackCLI.Controllers.AuthenticationController
+  alias BlackjackCli.Controllers.AuthenticationController
 
   def init(request, _state) do
     state = %{registry_key: request.path}

@@ -1,4 +1,4 @@
-defmodule BlackjackCLI.Router do
+defmodule BlackjackCli.Router do
   require Logger
 
   use Plug.Router
@@ -7,12 +7,12 @@ defmodule BlackjackCLI.Router do
 
   import Plug.Conn
 
-  alias BlackjackCLI.Controllers.{
-    AccountsController,
-    CoreController
+  alias BlackjackCli.Controllers.{
+    RegistrationController,
+    AuthenticationController,
+    ServersController
   }
 
-  System.get_env()
   plug(Plug.Logger)
   plug(:match)
 
@@ -27,7 +27,7 @@ defmodule BlackjackCLI.Router do
   # User routes
   post "/register" do
     {status, conn_or_errors} =
-      case AccountsController.create_user(conn) do
+      case RegistrationController.create(conn) do
         {:ok, user} ->
           {201, assign(conn, :user, user)}
 
@@ -40,24 +40,25 @@ defmodule BlackjackCLI.Router do
 
   # Authentication routes
   post "/login" do
-    {status, user_or_reason} =
-      case AccountsController.login(conn) do
-        {:ok, user} ->
-          {200, user}
+    IO.inspect(conn, label: "ROUTER START")
 
-        {:error, reason} ->
-          {422, assign(conn, :errors, reason)}
+    case AuthenticationController.create(conn) do
+      {:ok, conn} ->
+        conn
+        |> resp(200, Jason.encode!(conn.assigns))
+        |> IO.inspect(label: "RESPONSE")
+        |> send_resp()
 
-        _ ->
-          {500, "Internal Server Error"}
-      end
-
-    Logger.error(user_or_reason)
-    send_resp(conn, status, user_or_reason)
+      {:error, conn} ->
+        conn
+        |> resp(422, Jason.encode!(conn.assigns))
+        |> IO.inspect(label: "RESPONSE")
+        |> send_resp()
+    end
   end
 
   delete "/logout" do
-    {status, _body} = {200, AccountsController.logout(conn)}
+    {status, _body} = {200, AuthenticationController.delete(conn)}
 
     send_resp(conn, status, "User is logged out.")
   end
@@ -65,19 +66,19 @@ defmodule BlackjackCLI.Router do
   # Server routes
 
   get "/servers" do
-    {status, body} = {200, CoreController.get_servers(conn)}
+    {status, body} = {200, ServersController.index(conn)}
 
-    send_resp(conn, status, body)
+    send_resp(conn, status, Jason.encode!(body))
   end
 
   get "/server/:server_name" do
-    {status, body} = {200, CoreController.get_server(conn)}
+    {status, body} = {200, ServersController.show(conn)}
 
-    send_resp(conn, status, body)
+    send_resp(conn, status, Jason.encode!(body))
   end
 
   post "/server/create" do
-    {status, body} = {201, CoreController.create_server(conn)}
+    {status, body} = {201, ServersController.create(conn)}
 
     send_resp(conn, status, Jason.encode!(body))
   end
@@ -101,6 +102,6 @@ defmodule BlackjackCLI.Router do
   end
 
   defp handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
-    send_resp(conn, conn.status, "Something went wrong!")
+    send_resp(conn, conn.status, %{errors: "Something went wrong!"})
   end
 end

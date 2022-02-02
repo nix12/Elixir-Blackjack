@@ -36,7 +36,7 @@ defmodule Blackjack.Core.Server do
 
     case changeset.valid? do
       true ->
-        Blackjack.Repo.ups("servers", [changeset |> apply_changes() |> Map.from_struct()],
+        Blackjack.Repo.insert_all("servers", [changeset |> apply_changes() |> Map.from_struct()],
           returning: [
             :server_name,
             :user_uuid,

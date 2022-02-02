@@ -35,7 +35,7 @@ defmodule Blackjack do
   def unformat_name(name) do
     name
     |> String.trim()
-    |> String.replace("_", " ")
+    |> String.replace("_", " ", global: true)
   end
 
   def lookup(registry, name) do
@@ -56,7 +56,20 @@ defmodule Blackjack do
     end
   end
 
-  def clear_string(string) do
-    String.replace(string, ~r/^#{string}+$/, "")
+  # Routes
+  def login_path(user_params) do
+    # :httpc.request(
+    #   :post,
+    #   {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [], 'application/json',
+    #    Jason.encode!(user_params)},
+    #   [],
+    #   []
+    # )
+
+    HTTPoison.post(
+      "http://localhost:#{Application.get_env(:blackjack, :port)}/login",
+      Jason.encode!(user_params),
+      [{"Content-Type", "application/json"}]
+    )
   end
 end

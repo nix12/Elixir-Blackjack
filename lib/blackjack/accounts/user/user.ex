@@ -1,20 +1,19 @@
 defmodule Blackjack.Accounts.User do
-  require Logger
   use Ecto.Schema
 
   import Ecto.Changeset
   import Bcrypt
 
-  alias Blackjack.Core.Server
+  # alias Blackjack.Core.Server
 
-  @derive {Jason.Encoder, only: [:uuid, :username, :password_hash]}
+  @derive {Jason.Encoder, only: [:uuid, :username, :password_hash, :inserted_at, :updated_at]}
   @primary_key {:uuid, Ecto.UUID, autogenerate: true}
 
   schema "users" do
     field(:username, :string)
     field(:password_hash, :string)
 
-    has_one(:server, Server, foreign_key: :user_uuid)
+    # has_one(:server, Server, foreign_key: :user_uuid)
 
     timestamps()
   end

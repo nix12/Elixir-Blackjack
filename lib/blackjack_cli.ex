@@ -1,4 +1,4 @@
-defmodule BlackjackCLI do
+defmodule BlackjackCli do
   require Logger
 
   def fetch_server(server_name) do

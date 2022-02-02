@@ -1,10 +1,10 @@
-defmodule BlackjackCLI.Views.Start do
+defmodule BlackjackCli.Views.Start do
   @moduledoc """
     Shows the start menu for the blackjack application
   """
   import Ratatouille.View
 
-  alias BlackjackCLI.Views.Start.State
+  alias BlackjackCli.Views.Start.State
 
   def update(model, msg), do: State.update(model, msg)
 
