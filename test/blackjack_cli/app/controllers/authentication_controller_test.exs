@@ -1,30 +1,22 @@
 defmodule BlackjackCli.Controllers.AuthenticationControllerTest do
   @doctest BlackjackCli.Controllers.AuthenticationController
-  use Blackjack.RepoCase
+  use Blackjack.RepoCase, async: true
   use Plug.Test
 
   alias BlackjackCli.Controllers.AuthenticationController
   alias BlackjackCli.Router
+  alias Blackjack.Accounts.User
 
-  @login_path 'http://localhost:#{Application.get_env(:blackjack, :port)}/login'
-
-  setup_all do
-    Application.stop(:blackjack)
-    :ok = Application.start(:blackjack)
-  end
-
-  setup_all do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blackjack.Repo)
-    Ecto.Adapters.SQL.Sandbox.mode(Blackjack.Repo, {:shared, self()})
-  end
+  @login_path "http://localhost:#{Application.compile_env(:blackjack, :port)}/login"
 
   setup do
-    build(:custom_user, username: "username") |> set_password("password") |> insert()
+    build(:custom_user) |> User.insert()
+
     :ok
   end
 
   describe "#create" do
-    test "succussful login with correct email and password" do
+    test "succussful login with correct username and password" do
       user_params = %{
         user: %{
           username: "username",

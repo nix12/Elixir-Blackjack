@@ -3,20 +3,6 @@ defmodule Blackjack do
 
   # Utilities
 
-  def start_gui do
-    Supervisor.start_link(
-      [
-        {Ratatouille.Runtime.Supervisor,
-         runtime: [app: BlackjackCLI.App, interval: 100, quit_events: [{:key, 0x1B}]]}
-      ],
-      strategy: :one_for_one
-    )
-  end
-
-  def stop_gui do
-    Supervisor.stop(Ratatouille.Runtime.Supervisor, :normal)
-  end
-
   def via_tuple(registry, name) do
     {:via, Registry, {registry, name}}
   end
@@ -54,22 +40,5 @@ defmodule Blackjack do
       nil -> true
       _ -> false
     end
-  end
-
-  # Routes
-  def login_path(user_params) do
-    # :httpc.request(
-    #   :post,
-    #   {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [], 'application/json',
-    #    Jason.encode!(user_params)},
-    #   [],
-    #   []
-    # )
-
-    HTTPoison.post(
-      "http://localhost:#{Application.get_env(:blackjack, :port)}/login",
-      Jason.encode!(user_params),
-      [{"Content-Type", "application/json"}]
-    )
   end
 end

@@ -56,17 +56,14 @@ defmodule Blackjack.Core.Servers do
         {:create, server_name, username} ->
           case create(Accounts.get_user(username), server_name) do
             {:ok, server} ->
-              Logger.info("IN CREATE")
               server
 
             {:error, new_server} ->
-              Logger.error(inspect(new_server))
               IO.inspect(new_server, label: "ERROR CREATING SERVER")
           end
 
         {:start, server_name, _username} ->
           start(server_name)
-          |> tap(&Logger.info("INIT START SERVER: #{inspect(&1)}"))
       end
 
     {:ok, server, {:continue, :load_state}}
@@ -78,15 +75,14 @@ defmodule Blackjack.Core.Servers do
   end
 
   def handle_call({:update_server, %{"server_name" => server_name}}, _from, _server) do
-    {_, [updated_server]} = Repo.update_all(query_by_server_name(server_name), [])
+    {_, [updated_server]} = Repo.update_all(update_by_server_name(server_name), [])
     {:reply, updated_server, updated_server}
   end
 
-  @impl true
   def handle_call({:add_user, server_name, username}, _from, _server) do
     join_server(server_name, username)
 
-    {_, [updated_server]} = Repo.update_all(query_by_server_name(server_name), [])
+    {_, [updated_server]} = Repo.update_all(update_by_server_name(server_name), [])
 
     updated_server =
       for {field, value} <- updated_server, into: %{} do
@@ -99,7 +95,7 @@ defmodule Blackjack.Core.Servers do
   def handle_call({:remove_user, server_name, username}, _from, _server) do
     leave_server(server_name, username)
 
-    {_, [updated_server]} = Repo.update_all(query_by_server_name(server_name), [])
+    {_, [updated_server]} = Repo.update_all(update_by_server_name(server_name), [])
 
     updated_server =
       for {field, value} <- updated_server, into: %{} do
@@ -116,9 +112,9 @@ defmodule Blackjack.Core.Servers do
 
   @impl true
   def terminate(_reason, server) do
-    for user <- PubSub.subscribers(server.server_name) do
+    Enum.each(PubSub.subscribers(server.server_name), fn user ->
       PubSub.unsubscribe(user, server.server_name)
-    end
+    end)
 
     save_state(%{server | player_count: player_count(server.server_name)})
   end
@@ -146,8 +142,6 @@ defmodule Blackjack.Core.Servers do
   end
 
   defp create(%{uuid: uuid}, server_name) do
-    Logger.info("CREATE SERVER: #{inspect(server_name)}: #{inspect(uuid)}")
-
     {_, [new_server]} =
       Server.insert(%Server{
         server_name: server_name |> to_string(),
@@ -156,19 +150,12 @@ defmodule Blackjack.Core.Servers do
         updated_at: DateTime.utc_now()
       })
 
-    Logger.info("POST CREATE SERVER: #{inspect(new_server)}")
     {:ok, new_server}
   end
 
   defp start(server_name) do
-    query =
-      from(s in "servers",
-        where: [server_name: ^server_name],
-        select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at]
-      )
-
-    case Repo.all(query) do
-      server when server == [] ->
+    case server_name |> query_servers |> Repo.all() do
+      [] ->
         Logger.info("Failed to start server #{inspect(server_name)}.")
 
       [server] ->
@@ -178,7 +165,14 @@ defmodule Blackjack.Core.Servers do
     end
   end
 
-  def query_by_server_name(server_name) do
+  defp query_servers(server_name) do
+    from(s in "servers",
+      select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at],
+      where: [server_name: ^server_name]
+    )
+  end
+
+  def update_by_server_name(server_name) do
     from(s in "servers",
       select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at],
       where: [server_name: ^server_name],
@@ -187,7 +181,7 @@ defmodule Blackjack.Core.Servers do
   end
 
   def save_state(server) do
-    StateManager.insert(%Blackjack.Core.StateManager{
+    StateManager.insert(%{
       server_name: server["server_name"],
       data: Jason.encode!(server),
       inserted_at: DateTime.utc_now(),
@@ -203,9 +197,9 @@ defmodule Blackjack.Core.Servers do
       )
 
     case Repo.all(query) do
-      server when server == [] ->
+      [] ->
         Logger.info("Failed to retrieve server data for #{inspect(server.server_name)}.")
-        nil
+        server.server_name |> start()
 
       [%{server_name: server_name, data: data}] ->
         Logger.info("Retreiving server data for #{inspect(server_name)}.")

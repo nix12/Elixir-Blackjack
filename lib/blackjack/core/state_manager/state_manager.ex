@@ -20,12 +20,12 @@ defmodule Blackjack.Core.StateManager do
     |> validate_required([:data])
   end
 
-  def insert(%__MODULE__{} = record) do
+  def insert(%{} = record) do
     changeset = prepare(record)
 
     case changeset.valid? do
       true ->
-        Blackjack.Repo.insert_all("states", [changeset |> apply_changes() |> Map.from_struct()],
+        Blackjack.Repo.insert_all("states", [changeset |> apply_changes()],
           on_conflict: {:replace, [:data]},
           conflict_target: :server_name
         )

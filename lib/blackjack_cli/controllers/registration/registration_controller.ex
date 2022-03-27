@@ -1,16 +1,22 @@
 defmodule BlackjackCli.Controllers.RegistrationController do
-  alias Blackjack.Repo
+  import Plug.Conn
+
   alias Blackjack.Accounts.User
 
-  def create(conn) do
-    changeset = User.changeset(%User{}, conn.body_params["user"])
-
-    case Repo.insert(changeset) do
+  def create(
+        %{params: %{"user" => %{"username" => username, "password_hash" => password}}} = conn
+      ) do
+    case User.insert(%{
+           username: username,
+           password_hash: password,
+           inserted_at: DateTime.utc_now(),
+           updated_at: DateTime.utc_now()
+         }) do
       {:ok, user} ->
-        {:ok, user}
+        {:ok, assign(conn, :user, %{user | uuid: user.uuid |> Ecto.UUID.load!()})}
 
-      {:error, %{errors: [{field, {error, _}}]}} ->
-        {:error, "#{field} #{error}."}
+      {:errors, error} ->
+        {:errors, assign(conn, :errors, error)}
     end
   end
 end

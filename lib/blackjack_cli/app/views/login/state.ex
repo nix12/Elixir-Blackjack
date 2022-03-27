@@ -19,7 +19,7 @@ defmodule BlackjackCli.Views.Login.State do
   ]
 
   @type model() :: Map.t()
-  @type event() :: Tuple.t()
+  @type event() :: {atom(), map()}
 
   @doc """
     Takes a model and an event to evaluate and update login view.
@@ -33,7 +33,7 @@ defmodule BlackjackCli.Views.Login.State do
         update_user(%{model | input: ""})
 
       {:event, %{key: key}} when key in @delete_keys ->
-        update_user(%{model | input: String.slice(model.input, 0..-2)})
+        delete_input(model)
 
       {:event, %{key: @space_bar}} ->
         update_user(%{
@@ -42,15 +42,7 @@ defmodule BlackjackCli.Views.Login.State do
         })
 
       {:event, %{ch: ch}} when ch > 0 ->
-        case model.input do
-          0 ->
-            # Changes the input from integer to empty string to be operated on for input.
-            update_user(%{model | input: "" <> <<ch::utf8>>})
-
-          input ->
-            # replace_prefix is meant to clear the string before each character input.
-            update_user(%{model | input: String.replace_prefix(input, input, "") <> <<ch::utf8>>})
-        end
+        ch_input(model, ch)
 
       {:event, %{ch: ?w}} ->
         %{model | input: max(model.input - 1, 0)}
@@ -65,21 +57,15 @@ defmodule BlackjackCli.Views.Login.State do
         %{model | input: min(model.input + 1, length(menu()) - 1)}
 
       {:event, %{key: @enter}} ->
-        case model.menu == true do
-          false ->
-            login(model) |> tap(&IO.inspect/1)
-
-          _ ->
-            if match_menu(model) == :login do
-              login(model)
-            else
-              %{model | screen: match_menu(model), input: 0}
-            end
-        end
+        enter(model)
 
       _ ->
         update_user(model)
     end
+  end
+
+  def start_login do
+    LoginForm.start_link(:ok)
   end
 
   defp menu do
@@ -89,10 +75,6 @@ defmodule BlackjackCli.Views.Login.State do
   defp match_menu(model) do
     menu()
     |> Enum.at(model.input)
-  end
-
-  def start_login do
-    LoginForm.start_link(:ok)
   end
 
   defp update_user(%{input: input, screen: screen} = model) do
@@ -106,13 +88,7 @@ defmodule BlackjackCli.Views.Login.State do
         %{model | input: input, screen: screen}
 
       2 ->
-        case model.menu do
-          true ->
-            %{model | menu: false, input: ""}
-
-          _ ->
-            %{model | menu: true, input: 0}
-        end
+        tab_menu(model)
 
       _ ->
         LoginForm.update_field(:tab_count, 0)
@@ -121,16 +97,9 @@ defmodule BlackjackCli.Views.Login.State do
   end
 
   defp login_request(user_params) do
-    {:ok, {{_protocol, code, _message}, _meta, resource}} =
-      :httpc.request(
-        :post,
-        {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [],
-         'application/json', Jason.encode!(user_params)},
-        [],
-        []
-      )
+    %HTTPoison.Response{body: body, status_code: code} = BlackjackCli.login_path(user_params)
 
-    {code, Jason.decode!(resource)}
+    {:ok, code, Jason.decode!(body)}
   end
 
   defp login_verify(model, code, resource) do
@@ -148,9 +117,8 @@ defmodule BlackjackCli.Views.Login.State do
         }
 
       _ ->
-        IO.inspect("LOGIN VERIFY ERROR")
         LoginForm.update_field(:errors, resource["errors"])
-        %{model | screen: :login, token: nil}
+        %{model | screen: :login, token: ""}
     end
   end
 
@@ -163,9 +131,8 @@ defmodule BlackjackCli.Views.Login.State do
     }
 
     with :ok <- validate_username(user_params.user.username),
-         :ok <- validate_password(user_params.user.password_hash) do
-      {code, resource} = login_request(user_params)
-
+         :ok <- validate_password(user_params.user.password_hash),
+         {:ok, code, resource} <- login_request(user_params) do
       login_verify(model, code, resource)
     else
       {:error, message} ->
@@ -191,6 +158,65 @@ defmodule BlackjackCli.Views.Login.State do
 
       _ ->
         :ok
+    end
+  end
+
+  defp ch_input(model, ch) do
+    case model.input do
+      0 ->
+        # Changes the input from integer to empty string to be operated on for input.
+        update_user(%{model | input: "" <> <<ch::utf8>>})
+
+      input ->
+        # replace_prefix is meant to clear the string before each character input.
+        update_user(%{model | input: String.replace_prefix(input, input, "") <> <<ch::utf8>>})
+    end
+  end
+
+  @spec delete_input(map()) :: map()
+  defp delete_input(model) do
+    case LoginForm.get_field(:tab_count) do
+      0 ->
+        username = LoginForm.get_field(:username)
+
+        LoginForm.update_field(:username, "")
+        update_user(%{model | input: String.slice(username, 0..-2)})
+
+      1 ->
+        password = LoginForm.get_field(:password)
+
+        LoginForm.update_field(:password, "")
+        update_user(%{model | input: String.slice(password, 0..-2)})
+
+      2 ->
+        password_confirmation = LoginForm.get_field(:password_confirmation)
+
+        LoginForm.update_field(:password_confirmation, "")
+        update_user(%{model | input: String.slice(password_confirmation, 0..-2)})
+    end
+  end
+
+  defp enter(model) do
+    case model.menu do
+      false ->
+        login(model)
+
+      _ ->
+        if match_menu(model) == :login do
+          login(model)
+        else
+          %{model | screen: match_menu(model), input: 0}
+        end
+    end
+  end
+
+  defp tab_menu(model) do
+    case model.menu do
+      true ->
+        %{model | menu: false, input: ""}
+
+      _ ->
+        %{model | menu: true, input: 0}
     end
   end
 end

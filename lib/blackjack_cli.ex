@@ -2,25 +2,29 @@ defmodule BlackjackCli do
   require Logger
 
   def fetch_server(server_name) do
-    {:ok, {_, _, server}} =
-      :httpc.request(
-        "http://localhost:#{Application.get_env(:blackjack, :port)}/server/#{server_name |> Blackjack.format_name()}"
+    %HTTPoison.Response{body: body, status_code: 200} =
+      HTTPoison.get!(
+        "http://localhost:#{Application.get_env(:blackjack, :port)}/server/#{server_name |> Blackjack.format_name()}",
+        [{"Content-Type", "application/json"}]
       )
 
-    Jason.decode!(server)
+    Jason.decode!(body)
   end
 
   def fetch_servers do
-    {:ok, {_, _, servers}} =
-      :httpc.request('http://localhost:#{Application.get_env(:blackjack, :port)}/servers')
+    %HTTPoison.Response{body: body, status_code: 200} =
+      HTTPoison.get!(
+        "http://localhost:#{Application.get_env(:blackjack, :port)}/servers",
+        [{"Content-Type", "application/json"}]
+      )
 
-    Jason.decode!(servers)
+    Jason.decode!(body)
   end
 
   def get_server(server_name) do
     task = Task.async(fn -> fetch_server(server_name) end)
 
-    [Task.await(task)]
+    Task.await(task)
   end
 
   def get_servers do
@@ -50,6 +54,23 @@ defmodule BlackjackCli do
        [], 'application/json', Jason.encode!(%{server_name: server_name, username: username})},
       [],
       []
+    )
+  end
+
+  # Routes
+  def login_path(user_params) do
+    HTTPoison.post!(
+      "http://localhost:#{Application.get_env(:blackjack, :port)}/login",
+      Jason.encode!(user_params),
+      [{"Content-Type", "application/json"}]
+    )
+  end
+
+  def register_path(user_params) do
+    HTTPoison.post!(
+      "http://localhost:#{Application.get_env(:blackjack, :port)}/register",
+      Jason.encode!(user_params),
+      [{"Content-Type", "application/json"}]
     )
   end
 end

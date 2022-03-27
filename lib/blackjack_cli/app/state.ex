@@ -23,7 +23,7 @@ defmodule BlackjackCli.App.State do
     menu: true,
     user: nil,
     screen: :start,
-    token: nil,
+    token: "",
     data: []
   }
 
@@ -33,11 +33,14 @@ defmodule BlackjackCli.App.State do
     put_in(@initial_state.data, BlackjackCli.get_servers())
   end
 
-  # @spec update(map(), tuple()) :: map()
+  @spec update(map(), tuple()) :: map()
   def update(model, msg) do
     case {model, msg} do
-      {%{token: nil}, :check_token} ->
+      {%{token: ""}, :check_token} ->
         check_token(model)
+
+      {%{screen: :start}, _} ->
+        Start.State.update(model, msg)
 
       {%{screen: :login}, _} ->
         Login.State.update(model, msg)
@@ -69,7 +72,7 @@ defmodule BlackjackCli.App.State do
       {%{screen: :menu} = model, _} ->
         Menu.State.update(model, msg)
 
-      {%{token: nil} = model, _} ->
+      {%{token: ""} = model, _} ->
         Start.State.update(model, msg)
 
       _ ->

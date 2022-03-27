@@ -1,58 +1,30 @@
 defmodule Blackjack.Factory do
-  use ExMachina.Ecto, repo: Blackjack.Repo
-
-  alias Blackjack.Accounts.User
+  use ExMachina
 
   def custom_user_factory(attrs) do
-    user = %User{
+    user = %{
       username: "username",
-      password_hash: "password"
+      password_hash: "password",
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
     }
 
     user
-    |> Map.merge(attrs)
+    |> merge_attributes(attrs)
+    |> evaluate_lazy_attributes()
   end
 
-  # def user_factory do
-  #   %User{
-  #     username: "username",
-  #     password_hash: "password"
-  #     # email: sequence(:email, &"email-#{&1}@example.com"),
-  #     # role: sequence(:role, ["admin", "user", "other"]),
-  #   }
-  # end
+  def custom_server_factory(attrs) do
+    server = %{
+      server_name: "test",
+      table_count: 0,
+      player_count: 0,
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
+    }
 
-  # def article_factory do
-  #   title = sequence(:title, &"Use ExMachina! (Part #{&1})")
-  #   # derived attribute
-  #   slug = MyApp.Article.title_to_slug(title)
-  #   %MyApp.Article{
-  #     title: title,
-  #     slug: slug,
-  #     # associations are inserted when you call `insert`
-  #     author: build(:user),
-  #   }
-  # end
-
-  # # derived factory
-  # def featured_article_factory do
-  #   struct!(
-  #     article_factory(),
-  #     %{
-  #       featured: true,
-  #     }
-  #   )
-  # end
-
-  # def comment_factory do
-  #   %MyApp.Comment{
-  #     text: "It's great!",
-  #     article: build(:article),
-  #   }
-  # end
-
-  def set_password(user, password) do
-    hashed_password = Bcrypt.hash_pwd_salt(password)
-    %{user | password_hash: hashed_password}
+    server
+    |> merge_attributes(attrs)
+    |> evaluate_lazy_attributes()
   end
 end

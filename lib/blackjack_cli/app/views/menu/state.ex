@@ -1,12 +1,21 @@
 defmodule BlackjackCli.Views.Menu.State do
-  require Logger
+  @moduledoc """
+    Updates the terminal view of the menu view.
+  """
+
   import Ratatouille.Constants, only: [key: 1]
 
   @up key(:arrow_up)
   @down key(:arrow_down)
   @enter key(:enter)
 
-  @spec update(map(), tuple()) :: map()
+  @type model() :: Map.t()
+  @type event() :: {atom(), map()}
+
+  @doc """
+     Takes a model and an event to evaluate and update menu view.
+  """
+  @spec update(model(), event()) :: map()
   def update(model, msg) do
     case msg do
       {:event, %{ch: ?w}} ->
@@ -22,7 +31,7 @@ defmodule BlackjackCli.Views.Menu.State do
         %{model | input: min(model.input + 1, length(screens()) - 1)}
 
       {:event, %{key: @enter}} ->
-        %{model | screen: match_screen(model.input), menu: false}
+        %{model | screen: match_screen(model.input)}
 
       _ ->
         model

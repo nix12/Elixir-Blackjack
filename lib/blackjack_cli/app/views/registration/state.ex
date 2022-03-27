@@ -1,13 +1,14 @@
 defmodule BlackjackCli.Views.Registration.State do
   @doc """
     Updates registration form state based on key and input actions
-    and maintains form state by using an Agent
+    and maintains form state by using an via RegistrationForm
   """
   require Logger
 
   import Ratatouille.Constants, only: [key: 1]
 
-  @registry Registry.App
+  alias BlackjackCli.Views.Registration.RegistrationForm
+  alias BlackjackCli.Views.Login.LoginForm
 
   @space_bar key(:space)
   @tab key(:tab)
@@ -20,25 +21,27 @@ defmodule BlackjackCli.Views.Registration.State do
     key(:backspace),
     key(:backspace2)
   ]
+
   @spec update(map(), tuple()) :: map()
   def update(model, msg) do
     case msg do
       {:event, %{key: @tab}} ->
-        Agent.update(
-          Blackjack.via_tuple(@registry, :registration),
-          &%{&1 | tab_count: &1.tab_count + 1}
-        )
-
+        current_tab = RegistrationForm.get_field(:tab_count)
+        RegistrationForm.update_field(:tab_count, current_tab + 1)
         update_user(%{model | input: ""})
 
       {:event, %{key: key}} when key in @delete_keys ->
-        update_user(%{model | input: String.slice(model.input, 0..-2)})
+        Logger.info("MODEL: #{inspect(model)}")
+        delete_input(model)
 
       {:event, %{key: @space_bar}} ->
         update_user(%{
           model
           | input: (model.input |> to_string |> String.replace(~r/^[[:digit:]]+$/, "")) <> " "
         })
+
+      {:event, %{ch: ch}} when ch > 0 ->
+        ch_input(model, ch)
 
       {:event, %{ch: ?w}} ->
         %{model | input: max(model.input - 1, 0)}
@@ -51,14 +54,6 @@ defmodule BlackjackCli.Views.Registration.State do
 
       {:event, %{key: @down}} ->
         %{model | input: min(model.input + 1, length(menu()) - 1)}
-
-      {:event, %{ch: ch}} when ch > 0 ->
-        update_user(%{
-          model
-          | input:
-              (model.input |> to_string |> String.replace(~r/^[[:digit:]]+$/, "")) <>
-                <<ch::utf8>>
-        })
 
       {:event, %{key: @enter}} ->
         case model.menu do
@@ -92,172 +87,95 @@ defmodule BlackjackCli.Views.Registration.State do
   """
   @spec start_registration :: {:ok, pid()}
   def start_registration do
-    Agent.start_link(
-      fn ->
-        %{
-          tab_count: 0,
-          username: "",
-          password: "",
-          password_confirmation: "",
-          errors: ""
-        }
-      end,
-      name: Blackjack.via_tuple(@registry, :registration)
-    )
+    RegistrationForm.start_link(:ok)
   end
 
   defp update_errors(message) do
-    Agent.update(Blackjack.via_tuple(@registry, :registration), &%{&1 | errors: message})
+    RegistrationForm.update_field(:errors, message)
   end
 
   @spec update_user(map()) :: map()
   defp update_user(%{input: input, screen: screen} = model) do
-    tab_count =
-      Agent.get(
-        Blackjack.via_tuple(@registry, :registration),
-        & &1.tab_count
-      )
-
-    case tab_count do
+    case RegistrationForm.get_field(:tab_count) do
       0 ->
-        Agent.update(
-          Blackjack.via_tuple(@registry, :registration),
-          &%{
-            &1
-            | username: input
-          }
-        )
-
+        RegistrationForm.update_field(:username, input)
         %{model | input: input, screen: screen}
 
       1 ->
-        Agent.update(
-          Blackjack.via_tuple(@registry, :registration),
-          &%{
-            &1
-            | password: input
-          }
-        )
-
+        RegistrationForm.update_field(:password, input)
         %{model | input: input, screen: screen}
 
       2 ->
-        Agent.update(
-          Blackjack.via_tuple(@registry, :registration),
-          &%{
-            &1
-            | password_confirmation: input
-          }
-        )
-
+        RegistrationForm.update_field(:password_confirmation, input)
         %{model | input: input, screen: screen}
 
       3 ->
-        case model.menu do
-          true ->
-            %{model | menu: false, input: ""}
-
-          _ ->
-            %{model | menu: true, input: 0}
-        end
+        tab_menu(model)
 
       _ ->
-        Agent.update(
-          Blackjack.via_tuple(@registry, :registration),
-          fn registration ->
-            %{registration | tab_count: 0}
-          end
-        )
-
+        RegistrationForm.update_field(:tab_count, 0)
         model
     end
   end
 
-  defp register_request(user_data) do
-    {:ok, {{_protocol, code, _message}, _meta, resource}} =
-      :httpc.request(
-        :post,
-        {'http://localhost:#{Application.get_env(:blackjack, :port)}/register', [],
-         'application/json', Jason.encode!(user_data)},
-        [],
-        []
-      )
+  defp register_request(user_params) do
+    %HTTPoison.Response{body: body, status_code: status} = BlackjackCli.register_path(user_params)
 
-    {code, Jason.decode!(resource)}
+    {:ok, status, Jason.decode!(body)}
   end
 
-  defp login_request(user) do
-    {:ok, {{_protocol, code, _message}, _meta, resource}} =
-      :httpc.request(
-        :post,
-        {'http://localhost:#{Application.get_env(:blackjack, :port)}/login', [],
-         'application/json', Jason.encode!(user)},
-        [],
-        []
-      )
+  defp login_request(user_params) do
+    %HTTPoison.Response{body: body, status_code: status} = BlackjackCli.login_path(user_params)
 
-    {code, Jason.decode!(resource)}
+    {:ok, status, Jason.decode!(body)}
   end
 
-  defp register_verify(model, code, user) do
-    user_data = %{
+  defp register_verify(model, status, user) do
+    user_params = %{
       user: %{
-        username: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.username),
-        password_hash: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
+        username: RegistrationForm.get_field(:username),
+        password_hash: RegistrationForm.get_field(:password)
       }
     }
 
-    case code do
-      code when code >= 200 and code < 300 ->
-        case login_request(user_data) do
-          {login_code, resource} when login_code >= 200 and login_code < 300 ->
-            BlackjackCli.Views.Login.State.start_login()
-            Agent.stop(Blackjack.via_tuple(@registry, :registration), :normal)
+    case status do
+      status when status >= 200 and status < 300 ->
+        {:ok, _status, body} = login_request(user_params)
+        LoginForm.start_link(:ok)
+        RegistrationForm.close_form()
 
-            %{
-              model
-              | input: 0,
-                screen: :menu,
-                token: resource["token"],
-                user: %{
-                  username: resource["user"]["username"],
-                  password_hash: resource["user"]["password_hash"]
-                }
+        %{
+          model
+          | input: 0,
+            screen: :menu,
+            token: body["token"],
+            user: %{
+              username: body["user"]["username"],
+              password_hash: body["user"]["password_hash"]
             }
-
-          {_, _error} ->
-            Agent.update(
-              Blackjack.via_tuple(@registry, :login),
-              &%{&1 | errors: "created account but failed to login due to server error."}
-            )
-
-            %{model | input: 0, screen: :login}
-        end
+        }
 
       _ ->
-        update_errors(user["error"])
+        update_errors(user["errors"])
         %{model | input: "", screen: :registration}
     end
   end
 
   def register(model) do
-    password = Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password)
+    password = RegistrationForm.get_field(:password)
+    password_confirmation = RegistrationForm.get_field(:password_confirmation)
 
-    password_confirmation =
-      Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.password_confirmation)
-
-    user_data = %{
+    user_params = %{
       user: %{
-        username: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.username),
+        username: RegistrationForm.get_field(:username),
         password_hash: password
       }
     }
 
-    with :ok <- validate_username(user_data.user.username),
-         :ok <- validate_password(password, password_confirmation) do
-      {code, resource} = register_request(user_data)
-
-      register_verify(model, code, resource)
+    with :ok <- validate_username(user_params.user.username),
+         :ok <- validate_password(password, password_confirmation),
+         {:ok, status, body} <- register_request(user_params) do
+      register_verify(model, status, body)
     else
       {:error, message} ->
         update_errors(message)
@@ -286,6 +204,51 @@ defmodule BlackjackCli.Views.Registration.State do
         else
           {:error, "password and password_confirmation must match."}
         end
+    end
+  end
+
+  defp ch_input(model, ch) do
+    case model.input do
+      0 ->
+        # Changes the input from integer to empty string to be operated on for input.
+        update_user(%{model | input: "" <> <<ch::utf8>>})
+
+      input ->
+        # replace_prefix is meant to clear the string before each character input.
+        update_user(%{model | input: String.replace_prefix(input, input, "") <> <<ch::utf8>>})
+    end
+  end
+
+  @spec delete_input(map()) :: map()
+  defp delete_input(model) do
+    case RegistrationForm.get_field(:tab_count) do
+      0 ->
+        username = RegistrationForm.get_field(:username)
+
+        RegistrationForm.update_field(:username, "")
+        update_user(%{model | input: String.slice(username, 0..-2)})
+
+      1 ->
+        password = RegistrationForm.get_field(:password)
+
+        RegistrationForm.update_field(:password, "")
+        update_user(%{model | input: String.slice(password, 0..-2)})
+
+      2 ->
+        password_confirmation = RegistrationForm.get_field(:password_confirmation)
+
+        RegistrationForm.update_field(:password_confirmation, "")
+        update_user(%{model | input: String.slice(password_confirmation, 0..-2)})
+    end
+  end
+
+  defp tab_menu(model) do
+    case model.menu do
+      true ->
+        %{model | menu: false, input: ""}
+
+      _ ->
+        %{model | menu: true, input: 0}
     end
   end
 end

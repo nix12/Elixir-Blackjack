@@ -6,11 +6,16 @@ defmodule BlackjackCli.Views.Start do
 
   alias BlackjackCli.Views.Start.State
 
+  @type model() :: Map.t()
+  @type event() :: {atom(), map()}
+
+  @spec update(model(), event()) :: map()
   def update(model, msg), do: State.update(model, msg)
 
   @doc """
-    Renders start menu
+    Renders start menu view
   """
+  @spec render(model()) :: Ratatouille.Renderer.Element.t()
   def render(model) do
     view do
       panel title: "BLACKJACK" do

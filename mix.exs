@@ -46,7 +46,6 @@ defmodule Blackjack.MixProject do
       {:jason, "~> 1.3"},
       {:bcrypt_elixir, "~> 2.3"},
       {:ratatouille, "~> 0.5.1"},
-      {:broadway, "~> 0.6.0"},
       {:oban, "~> 2.8"},
       {:cachex, "~> 3.3"},
       {:distillery, "~> 2.1"},

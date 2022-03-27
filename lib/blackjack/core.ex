@@ -30,7 +30,7 @@ defmodule Blackjack.Core do
   end
 
   def get_server(server_name) do
-    Servers.get_server(server_name) |> Jason.encode!()
+    Servers.get_server(server_name)
   end
 
   def sync_server(server) do

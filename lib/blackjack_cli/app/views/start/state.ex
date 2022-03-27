@@ -4,9 +4,12 @@ defmodule BlackjackCli.Views.Start.State do
   @up key(:arrow_up)
   @down key(:arrow_down)
   @enter key(:enter)
+
+  @type model() :: Map.t()
+  @type event() :: {atom(), map()}
+
   @doc """
-   Updates the model state based upon keypress and
-   menu selection
+    Takes a model and an event to evaluate and update start view.
   """
   @spec update(map(), {:event, map()} | map()) :: map()
   def update(model, msg) do
@@ -35,19 +38,17 @@ defmodule BlackjackCli.Views.Start.State do
             :exit
         end
 
-        %{model | screen: match_screen(model.input), menu: false}
+        %{model | input: "", screen: match_screen(model.input), menu: false}
 
       _ ->
         model
     end
   end
 
-  @spec screens() :: list()
   defp screens do
     [:login, :registration, :exit]
   end
 
-  @spec match_screen(integer()) :: atom()
   defp match_screen(index) do
     Enum.find(screens(), &(screens() |> Enum.at(index) == &1))
   end

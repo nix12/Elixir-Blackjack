@@ -26,35 +26,30 @@ defmodule BlackjackCli.Router do
 
   # User routes
   post "/register" do
-    {status, conn_or_errors} =
-      case RegistrationController.create(conn) do
-        {:ok, user} ->
-          {201, assign(conn, :user, user)}
+    case RegistrationController.create(conn) do
+      {:ok, conn} ->
+        conn
+        |> resp(201, Jason.encode!(conn.assigns))
 
-        {:error, error_message} ->
-          {500, assign(conn, :error, error_message)}
-      end
-
-    send_resp(conn, status, Jason.encode!(conn_or_errors.assigns))
+      {:errors, conn} ->
+        conn
+        |> resp(500, Jason.encode!(conn.assigns))
+    end
+    |> send_resp()
   end
 
   # Authentication routes
   post "/login" do
-    IO.inspect(conn, label: "ROUTER START")
-
     case AuthenticationController.create(conn) do
       {:ok, conn} ->
         conn
         |> resp(200, Jason.encode!(conn.assigns))
-        |> IO.inspect(label: "RESPONSE")
-        |> send_resp()
 
       {:error, conn} ->
         conn
         |> resp(422, Jason.encode!(conn.assigns))
-        |> IO.inspect(label: "RESPONSE")
-        |> send_resp()
     end
+    |> send_resp()
   end
 
   delete "/logout" do
@@ -102,6 +97,6 @@ defmodule BlackjackCli.Router do
   end
 
   defp handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
-    send_resp(conn, conn.status, %{errors: "Something went wrong!"})
+    send_resp(conn, conn.status, %{errors: "Something went wrong!"} |> Jason.encode!())
   end
 end

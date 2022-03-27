@@ -7,26 +7,50 @@ defmodule BlackjackCli.Views.Login.LoginForm do
 
   @registry Registry.App
 
+  @doc """
+    Start login form process
+  """
+  @spec start_link(any) :: :ignore | {:error, any} | {:ok, pid}
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ok, name: Blackjack.via_tuple(@registry, :login))
   end
 
+  @doc """
+    Retrieves values based on field
+  """
+  @spec get_field(atom()) :: list() | binary() | integer()
   def get_field(field) do
     GenServer.call(Blackjack.via_tuple(@registry, :login), {:get_field, field})
   end
 
+  @doc """
+    Retrieve all fields
+  """
+  @spec get_fields :: map()
   def get_fields() do
     GenServer.call(Blackjack.via_tuple(@registry, :login), {:get_fields})
   end
 
+  @doc """
+    Update a single field
+  """
+  @spec update_field(atom(), integer() | binary()) :: map()
   def update_field(field, input) do
     GenServer.call(Blackjack.via_tuple(@registry, :login), {:update_field, field, input})
   end
 
+  @doc """
+    Close the form process
+  """
+  @spec close_form :: :ok
   def close_form do
     GenServer.stop(Blackjack.via_tuple(@registry, :login), :normal)
   end
 
+  @doc """
+    Initialize form process
+  """
+  @spec init(any) :: {:ok, %{errors: <<>>, password: <<>>, tab_count: 0, username: <<>>}}
   @impl true
   def init(_) do
     {:ok, %{tab_count: 0, username: "", password: "", errors: ""}}

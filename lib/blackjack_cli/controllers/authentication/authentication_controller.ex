@@ -7,6 +7,7 @@ defmodule BlackjackCli.Controllers.AuthenticationController do
   alias Blackjack.Accounts
   alias Blackjack.Accounts.Authentication.Guardian
 
+  @spec create(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
   def create(
         %{:params => %{"user" => %{"username" => username, "password_hash" => password}}} = conn
       ) do
@@ -28,6 +29,7 @@ defmodule BlackjackCli.Controllers.AuthenticationController do
     end
   end
 
+  @spec delete(Plug.Conn.t()) :: Plug.Conn.t()
   def delete(conn) do
     Guardian.Plug.sign_out(conn)
   end
@@ -41,40 +43,12 @@ defmodule BlackjackCli.Controllers.AuthenticationController do
   end
 
   defp authenticate_user(username, password) do
-    IO.inspect({username, password}, label: "LOGIN CREDENTIALS")
-    IO.inspect(Application.get_env(:blackjack, Blackjack.Repo))
-
-    # Repo.insert(%Blackjack.Accounts.User{username: "user", password_hash: "password"})
-    # |> tap(&IO.inspect(&1, label: "=====> MAIN APP <====="))
-
-    IO.inspect(Repo.all(Blackjack.Accounts.User), label: "ALL USERS")
-
-    query =
-      from(u in Blackjack.Accounts.User,
-        where: u.username == ^username,
-        select: %{
-          username: u.username,
-          password_hash: u.password_hash,
-          uuid: type(u.uuid, :string),
-          inserted_at: u.inserted_at,
-          updated_at: u.updated_at
-        }
-      )
-
-    IO.inspect(Repo.all(query), label: "ALL USERS")
-
-    IO.inspect(Repo.exists?(query),
-      label: "RETURN USER ACCOUNTS"
-    )
-
-    case Repo.one(query) do
+    case username |> query_users() |> Repo.one() do
       nil ->
         no_user_verify()
         {:error, "invalid credentials"}
 
       user ->
-        IO.inspect(user, label: "=====> CHECK PASS <=====")
-
         case check_pass(user, password) do
           {:error, reason} ->
             {:error, reason}
@@ -83,5 +57,18 @@ defmodule BlackjackCli.Controllers.AuthenticationController do
             {:ok, user}
         end
     end
+  end
+
+  defp query_users(username) do
+    from(u in "users",
+      where: u.username == ^username,
+      select: %{
+        username: u.username,
+        password_hash: u.password_hash,
+        uuid: type(u.uuid, :string),
+        inserted_at: u.inserted_at,
+        updated_at: u.updated_at
+      }
+    )
   end
 end

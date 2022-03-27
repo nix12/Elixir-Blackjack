@@ -8,18 +8,18 @@
       "method": "post",
       "options": [],
       "request_body": "",
-      "url": "http://localhost:4000/login"
+      "url": "http://localhost:4000/register"
     },
     "response": {
       "binary": false,
-      "body": "{\"errors\":\"invalid credentials\"}",
+      "body": "{\"user\":{\"inserted_at\":\"2022-03-27T07:57:35.000000\",\"password_hash\":\"$2b$04$NSTQxbh/Jtq3x0uqrazoTOz5n4303iT3gyi5HP5Lnzsrd4Xo1EkhK\",\"updated_at\":\"2022-03-27T07:57:35.000000\",\"username\":\"username\",\"uuid\":\"5ade7b87-3049-498b-8c4e-944bdfa4bd9f\"}}",
       "headers": {
         "cache-control": "max-age=0, private, must-revalidate",
-        "content-length": "32",
-        "date": "Wed, 02 Feb 2022 02:06:11 GMT",
+        "content-length": "242",
+        "date": "Sun, 27 Mar 2022 07:57:34 GMT",
         "server": "Cowboy"
       },
-      "status_code": 422,
+      "status_code": 201,
       "type": "ok"
     }
   }

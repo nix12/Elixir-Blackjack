@@ -28,7 +28,8 @@ defmodule Blackjack.Application do
         children
       end
 
-    Supervisor.start_link(children, strategy: :one_for_one)
+    opts = [strategy: :one_for_one, name: Main]
+    Supervisor.start_link(children, opts)
   end
 
   defp gui do

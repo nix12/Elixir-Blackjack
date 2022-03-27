@@ -5,15 +5,14 @@ defmodule BlackjackCli.Views.Registration do
 
   import Ratatouille.View
 
-  alias BlackjackCli.Views.Registration.State
+  alias BlackjackCli.Views.Registration.{State, RegistrationForm}
 
   @registry Registry.App
 
   def update(model, msg), do: State.update(model, msg)
 
   def render(model) do
-    top_bar =
-      label(content: Agent.get(Blackjack.via_tuple(@registry, :registration), & &1.errors))
+    top_bar = label(content: RegistrationForm.get_field(:errors))
 
     bottom_bar =
       label(
@@ -28,16 +27,9 @@ defmodule BlackjackCli.Views.Registration do
             column size: 12 do
               panel title: "USERNAME" do
                 label do
-                  text(
-                    content:
-                      Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                        registration.username
-                      end)
-                  )
+                  text(content: RegistrationForm.get_field(:username))
 
-                  if Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                       registration.tab_count
-                     end) == 0 do
+                  if RegistrationForm.get_field(:tab_count) == 0 do
                     text(content: "W", color: :white, background: :white)
                   end
                 end
@@ -49,16 +41,9 @@ defmodule BlackjackCli.Views.Registration do
             column size: 6 do
               panel title: "PASSWORD" do
                 label do
-                  text(
-                    content:
-                      Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                        registration.password
-                      end)
-                  )
+                  text(content: RegistrationForm.get_field(:password))
 
-                  if Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                       registration.tab_count
-                     end) == 1 do
+                  if RegistrationForm.get_field(:tab_count) == 1 do
                     text(content: "W", color: :white, background: :white)
                   end
                 end
@@ -68,16 +53,9 @@ defmodule BlackjackCli.Views.Registration do
             column size: 6 do
               panel title: "PASSWORD CONFIRMATION" do
                 label do
-                  text(
-                    content:
-                      Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                        registration.password_confirmation
-                      end)
-                  )
+                  text(content: RegistrationForm.get_field(:password_confirmation))
 
-                  if Agent.get(Blackjack.via_tuple(@registry, :registration), fn registration ->
-                       registration.tab_count
-                     end) == 2 do
+                  if RegistrationForm.get_field(:tab_count) == 2 do
                     text(content: "W", color: :white, background: :white)
                   end
                 end

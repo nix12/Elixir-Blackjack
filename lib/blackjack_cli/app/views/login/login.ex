@@ -1,11 +1,24 @@
 defmodule BlackjackCli.Views.Login do
+  @moduledoc """
+    Display the view of the login state
+  """
   import Ratatouille.View
 
   alias BlackjackCli.Views.Login.LoginForm
 
+  @type model() :: Map.t()
+  @type event() :: {atom(), map()}
+
+  @doc """
+    Update login view
+  """
+  @spec update(model(), event()) :: map()
   def update(model, msg), do: BlackjackCli.Views.Login.State.update(model, msg)
 
-  @spec render(any) :: Ratatouille.Renderer.Element.t()
+  @doc """
+    Renders login view
+  """
+  @spec render(model()) :: Ratatouille.Renderer.Element.t()
   def render(model) do
     top_bar = label(content: LoginForm.get_field(:errors))
 

@@ -1,6 +1,4 @@
 defmodule Blackjack.Core.Server do
-  require Logger
-
   import Ecto.Changeset
 
   defstruct [
@@ -13,7 +11,7 @@ defmodule Blackjack.Core.Server do
     lock_version: 1
   ]
 
-  def prepare(%{} = server, params \\ %{}) do
+  def change_request(%{} = server, params \\ %{}) do
     types = %{
       server_name: :string,
       user_uuid: :string,
@@ -31,12 +29,12 @@ defmodule Blackjack.Core.Server do
     |> unique_constraint(:server_name, name: :servers_server_name_index)
   end
 
-  def insert(%__MODULE__{} = record) do
-    changeset = prepare(record)
+  def insert(%{} = record) do
+    changeset = change_request(record)
 
     case changeset.valid? do
       true ->
-        Blackjack.Repo.insert_all("servers", [changeset |> apply_changes() |> Map.from_struct()],
+        Blackjack.Repo.insert_all("servers", [changeset |> apply_changes()],
           returning: [
             :server_name,
             :user_uuid,
@@ -48,7 +46,6 @@ defmodule Blackjack.Core.Server do
         )
 
       _ ->
-        Logger.info("ERROR")
         {:error, %{changeset | action: :insert}}
     end
   end

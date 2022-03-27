@@ -3,19 +3,18 @@ defmodule Blackjack.Accounts.Users do
 
   use GenServer
 
-  alias Blackjack.Core
+  import Ecto.Query, only: [from: 2]
+
+  alias Blackjack.{Repo, Core}
   alias Blackjack.Accounts.AccountsRegistry
 
   # Client
-
+  @spec start_link(map()) :: {:ok, pid()} | no_return()
   def start_link(user_account) do
-    IO.inspect(user_account, label: "############# SPAWN ACCOUNT #############")
-
     case GenServer.start_link(__MODULE__, user_account,
            name: Blackjack.via_horde({AccountsRegistry, user_account.username})
          ) do
       {:ok, pid} ->
-        IO.inspect(pid, label: "############# ACCOUNT PID #############")
         {:ok, pid}
 
       {:error, {:already_started, pid}} ->
@@ -27,23 +26,28 @@ defmodule Blackjack.Accounts.Users do
     end
   end
 
+  @spec get_user(binary()) :: map()
   def get_user(username) do
-    IO.inspect(username, label: "GET ACCOUNT")
-
-    IO.inspect(Horde.Registry.whereis_name({Blackjack.Accounts.AccountsRegistry, username}),
-      label: "ACCOUNT PID"
-    )
-
     GenServer.call(Blackjack.via_horde({AccountsRegistry, username}), {:get_user})
   end
 
   # Server
 
   @impl true
-  def init(user_account) do
-    IO.inspect("SPAWNING USER ACCOUNT")
+  @spec init(map()) :: {:ok, map()}
+  def init(%{username: username}) do
     # Handle user crash
     # Process.flag(:trap_exit, true)
+
+    user_account =
+      case username |> query_users() |> Repo.one() do
+        nil ->
+          "No user found."
+
+        user ->
+          user
+      end
+
     {:ok, user_account}
   end
 
@@ -56,8 +60,17 @@ defmodule Blackjack.Accounts.Users do
     {:reply, Core.sync_server(server_data), user_account}
   end
 
-  # @impl true
-  # def terminate(_reason, user_account) do
-  #   Core.remove_user_from_server(, user_account.username)
-  # end
+  defp query_users(username) do
+    from(
+      u in "users",
+      where: u.username == ^username,
+      select: %{
+        uuid: u.uuid,
+        username: u.username,
+        password_hash: u.password_hash,
+        inserted_at: u.inserted_at,
+        updated_at: u.updated_at
+      }
+    )
+  end
 end
