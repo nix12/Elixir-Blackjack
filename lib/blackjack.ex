@@ -1,8 +1,5 @@
 defmodule Blackjack do
-  require Logger
-
   # Utilities
-
   def via_tuple(registry, name) do
     {:via, Registry, {registry, name}}
   end

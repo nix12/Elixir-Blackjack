@@ -4,59 +4,57 @@ defmodule Blackjack.Accounts.UsersTest do
   import Ecto.Query, only: [from: 2]
 
   alias Blackjack.Accounts.Supervisor, as: AccountsSupervisor
-  alias Blackjack.Accounts.{User, Users}
+  alias Blackjack.Accounts.{User, AccountsServer}
+  alias Blackjack.Core
   alias Blackjack.Core.Supervisor, as: CoreSupervisor
   alias Blackjack.Core.{Server, Servers}
 
   setup do
-    build(:custom_user) |> User.insert()
+    user = build(:user) |> set_password("password") |> insert()
 
-    :ok
+    %{user: user}
   end
 
-  describe "Users Account" do
-    test "init/1" do
-      {:ok, user_account} = Users.init(%{username: "username", password_hash: "password"})
+  describe "AccountsServer Account" do
+    test "init/1", %{user: user} do
+      {:ok, user_account} =
+        AccountsServer.init(%{username: user.username, password_hash: "password"})
 
-      assert %{uuid: _, username: "username", password_hash: _, inserted_at: _, updated_at: _} =
+      assert %{
+               uuid: user.uuid,
+               username: user.username,
+               password_hash: user.password_hash,
+               inserted_at: user.inserted_at,
+               updated_at: user.updated_at
+             } ==
                user_account
     end
 
-    test "get_user" do
+    test "get_user", %{user: user} do
       state = %{
-        uuid: "uuid",
-        username: "username",
-        password_hash: "password",
-        inserted_at: DateTime.utc_now(),
-        updated_at: DateTime.utc_now()
-      }
-
-      {:reply, response, new_state} = Users.handle_call({:get_user}, nil, state)
-
-      assert response == new_state
-    end
-
-    test "sync_server" do
-      login_params = %{
-        username: "username",
+        username: user.username,
         password_hash: "password"
       }
 
-      AccountsSupervisor.start_child(login_params)
-      user = Users.get_user("username")
-      user_uuid = Ecto.UUID.load!(user.uuid)
-      build(:custom_server, user_uuid: user_uuid) |> Server.insert()
-      CoreSupervisor.start_child({:start, "test", "username"})
+      {:reply, response, new_state} = AccountsServer.handle_call({:get_user}, nil, state)
 
-      {:reply, response, new_state} =
-        Users.handle_call(
-          {:sync_server, [BlackjackCli.get_server("test")]},
-          nil,
-          Servers.get_server("test")
-        )
-
-      assert response.server_name == "test"
       assert response == new_state
     end
+
+    # For updating all connected databases, but will be using single database
+    # test "sync_server", %{user: user} do
+    #   server = build(:server, user: user) |> insert()
+    #   CoreSupervisor.start_child({:start, server.server_name, user.username})
+
+    #   {:reply, response, new_state} =
+    #     AccountsServer.handle_call(
+    #       {:sync_server, [Core.get_server(server.server_name)]},
+    #       nil,
+    #       Servers.get_server(server.server_name)
+    #     )
+
+    #   assert response.server_name == server.server_name
+    #   assert response == new_state
+    # end
   end
 end

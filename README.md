@@ -19,10 +19,11 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/blackjack](https://hexdocs.pm/blackjack).
 
-- convert players to users
-- routing
-- betting
-- packaging
-- distribution
-- difficulty
-- switch table from map to list
+Currently working on:
+
+- Websockets for servers
+- Build out Users
+- Event driven development
+- Form password
+- Fix forms
+- Sync connected GUI's

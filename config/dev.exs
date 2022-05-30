@@ -1,7 +1,7 @@
 import(Config)
 
 config :libcluster,
-  debug: true,
+  # debug: true,
   topologies: [
     blackjack: [
       strategy: Elixir.Cluster.Strategy.Gossip,

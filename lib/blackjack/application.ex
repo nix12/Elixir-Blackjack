@@ -1,40 +1,50 @@
 defmodule Blackjack.Application do
-  require Logger
-
   use Application
 
   @impl true
   def start(_type, _args) do
+    Node.start(:"blackjack_server_#{Node.list() |> Enum.count()}", :shortnames)
+
     children = [
+      # Node Cluster
       {Cluster.Supervisor,
        [Application.get_env(:libcluster, :topologies), [name: Blackjack.ClusterSupervisor]]},
+
+      # Storage
       {Blackjack.Repo, []},
+
+      # Network
       {Plug.Cowboy,
        scheme: :http,
-       plug: BlackjackCli.Router,
+       plug: BlackjackWeb.Router,
        options: [
          port: port(),
          dispatch: dispatch()
        ]},
-      {Blackjack.Supervisor, []},
-      {PubSub, name: Blackjack.Pubsub},
-      {Registry, keys: :unique, name: Registry.App}
+
+      # Cache
+      {Cachex, name: Blackjack.Cache},
+
+      # Horde
+      {Blackjack.Accounts.AccountsRegistry, []},
+      {Blackjack.Core.CoreRegistry, []},
+      {Blackjack.Accounts.Supervisor, []},
+      {Blackjack.Core.Supervisor, []},
+      {Blackjack.NodeObserver, []},
+
+      # Notifications
+      Blackjack.Notifications.AccountsNotifier,
+
+      # Startup Tasks
+      {Task.Supervisor, name: Blackjack.TaskSupervisor},
+      %{
+        id: Task,
+        start: {Task, :start, [&start_all_servers/0]}
+      }
     ]
 
-    children =
-      if Mix.env() != :test do
-        [gui() | children]
-      else
-        children
-      end
-
-    opts = [strategy: :one_for_one, name: Main]
+    opts = [strategy: :one_for_one, name: Blackjack.Supervisor]
     Supervisor.start_link(children, opts)
-  end
-
-  defp gui do
-    {Ratatouille.Runtime.Supervisor,
-     runtime: [app: BlackjackCli.App, interval: 100, quit_events: [{:key, 0x1B}]]}
   end
 
   defp port do
@@ -49,10 +59,20 @@ defmodule Blackjack.Application do
     [
       {:_,
        [
-         #  {"/", BlackjackCli.Sockets.AuthenticationHandler, []},
-         {"/game/[...]", BlackjackCli.Sockets.SocketHandler, []},
-         {:_, Plug.Cowboy.Handler, {BlackjackCli.Router, []}}
+         {"/socket/server/[...]", BlackjackWeb.Sockets.ServerHandler, []},
+         #  {"/game/[...]", Blackjack.Sockets.SocketHandler, []},
+         {:_, Plug.Cowboy.Handler, {BlackjackWeb.Router, []}}
        ]}
     ]
+  end
+
+  def start_all_servers do
+    if Mix.env() != :test do
+      Stream.each(
+        Blackjack.Repo.all(Blackjack.Core.ServerQuery.query_servers()),
+        &Blackjack.Core.Supervisor.start_server(&1)
+      )
+      |> Enum.to_list()
+    end
   end
 end

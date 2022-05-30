@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username\"}}",
+      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username0\"}}",
       "headers": {
         "Content-Type": "application/json"
       },
@@ -12,11 +12,11 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"token\":\"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJibGFja2phY2siLCJleHAiOjE2NTA5NTk4NTYsImlhdCI6MTY0ODM2Nzg1NiwiaXNzIjoiYmxhY2tqYWNrIiwianRpIjoiZjY1MDE3ZjQtYjBiYi00Y2RiLTk2NTctMmU4ZDI0ODE1ODRjIiwibmJmIjoxNjQ4MzY3ODU1LCJzdWIiOiJ1c2VybmFtZSIsInR5cCI6ImFjY2VzcyJ9.nllIoEoRobl8ipIdnySgFwhPUzaUQH6NF3OwYxzcPMzak7hIuZL-KB_JMjB4obkQT1muVl9uk7C4HYDNi9grpw\",\"user\":{\"inserted_at\":\"2022-03-27T07:57:36.000000\",\"password_hash\":\"$2b$04$SC2eYBvijTDoa6m5zTvHtu.n59suXwtEXc34rL9mC5MRWgseNWvwG\",\"updated_at\":\"2022-03-27T07:57:36.000000\",\"username\":\"username\",\"uuid\":\"56f3419e-43ad-4528-abdb-f342c7871031\"}}",
+      "body": "{\"token\":\"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJibGFja2phY2siLCJleHAiOjE2NTE1MTU5MDMsImlhdCI6MTY0ODkyMzkwMywiaXNzIjoiYmxhY2tqYWNrIiwianRpIjoiNjQzNGM4YTEtOTk4Ny00MTZjLTgxYTQtZmZmZmNiNDYzZDQ3IiwibmJmIjoxNjQ4OTIzOTAyLCJzdWIiOiJ1c2VybmFtZTAiLCJ0eXAiOiJhY2Nlc3MifQ.2oRgVJX93_3ExKIg6FlXuwIFSvDK5w5rVlcDU3NzKTF7JjuAJbi2ucfKV_xPYUT5_blRzNkM7guV1tEqBOq-1A\",\"user\":{\"inserted_at\":\"2022-04-02T18:25:02\",\"password_hash\":\"$2b$04$hvaPnWiBZcKwN0Wktgks1OFPJrDn5YU/hhxAw4V8/N4JbcteLvty.\",\"updated_at\":\"2022-04-02T18:25:02\",\"username\":\"username0\",\"uuid\":\"5be5a3c6-bde1-4678-850d-344f218e3c2b\"}}",
       "headers": {
         "cache-control": "max-age=0, private, must-revalidate",
-        "content-length": "597",
-        "date": "Sun, 27 Mar 2022 07:57:36 GMT",
+        "content-length": "586",
+        "date": "Sat, 02 Apr 2022 18:25:02 GMT",
         "server": "Cowboy"
       },
       "status_code": 200,

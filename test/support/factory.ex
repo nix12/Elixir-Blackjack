@@ -1,30 +1,20 @@
 defmodule Blackjack.Factory do
-  use ExMachina
+  use ExMachina.Ecto, repo: Blackjack.Repo
 
-  def custom_user_factory(attrs) do
-    user = %{
-      username: "username",
-      password_hash: "password",
-      inserted_at: DateTime.utc_now(),
-      updated_at: DateTime.utc_now()
-    }
+  alias Blackjack.Accounts.User
+  alias Blackjack.Core.Server
 
-    user
-    |> merge_attributes(attrs)
-    |> evaluate_lazy_attributes()
+  def user_factory do
+    %User{username: sequence("username"), password_hash: "password"}
   end
 
-  def custom_server_factory(attrs) do
-    server = %{
-      server_name: "test",
-      table_count: 0,
-      player_count: 0,
-      inserted_at: DateTime.utc_now(),
-      updated_at: DateTime.utc_now()
-    }
+  def server_factory do
+    %Server{server_name: sequence(:server_name, &"test_server-#{&1}")}
+  end
 
-    server
-    |> merge_attributes(attrs)
-    |> evaluate_lazy_attributes()
+  def set_password(user, password) do
+    hashed_password = Bcrypt.hash_pwd_salt(password)
+
+    %{user | password_hash: hashed_password}
   end
 end

@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username\"}}",
+      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username0\"}}",
       "headers": {
         "Content-Type": "application/json"
       },
@@ -12,11 +12,11 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"errors\":\"This username is already taken.\"}",
+      "body": "{\"errors\":\"username has already been taken.\"}",
       "headers": {
         "cache-control": "max-age=0, private, must-revalidate",
-        "content-length": "44",
-        "date": "Sun, 27 Mar 2022 07:57:34 GMT",
+        "content-length": "45",
+        "date": "Sat, 02 Apr 2022 18:25:04 GMT",
         "server": "Cowboy"
       },
       "status_code": 500,

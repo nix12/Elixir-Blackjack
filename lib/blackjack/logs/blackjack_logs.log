@@ -1,0 +1,944 @@
+03:31:26.305 [info] GET /servers
+03:31:26.862 [info] Sent 200 in 557ms
+03:31:35.341 [info] POST /login
+03:31:35.876 [info] Sent 200 in 535ms
+03:31:35.877 [info] pass is already started at #PID<0.966.0>, returning :ignore
+03:31:39.417 [info] --------------> NODE UP 2 <--------------
+03:31:39.417 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+03:31:39.417 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+03:31:40.747 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "c+tdxzP76MfiKT10oGIiHQ==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 39588}, pid: #PID<0.8326.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+03:31:40.747 [info] STATE: %{registry_key: "/socket/server/first"}
+03:31:40.772 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+03:31:45.876 [info] GET /servers
+03:31:45.877 [info] Sent 200 in 1ms
+03:41:14.411 [info] --------------> NODE DOWN 2 <--------------
+03:41:22.950 [info] GET /servers
+03:41:22.996 [info] Sent 200 in 45ms
+03:41:28.757 [info] POST /login
+03:41:29.321 [info] Sent 200 in 564ms
+03:41:29.322 [info] pass is already started at #PID<0.966.0>, returning :ignore
+03:41:29.794 [info] --------------> NODE UP 2 <--------------
+03:41:29.794 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+03:41:29.794 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+03:41:31.590 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "Y/Q7it8ukm1VyI6ocIWR6g==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 39826}, pid: #PID<0.8452.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+03:41:31.590 [info] STATE: %{registry_key: "/socket/server/first"}
+03:41:31.590 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+03:41:36.651 [info] GET /servers
+03:41:36.796 [info] Sent 200 in 145ms
+03:41:59.816 [info] --------------> NODE DOWN 2 <--------------
+11:01:17.777 [info] GET /servers
+11:01:18.145 [info] Sent 200 in 367ms
+11:01:27.759 [info] POST /login
+11:01:28.313 [info] Sent 200 in 554ms
+11:01:28.314 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:01:29.145 [info] --------------> NODE UP 2 <--------------
+11:01:29.145 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:01:29.146 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:02:02.319 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "8iYIbOaCp7FfcOz2/s2YoA==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40462}, pid: #PID<0.9128.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 1, version: :"HTTP/1.1"}
+11:02:02.319 [info] STATE: %{registry_key: "/socket/server/first"}
+11:02:02.319 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:02:07.421 [info] GET /servers
+11:02:07.507 [info] Sent 200 in 85ms
+11:09:52.707 [info] --------------> NODE DOWN 2 <--------------
+11:09:59.710 [info] GET /servers
+11:09:59.711 [info] Sent 200 in 1ms
+11:10:07.335 [info] POST /login
+11:10:08.152 [info] Sent 200 in 816ms
+11:10:08.152 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:10:10.713 [info] --------------> NODE UP 2 <--------------
+11:10:10.714 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:10:10.714 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:10:11.946 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "GN7bfHkXDj6VqU4GUlAN/Q==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40644}, pid: #PID<0.9227.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:10:11.946 [info] STATE: %{registry_key: "/socket/server/first"}
+11:10:11.947 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:10:16.989 [info] GET /servers
+11:10:16.990 [info] Sent 200 in 1ms
+11:10:38.115 [info] --------------> NODE DOWN 2 <--------------
+11:11:11.350 [info] GET /servers
+11:11:11.395 [info] Sent 200 in 45ms
+11:11:17.079 [info] POST /login
+11:11:17.486 [info] Sent 200 in 407ms
+11:11:17.487 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:11:17.854 [info] --------------> NODE UP 2 <--------------
+11:11:17.855 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:11:17.855 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:11:19.962 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "2UCn3IBjIevh68br53qNcw==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40660}, pid: #PID<0.9238.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:11:19.962 [info] STATE: %{registry_key: "/socket/server/first"}
+11:11:19.963 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:11:30.019 [info] GET /servers
+11:11:30.230 [info] Sent 200 in 211ms
+11:13:38.188 [info] --------------> NODE DOWN 2 <--------------
+11:13:57.487 [info] GET /servers
+11:13:57.554 [info] Sent 200 in 66ms
+11:14:11.513 [info] POST /login
+11:14:12.054 [info] Sent 200 in 541ms
+11:14:12.055 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:14:14.553 [info] --------------> NODE UP 2 <--------------
+11:14:14.553 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:14:14.553 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:14:15.983 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "7V9GSKcJR9/03jIN+dr5Fw==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40726}, pid: #PID<0.9369.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:14:15.983 [info] STATE: %{registry_key: "/socket/server/first"}
+11:14:15.983 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:14:26.102 [info] GET /servers
+11:14:26.103 [info] Sent 200 in 1ms
+11:14:34.388 [info] --------------> NODE DOWN 2 <--------------
+11:20:21.123 [info] GET /servers
+11:20:21.124 [info] Sent 200 in 1ms
+11:20:29.385 [info] POST /login
+11:20:29.812 [info] Sent 200 in 426ms
+11:20:29.812 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:20:30.410 [info] --------------> NODE UP 2 <--------------
+11:20:30.410 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:20:30.410 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:20:31.948 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "ZCIhf1q5svy3Vxq4KgfQyQ==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40760}, pid: #PID<0.9387.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:20:31.948 [info] STATE: %{registry_key: "/socket/server/first"}
+11:20:31.948 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:20:37.008 [info] GET /servers
+11:20:37.010 [info] Sent 200 in 1ms
+11:22:18.191 [info] --------------> NODE DOWN 2 <--------------
+11:22:55.277 [info] GET /servers
+11:22:55.278 [info] Sent 200 in 1ms
+11:23:03.634 [info] POST /login
+11:23:04.189 [info] Sent 200 in 554ms
+11:23:04.189 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:23:06.328 [info] --------------> NODE UP 2 <--------------
+11:23:06.328 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:23:06.328 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:23:07.741 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "Udzc9zJzHBVwup8n788zNQ==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40816}, pid: #PID<0.9415.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:23:07.741 [info] STATE: %{registry_key: "/socket/server/first"}
+11:23:07.741 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:57:06.266 [info] --------------> NODE DOWN 2 <--------------
+11:57:10.810 [info] GET /servers
+11:57:10.811 [info] Sent 200 in 1ms
+11:57:18.812 [info] POST /login
+11:57:19.210 [info] Sent 200 in 398ms
+11:57:19.210 [info] pass is already started at #PID<0.966.0>, returning :ignore
+11:57:20.932 [info] --------------> NODE UP 2 <--------------
+11:57:20.932 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:57:20.932 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:57:25.343 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "CCzDh+dTZCo66ERJO0qw0w==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 41616}, pid: #PID<0.9846.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+11:57:25.343 [info] STATE: %{registry_key: "/socket/server/first"}
+11:57:25.343 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:58:16.878 [info] --------------> NODE DOWN 2 <--------------
+15:58:29.364 [info] GET /servers
+15:58:29.366 [info] Sent 200 in 1ms
+15:58:36.778 [info] POST /login
+15:58:37.174 [info] Sent 200 in 395ms
+15:58:37.174 [info] pass is already started at #PID<0.966.0>, returning :ignore
+15:58:37.789 [info] --------------> NODE UP 2 <--------------
+15:58:37.789 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:58:37.789 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:58:46.859 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "UPY4YSpm6fi12bu4uYDo0Q==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 47604}, pid: #PID<0.12928.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+15:58:46.859 [info] STATE: %{registry_key: "/socket/server/first"}
+15:58:46.859 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:05:10.709 [info] --------------> NODE DOWN 2 <--------------
+16:05:14.692 [info] GET /servers
+16:05:14.775 [info] Sent 200 in 83ms
+16:05:20.584 [info] POST /login
+16:05:21.000 [info] Sent 200 in 415ms
+16:05:21.000 [info] pass is already started at #PID<0.966.0>, returning :ignore
+16:05:21.507 [info] --------------> NODE UP 2 <--------------
+16:05:21.508 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:05:21.508 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:05:26.632 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "l7TT3sPtHsBWh5y1T0433g==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 47752}, pid: #PID<0.13007.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+16:05:26.633 [info] STATE: %{registry_key: "/socket/server/first"}
+16:05:26.633 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:09:59.312 [info] --------------> NODE DOWN 2 <--------------
+16:10:06.297 [info] GET /servers
+16:10:06.298 [info] Sent 200 in 1ms
+16:10:17.283 [info] POST /login
+16:10:17.898 [info] Sent 200 in 615ms
+16:10:17.899 [info] pass is already started at #PID<0.966.0>, returning :ignore
+16:10:18.751 [info] --------------> NODE UP 2 <--------------
+16:10:18.751 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:10:18.753 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:10:19.621 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "3Z4m9myzB6IajzHQHqm4qQ==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 47862}, pid: #PID<0.13062.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+16:10:19.621 [info] STATE: %{registry_key: "/socket/server/first"}
+16:10:19.621 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:14:08.349 [info] --------------> NODE DOWN 2 <--------------
+16:15:49.399 [info] GET /servers
+16:15:49.400 [info] Sent 200 in 961µs
+16:15:58.681 [info] POST /login
+16:15:59.095 [info] Sent 200 in 414ms
+16:15:59.096 [info] pass is already started at #PID<0.966.0>, returning :ignore
+16:15:59.791 [info] --------------> NODE UP 2 <--------------
+16:15:59.792 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:15:59.792 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:16:00.956 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "QRIh7tTLtpESfD8ZDbKoWQ==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 47958}, pid: #PID<0.13110.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+16:16:00.956 [info] STATE: %{registry_key: "/socket/server/first"}
+16:16:00.956 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+17:19:29.320 [info] --------------> NODE DOWN 2 <--------------
+17:41:20.369 [info] GET /servers
+17:41:20.370 [info] Sent 200 in 1ms
+17:41:25.349 [info] GET /servers
+17:41:25.350 [info] Sent 200 in 884µs
+17:41:30.355 [info] GET /servers
+17:41:30.357 [info] Sent 200 in 1ms
+17:41:35.365 [info] GET /servers
+17:41:35.367 [info] Sent 200 in 1ms
+17:41:40.372 [info] GET /servers
+17:41:40.375 [info] Sent 200 in 2ms
+17:41:45.386 [info] GET /servers
+17:41:45.387 [info] Sent 200 in 1ms
+20:36:46.920 [info] GET /servers
+20:36:46.921 [info] Sent 200 in 968µs
+20:36:53.958 [info] POST /login
+20:36:54.591 [info] Sent 200 in 633ms
+20:36:54.592 [info] pass is already started at #PID<0.966.0>, returning :ignore
+20:36:55.013 [info] --------------> NODE UP 2 <--------------
+20:36:55.014 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+20:36:55.014 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+20:36:57.616 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "0YPrtb1RkOALXT054IxFcA==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 49990}, pid: #PID<0.14240.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+20:36:57.616 [info] STATE: %{registry_key: "/socket/server/first"}
+20:36:57.633 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:19:21.994 [info] --------------> NODE DOWN 2 <--------------
+09:19:55.077 [info] GET /servers
+09:19:56.324 [info] Sent 200 in 1239ms
+09:20:23.812 [info] POST /login
+09:20:24.827 [info] Sent 200 in 1014ms
+09:20:25.008 [info] pass is already started at #PID<0.966.0>, returning :ignore
+09:20:29.033 [info] --------------> NODE UP 2 <--------------
+09:20:29.071 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:20:29.071 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:20:29.937 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "EXhE82kGr00Rwx3J+NMhfw==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40056}, pid: #PID<0.24007.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+09:20:29.937 [info] STATE: %{registry_key: "/socket/server/first"}
+09:20:30.001 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:32:08.969 [info] --------------> NODE DOWN 2 <--------------
+09:32:14.045 [info] GET /servers
+09:32:14.361 [info] Sent 200 in 315ms
+09:32:33.801 [info] POST /login
+09:32:34.310 [info] Sent 200 in 508ms
+09:32:34.310 [info] pass is already started at #PID<0.966.0>, returning :ignore
+09:32:35.828 [info] --------------> NODE UP 2 <--------------
+09:32:35.828 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:32:35.828 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:32:37.493 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "WRY2HrvA3z3iWMDuFuqJ3w==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40364}, pid: #PID<0.24153.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+09:32:37.493 [info] STATE: %{registry_key: "/socket/server/first"}
+09:32:37.494 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:33:10.875 [info] --------------> NODE DOWN 2 <--------------
+09:33:14.994 [info] GET /servers
+09:33:15.133 [info] Sent 200 in 138ms
+09:33:23.395 [info] POST /login
+09:33:24.171 [info] Sent 200 in 776ms
+09:33:24.171 [info] pass is already started at #PID<0.966.0>, returning :ignore
+09:33:24.533 [info] --------------> NODE UP 2 <--------------
+09:33:24.534 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:33:24.534 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:33:26.629 [info] REQUEST PATH: %{bindings: %{}, body_length: 0, cert: :undefined, has_body: false, headers: %{"connection" => "upgrade", "content-type" => "application/json", "host" => "localhost:4000", "sec-websocket-key" => "glFXlsbm0HtB5a6VMB4AbA==", "sec-websocket-version" => "13", "upgrade" => "websocket"}, host: "localhost", host_info: :undefined, method: "GET", path: "/socket/server/first", path_info: ["first"], peer: {{127, 0, 0, 1}, 40378}, pid: #PID<0.24162.0>, port: 4000, qs: "", ref: BlackjackWeb.Router.HTTP, scheme: "http", sock: {{127, 0, 0, 1}, 4000}, streamid: 3, version: :"HTTP/1.1"}
+09:33:26.629 [info] STATE: %{registry_key: "/socket/server/first"}
+09:33:26.631 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:38:21.159 [info] Starting Horde.RegistryImpl with name Blackjack.Accounts.AccountsRegistry
+09:38:21.255 [info] Starting Horde.RegistryImpl with name Blackjack.Core.CoreRegistry
+09:38:21.349 [info] Starting Accounts Supervisor.
+09:38:21.385 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Accounts.Supervisor
+09:38:21.389 [info] Starting Core Supervisor.
+09:38:21.389 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Core.Supervisor
+09:38:21.390 [info] Accounts Observer started.
+09:38:45.483 [info] Starting Horde.RegistryImpl with name Blackjack.Accounts.AccountsRegistry
+09:38:45.497 [info] Starting Horde.RegistryImpl with name Blackjack.Core.CoreRegistry
+09:38:45.501 [info] Starting Accounts Supervisor.
+09:38:45.520 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Accounts.Supervisor
+09:38:45.524 [info] Starting Core Supervisor.
+09:38:45.524 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Core.Supervisor
+09:38:45.525 [info] Accounts Observer started.
+09:39:43.512 [info] GET /servers
+09:39:43.683 [info] Sent 200 in 170ms
+09:39:50.026 [info] POST /login
+09:39:51.084 [info] Sent 200 in 1057ms
+09:39:51.515 [info] --------------> NODE UP 2 <--------------
+09:39:51.523 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:39:51.524 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:39:56.493 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:40:15.150 [info] --------------> NODE DOWN 2 <--------------
+09:42:17.337 [info] GET /servers
+09:42:17.340 [info] Sent 200 in 2ms
+09:42:25.878 [info] POST /login
+09:42:26.278 [info] Sent 200 in 399ms
+09:42:26.278 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:42:29.478 [info] --------------> NODE UP 2 <--------------
+09:42:29.478 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:42:29.478 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:42:29.689 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:45:47.984 [info] --------------> NODE DOWN 2 <--------------
+09:46:17.178 [info] GET /servers
+09:46:17.179 [info] Sent 200 in 1ms
+09:46:49.770 [info] POST /login
+09:46:50.196 [info] Sent 200 in 426ms
+09:46:50.196 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:46:50.886 [info] --------------> NODE UP 2 <--------------
+09:46:50.886 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:46:50.887 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:46:55.773 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:53:13.643 [info] --------------> NODE DOWN 2 <--------------
+09:53:17.415 [info] GET /servers
+09:53:17.418 [info] Sent 200 in 3ms
+09:53:40.950 [info] POST /login
+09:53:41.375 [info] Sent 200 in 424ms
+09:53:41.375 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:53:43.192 [info] --------------> NODE UP 2 <--------------
+09:53:43.192 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:53:43.192 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:53:43.732 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:53:43.855 [info] GET /servers
+09:53:43.862 [info] Sent 200 in 7ms
+09:55:57.920 [info] --------------> NODE DOWN 2 <--------------
+09:56:02.960 [info] GET /servers
+09:56:02.961 [info] Sent 200 in 1ms
+09:56:08.969 [info] POST /login
+09:56:09.389 [info] Sent 200 in 419ms
+09:56:09.389 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:56:10.176 [info] --------------> NODE UP 2 <--------------
+09:56:10.176 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:56:10.176 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:56:12.303 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:56:12.363 [info] GET /servers
+09:56:12.367 [info] Sent 200 in 3ms
+09:57:10.816 [info] --------------> NODE DOWN 2 <--------------
+09:57:17.588 [info] GET /servers
+09:57:17.591 [info] Sent 200 in 2ms
+09:57:27.304 [info] POST /login
+09:57:27.705 [info] Sent 200 in 401ms
+09:57:27.706 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:57:28.660 [info] --------------> NODE UP 2 <--------------
+09:57:28.660 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:57:28.660 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:57:29.689 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:57:29.764 [info] GET /servers
+09:57:29.767 [info] Sent 200 in 3ms
+10:25:30.947 [info] --------------> NODE DOWN 2 <--------------
+10:25:41.317 [info] GET /servers
+10:25:41.318 [info] Sent 200 in 953µs
+10:25:50.002 [info] POST /login
+10:25:50.427 [info] Sent 200 in 425ms
+10:25:50.428 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:25:59.096 [info] GET /servers
+10:25:59.097 [info] Sent 200 in 875µs
+10:26:05.923 [info] POST /login
+10:26:06.361 [info] Sent 200 in 437ms
+10:26:06.362 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:26:08.437 [info] --------------> NODE UP 2 <--------------
+10:26:08.437 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:26:08.437 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:26:09.551 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+10:26:09.644 [info] GET /servers
+10:26:09.645 [info] Sent 200 in 1ms
+10:35:41.452 [info] --------------> NODE DOWN 2 <--------------
+10:36:15.315 [info] GET /servers
+10:36:15.316 [info] Sent 200 in 1ms
+10:36:20.581 [info] POST /login
+10:36:21.099 [info] Sent 200 in 517ms
+10:36:21.099 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:36:21.664 [info] --------------> NODE UP 2 <--------------
+10:36:21.664 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:36:21.664 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:36:23.213 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+10:36:23.290 [info] GET /servers
+10:36:23.294 [info] Sent 200 in 3ms
+10:38:36.493 [info] --------------> NODE DOWN 2 <--------------
+10:38:42.504 [info] GET /servers
+10:38:42.575 [info] Sent 200 in 71ms
+10:38:47.914 [info] POST /login
+10:38:48.355 [info] Sent 200 in 440ms
+10:38:48.355 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:38:49.319 [info] --------------> NODE UP 2 <--------------
+10:38:49.319 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:38:49.320 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:38:50.082 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+10:38:50.164 [info] GET /servers
+10:38:50.166 [info] Sent 200 in 970µs
+10:47:30.496 [info] --------------> NODE DOWN 2 <--------------
+10:47:37.061 [info] GET /servers
+10:47:37.062 [info] Sent 200 in 1ms
+10:47:41.887 [info] POST /login
+10:47:42.351 [info] Sent 200 in 464ms
+10:47:42.352 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:47:45.099 [info] --------------> NODE UP 2 <--------------
+10:47:45.099 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:47:45.100 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:47:45.285 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+10:47:45.335 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.1377.0> exit with reason: {:function_clause, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, [:ping, %{registry_key: "/socket/server/first"}], []}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+10:47:50.328 [info] GET /servers
+10:47:50.329 [info] Sent 200 in 1ms
+10:52:48.447 [info] --------------> NODE DOWN 2 <--------------
+10:52:53.676 [info] GET /servers
+10:52:53.679 [info] Sent 200 in 3ms
+10:52:58.642 [info] POST /login
+10:52:59.056 [info] Sent 200 in 414ms
+10:52:59.057 [info] pass is already started at #PID<0.663.0>, returning :ignore
+10:53:01.010 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+10:53:01.936 [info] --------------> NODE UP 2 <--------------
+10:53:01.937 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+10:53:01.937 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:01:21.007 [info] --------------> NODE DOWN 2 <--------------
+11:01:33.179 [info] GET /servers
+11:01:33.180 [info] Sent 200 in 1ms
+11:01:40.915 [info] POST /login
+11:01:41.373 [info] Sent 200 in 457ms
+11:01:41.373 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:01:41.768 [info] --------------> NODE UP 2 <--------------
+11:01:41.768 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:01:41.768 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:01:43.764 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:15:34.876 [info] --------------> NODE DOWN 2 <--------------
+11:15:47.110 [info] GET /servers
+11:15:47.442 [info] Sent 200 in 332ms
+11:15:53.328 [info] POST /login
+11:15:53.977 [info] Sent 200 in 648ms
+11:15:53.977 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:15:58.044 [info] --------------> NODE UP 2 <--------------
+11:15:58.044 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:15:58.044 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:15:58.282 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:22:53.293 [info] --------------> NODE DOWN 2 <--------------
+11:24:02.975 [info] GET /servers
+11:24:03.085 [info] Sent 200 in 109ms
+11:24:16.801 [info] POST /login
+11:24:17.199 [info] Sent 200 in 397ms
+11:24:17.199 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:24:17.720 [info] --------------> NODE UP 2 <--------------
+11:24:17.720 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:24:17.720 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:24:21.182 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:30:25.270 [info] --------------> NODE DOWN 2 <--------------
+11:30:30.021 [info] GET /servers
+11:30:30.022 [info] Sent 200 in 1ms
+11:30:41.113 [info] POST /login
+11:30:41.552 [info] Sent 200 in 438ms
+11:30:41.553 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:30:41.778 [info] --------------> NODE UP 2 <--------------
+11:30:41.778 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:30:41.778 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:30:47.350 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:37:46.914 [info] --------------> NODE DOWN 2 <--------------
+11:37:56.816 [info] GET /servers
+11:37:56.922 [info] Sent 200 in 105ms
+11:38:16.020 [info] POST /login
+11:38:16.461 [info] Sent 200 in 441ms
+11:38:16.462 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:38:20.567 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:38:20.567 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+11:38:21.144 [info] --------------> NODE UP 2 <--------------
+11:38:21.144 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:38:21.144 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:43:13.622 [info] --------------> NODE DOWN 2 <--------------
+11:45:06.840 [info] GET /servers
+11:45:06.939 [info] Sent 200 in 98ms
+11:45:22.978 [info] POST /login
+11:45:23.408 [info] Sent 200 in 429ms
+11:45:23.408 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:45:25.489 [info] --------------> NODE UP 2 <--------------
+11:45:25.490 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:45:25.490 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:45:33.414 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:45:33.414 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:25:42.431 [info] --------------> NODE DOWN 2 <--------------
+13:25:47.108 [info] GET /servers
+13:25:47.110 [info] Sent 200 in 1ms
+13:25:53.164 [info] POST /login
+13:25:53.606 [info] Sent 200 in 442ms
+13:25:53.607 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:25:53.699 [info] --------------> NODE UP 2 <--------------
+13:25:53.699 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:25:53.699 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:25:55.944 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:25:55.945 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:32:41.912 [info] --------------> NODE DOWN 2 <--------------
+13:32:45.821 [info] GET /servers
+13:32:45.823 [info] Sent 200 in 1ms
+13:32:55.167 [info] POST /login
+13:32:55.593 [info] Sent 200 in 426ms
+13:32:55.593 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:32:55.959 [info] --------------> NODE UP 2 <--------------
+13:32:55.959 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:32:55.959 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:32:57.320 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:32:57.320 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:36:41.155 [info] --------------> NODE DOWN 2 <--------------
+13:37:37.074 [info] GET /servers
+13:37:37.075 [info] Sent 200 in 932µs
+13:37:46.135 [info] POST /login
+13:37:46.563 [info] Sent 200 in 427ms
+13:37:46.564 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:37:48.401 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:37:48.401 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:37:48.504 [info] GET /servers
+13:37:48.506 [info] Sent 200 in 1ms
+13:37:50.552 [info] --------------> NODE UP 2 <--------------
+13:37:50.552 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:37:50.552 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:40:59.651 [info] --------------> NODE DOWN 2 <--------------
+13:44:20.552 [info] GET /servers
+13:44:20.555 [info] Sent 200 in 2ms
+13:44:25.964 [info] POST /login
+13:44:26.389 [info] Sent 200 in 425ms
+13:44:26.389 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:44:26.746 [info] --------------> NODE UP 2 <--------------
+13:44:26.746 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:44:26.746 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:44:29.897 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:44:29.897 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:44:29.945 [info] GET /servers
+13:44:29.947 [info] Sent 200 in 1ms
+13:45:59.145 [info] --------------> NODE DOWN 2 <--------------
+13:46:04.792 [info] GET /servers
+13:46:04.793 [info] Sent 200 in 799µs
+13:46:11.883 [info] POST /login
+13:46:12.306 [info] Sent 200 in 423ms
+13:46:12.307 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:46:13.627 [info] --------------> NODE UP 2 <--------------
+13:46:13.627 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:46:13.627 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:46:14.550 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:46:14.550 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:46:14.699 [info] GET /servers
+13:46:14.702 [info] Sent 200 in 2ms
+13:47:18.037 [info] --------------> NODE DOWN 2 <--------------
+13:47:26.482 [info] GET /servers
+13:47:26.483 [info] Sent 200 in 1ms
+13:47:32.156 [info] POST /login
+13:47:32.739 [info] Sent 200 in 583ms
+13:47:32.739 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:47:35.151 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:47:35.151 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:47:35.446 [info] --------------> NODE UP 2 <--------------
+13:47:35.446 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:47:35.447 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:49:13.664 [info] --------------> NODE DOWN 2 <--------------
+13:49:17.873 [info] GET /servers
+13:49:17.874 [info] Sent 200 in 994µs
+13:49:27.628 [info] POST /login
+13:49:28.047 [info] Sent 200 in 419ms
+13:49:28.047 [info] pass is already started at #PID<0.663.0>, returning :ignore
+13:49:29.108 [info] --------------> NODE UP 2 <--------------
+13:49:29.108 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:49:29.108 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+13:49:32.613 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:49:32.613 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:00:05.999 [info] --------------> NODE DOWN 2 <--------------
+15:17:46.537 [info] GET /servers
+15:17:46.538 [info] Sent 200 in 1ms
+15:17:52.659 [info] POST /login
+15:17:53.126 [info] Sent 200 in 466ms
+15:17:53.127 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:17:55.963 [info] --------------> NODE UP 2 <--------------
+15:17:55.963 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:17:55.963 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:17:58.730 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:17:58.731 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:20:31.608 [info] --------------> NODE DOWN 2 <--------------
+15:20:35.473 [info] GET /servers
+15:20:35.474 [info] Sent 200 in 938µs
+15:20:42.708 [info] POST /login
+15:20:43.128 [info] Sent 200 in 419ms
+15:20:43.129 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:20:45.050 [info] --------------> NODE UP 2 <--------------
+15:20:45.051 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:20:45.051 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:20:45.439 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:20:45.439 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:29:06.903 [info] --------------> NODE DOWN 2 <--------------
+15:29:10.851 [info] GET /servers
+15:29:10.881 [info] Sent 200 in 30ms
+15:29:16.270 [info] POST /login
+15:29:16.695 [info] Sent 200 in 425ms
+15:29:16.696 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:29:19.491 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:29:19.491 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:29:19.542 [info] GET /servers
+15:29:19.546 [info] Sent 200 in 4ms
+15:29:20.513 [info] --------------> NODE UP 2 <--------------
+15:29:20.514 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:29:20.514 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:36:54.910 [info] --------------> NODE DOWN 2 <--------------
+15:37:00.537 [info] GET /servers
+15:37:00.538 [info] Sent 200 in 1ms
+15:37:05.683 [info] POST /login
+15:37:06.134 [info] Sent 200 in 451ms
+15:37:06.135 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:37:07.508 [info] --------------> NODE UP 2 <--------------
+15:37:07.508 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:37:07.509 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:37:08.157 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:37:08.157 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:37:08.295 [info] GET /servers
+15:37:08.296 [info] Sent 200 in 969µs
+15:49:03.273 [info] --------------> NODE DOWN 2 <--------------
+15:50:24.137 [info] GET /servers
+15:50:24.138 [info] Sent 200 in 984µs
+15:50:29.894 [info] POST /login
+15:50:30.291 [info] Sent 200 in 397ms
+15:50:30.291 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:50:32.996 [info] --------------> NODE UP 2 <--------------
+15:50:32.996 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:50:32.996 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:50:33.632 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:50:33.633 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:50:33.676 [info] GET /servers
+15:50:33.677 [info] Sent 200 in 1ms
+15:52:47.637 [info] --------------> NODE DOWN 2 <--------------
+15:55:20.871 [info] GET /servers
+15:55:20.872 [info] Sent 200 in 1ms
+15:55:25.898 [info] POST /login
+15:55:26.313 [info] Sent 200 in 415ms
+15:55:26.313 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:55:28.238 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:55:28.238 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:55:28.284 [info] GET /servers
+15:55:28.286 [info] Sent 200 in 1ms
+15:55:29.360 [info] --------------> NODE UP 2 <--------------
+15:55:29.360 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:55:29.360 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:56:28.101 [info] --------------> NODE DOWN 2 <--------------
+15:56:35.625 [info] GET /servers
+15:56:35.626 [info] Sent 200 in 997µs
+15:56:47.603 [info] POST /login
+15:56:48.047 [info] Sent 200 in 444ms
+15:56:48.048 [info] pass is already started at #PID<0.663.0>, returning :ignore
+15:56:48.611 [info] --------------> NODE UP 2 <--------------
+15:56:48.611 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:56:48.611 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+15:56:50.332 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+15:56:50.332 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+15:56:50.374 [info] GET /servers
+15:56:50.376 [info] Sent 200 in 2ms
+16:07:00.241 [info] --------------> NODE DOWN 2 <--------------
+16:07:09.044 [info] GET /servers
+16:07:09.045 [info] Sent 200 in 889µs
+16:07:14.381 [info] POST /login
+16:07:14.835 [info] Sent 200 in 454ms
+16:07:14.836 [info] pass is already started at #PID<0.663.0>, returning :ignore
+16:07:15.470 [info] --------------> NODE UP 2 <--------------
+16:07:15.471 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:07:15.473 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:07:16.934 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:07:16.934 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+16:07:16.984 [info] GET /servers
+16:07:16.985 [info] Sent 200 in 1ms
+16:09:21.162 [info] --------------> NODE DOWN 2 <--------------
+16:10:30.176 [info] GET /servers
+16:10:30.177 [info] Sent 200 in 1ms
+16:10:36.160 [info] POST /login
+16:10:36.575 [info] Sent 200 in 415ms
+16:10:36.576 [info] pass is already started at #PID<0.663.0>, returning :ignore
+16:10:37.828 [info] --------------> NODE UP 2 <--------------
+16:10:37.828 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:10:37.828 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:10:43.271 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:10:43.272 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+16:10:48.302 [info] GET /servers
+16:10:48.304 [info] Sent 200 in 998µs
+16:12:27.665 [info] --------------> NODE DOWN 2 <--------------
+16:12:35.339 [info] GET /servers
+16:12:35.340 [info] Sent 200 in 1ms
+16:12:48.373 [info] GET /servers
+16:12:48.374 [info] Sent 200 in 942µs
+16:12:54.094 [info] POST /login
+16:12:54.544 [info] Sent 200 in 449ms
+16:12:54.544 [info] pass is already started at #PID<0.663.0>, returning :ignore
+16:12:56.869 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:12:56.869 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+16:12:56.927 [info] GET /servers
+16:12:56.928 [info] Sent 200 in 1ms
+16:12:58.751 [info] --------------> NODE UP 2 <--------------
+16:12:58.751 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:12:58.751 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+16:22:19.090 [info] --------------> NODE DOWN 2 <--------------
+16:24:23.893 [info] GET /servers
+16:24:23.894 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+16:24:23.894 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+16:24:23.977 [info] Postgrex.Protocol (#PID<0.515.0>) disconnected: ** (DBConnection.ConnectionError) client #PID<0.5438.0> exited
+16:24:28.909 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+07:45:03.048 [info] GET /servers
+07:46:19.048 [info] GET /servers
+13:54:47.486 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+13:54:47.487 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+13:54:47.658 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+14:14:36.887 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+14:14:36.888 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+14:14:36.917 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+14:15:30.156 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+14:15:30.156 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+14:15:30.217 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+14:17:04.220 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+14:17:04.220 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+14:17:04.250 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+23:40:49.547 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+23:40:49.547 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+23:40:49.946 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+23:43:51.372 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+23:43:51.372 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+23:43:51.438 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+23:44:25.097 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+23:44:25.098 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+23:44:25.135 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+00:05:18.562 [info] GET /servers
+00:05:18.575 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+00:05:18.575 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+00:05:18.611 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+00:05:19.142 [info] Sent 200 in 579ms
+00:31:36.932 [info] GET /servers
+00:31:39.858 [info] Sent 200 in 2925ms
+00:31:59.868 [info] GET /servers
+00:32:01.593 [info] Sent 200 in 1725ms
+00:32:01.603 [info] GET /servers
+00:32:03.893 [info] Sent 200 in 2290ms
+00:32:03.907 [info] GET /servers
+00:32:05.015 [info] Sent 200 in 1107ms
+00:32:05.025 [info] GET /servers
+00:32:05.182 [info] Sent 200 in 156ms
+00:32:05.210 [info] GET /servers
+00:32:05.638 [info] Sent 200 in 427ms
+00:32:05.650 [info] GET /servers
+00:32:08.684 [info] Sent 200 in 3033ms
+00:32:08.699 [info] GET /servers
+00:32:10.508 [info] Sent 200 in 1809ms
+00:32:10.516 [info] GET /servers
+00:32:13.115 [info] Sent 200 in 2598ms
+00:32:13.127 [info] GET /servers
+00:32:13.128 [info] Sent 200 in 1ms
+00:32:13.144 [info] GET /servers
+00:32:13.145 [info] Sent 200 in 824µs
+00:32:13.156 [info] GET /servers
+00:32:13.156 [info] Sent 200 in 789µs
+00:32:13.167 [info] GET /servers
+00:32:13.293 [info] Sent 200 in 125ms
+00:32:13.302 [info] GET /servers
+00:32:14.742 [info] Sent 200 in 1439ms
+00:32:14.748 [info] GET /servers
+00:32:14.750 [info] Sent 200 in 1ms
+00:32:14.760 [info] GET /servers
+00:32:14.761 [info] Sent 200 in 863µs
+00:32:14.773 [info] GET /servers
+00:32:14.889 [info] Sent 200 in 115ms
+00:32:14.896 [info] GET /servers
+00:32:14.986 [info] Sent 200 in 89ms
+00:32:14.998 [info] GET /servers
+00:32:15.000 [info] Sent 200 in 1ms
+00:32:15.011 [info] GET /servers
+00:32:15.012 [info] Sent 200 in 833µs
+00:34:27.652 [info] GET /servers
+00:34:27.653 [info] Sent 200 in 1ms
+00:34:42.573 [info] POST /login
+00:34:44.328 [info] Sent 200 in 1754ms
+00:34:44.328 [info] pass is already started at #PID<0.663.0>, returning :ignore
+00:34:47.843 [info] --------------> NODE UP 2 <--------------
+00:34:47.843 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:34:47.843 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:40:06.387 [info] --------------> NODE DOWN 2 <--------------
+00:40:24.993 [info] GET /servers
+00:40:24.994 [info] Sent 200 in 1ms
+00:40:30.795 [info] POST /login
+00:40:31.733 [info] Sent 200 in 937ms
+00:40:31.734 [info] pass is already started at #PID<0.663.0>, returning :ignore
+00:40:33.231 [info] --------------> NODE UP 2 <--------------
+00:40:33.231 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:40:33.231 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:40:59.508 [info] --------------> NODE DOWN 2 <--------------
+00:41:15.071 [info] GET /servers
+00:41:15.072 [info] Sent 200 in 1ms
+00:41:43.796 [info] POST /login
+00:41:45.093 [info] Sent 200 in 1296ms
+00:41:45.093 [info] pass is already started at #PID<0.663.0>, returning :ignore
+00:41:45.982 [info] --------------> NODE UP 2 <--------------
+00:41:45.982 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:41:45.982 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:42:03.175 [info] GET /servers
+00:42:03.176 [info] Sent 200 in 1ms
+00:46:52.280 [info] --------------> NODE DOWN 2 <--------------
+00:49:07.338 [info] GET /servers
+00:49:07.435 [info] Sent 200 in 97ms
+00:49:43.431 [info] POST /login
+00:49:45.180 [info] Sent 200 in 1748ms
+00:49:45.180 [info] pass is already started at #PID<0.663.0>, returning :ignore
+00:49:45.938 [info] --------------> NODE UP 2 <--------------
+00:49:45.938 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:49:45.938 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+00:49:48.495 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+00:49:48.495 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+09:15:01.807 [info] --------------> NODE DOWN 2 <--------------
+09:22:55.667 [info] GET /servers
+09:22:55.736 [info] Sent 200 in 68ms
+09:23:17.659 [info] POST /login
+09:23:18.103 [info] Sent 200 in 444ms
+09:23:18.104 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:23:20.779 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:23:20.780 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+09:23:20.800 [info] --------------> NODE UP 2 <--------------
+09:23:20.800 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:23:20.800 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:23:20.851 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+09:23:25.863 [info] GET /servers
+09:23:25.864 [info] Sent 200 in 1ms
+09:29:04.833 [info] --------------> NODE DOWN 2 <--------------
+09:29:58.619 [info] GET /servers
+09:29:58.804 [info] Sent 200 in 184ms
+09:30:06.135 [info] POST /login
+09:30:06.666 [info] Sent 200 in 530ms
+09:30:06.666 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:30:08.527 [info] --------------> NODE UP 2 <--------------
+09:30:08.527 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:30:08.527 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:30:09.240 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:30:09.240 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+09:30:09.256 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+09:30:14.230 [info] GET /servers
+09:30:14.341 [info] Sent 200 in 111ms
+09:40:50.257 [error] Ranch protocol #PID<0.24442.0> of listener BlackjackWeb.Router.HTTP (connection #PID<0.24441.0>, stream id 1) terminated
+an exception was raised:
+    ** (BadMapError) expected a map, got: [idle_timeout: 30000]
+        (stdlib 3.17) maps.erl:517: :maps.get(:req_filter, [idle_timeout: 30000], :undefined)
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl:133: :cowboy_websocket.upgrade/5
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:306: :cowboy_stream_h.execute/3
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:295: :cowboy_stream_h.request_process/3
+        (stdlib 3.17) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
+09:40:50.317 [info] GET /servers
+09:40:50.380 [info] Sent 200 in 62ms
+09:41:03.039 [error] Ranch protocol #PID<0.24448.0> of listener BlackjackWeb.Router.HTTP (connection #PID<0.24447.0>, stream id 1) terminated
+an exception was raised:
+    ** (BadMapError) expected a map, got: [idle_timeout: 30000]
+        (stdlib 3.17) maps.erl:517: :maps.get(:req_filter, [idle_timeout: 30000], :undefined)
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl:133: :cowboy_websocket.upgrade/5
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:306: :cowboy_stream_h.execute/3
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:295: :cowboy_stream_h.request_process/3
+        (stdlib 3.17) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
+09:41:03.050 [info] GET /servers
+09:41:03.078 [info] Sent 200 in 27ms
+09:41:09.481 [info] --------------> NODE DOWN 2 <--------------
+09:41:25.016 [info] GET /servers
+09:41:25.199 [info] Sent 200 in 182ms
+09:41:31.130 [info] POST /login
+09:41:31.528 [info] Sent 200 in 398ms
+09:41:31.528 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:41:34.631 [info] --------------> NODE UP 2 <--------------
+09:41:34.631 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:41:34.631 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:41:35.866 [error] Ranch protocol #PID<0.24461.0> of listener BlackjackWeb.Router.HTTP (connection #PID<0.24460.0>, stream id 1) terminated
+an exception was raised:
+    ** (BadMapError) expected a map, got: [idle_timeout: 30000]
+        (stdlib 3.17) maps.erl:517: :maps.get(:req_filter, [idle_timeout: 30000], :undefined)
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl:133: :cowboy_websocket.upgrade/5
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:306: :cowboy_stream_h.execute/3
+        (cowboy 2.9.0) /home/developer/Projects/blackjack/deps/cowboy/src/cowboy_stream_h.erl:295: :cowboy_stream_h.request_process/3
+        (stdlib 3.17) proc_lib.erl:226: :proc_lib.init_p_do_apply/3
+09:41:36.119 [info] GET /servers
+09:41:36.600 [info] Sent 200 in 480ms
+09:43:22.764 [info] --------------> NODE DOWN 2 <--------------
+09:43:43.047 [info] GET /servers
+09:43:43.156 [info] Sent 200 in 109ms
+09:43:53.450 [info] POST /login
+09:43:54.192 [info] Sent 200 in 742ms
+09:43:54.193 [info] pass is already started at #PID<0.663.0>, returning :ignore
+09:43:54.625 [info] --------------> NODE UP 2 <--------------
+09:43:54.626 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:43:54.626 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+09:44:04.297 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+09:44:04.297 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+09:44:04.355 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+09:44:09.203 [info] GET /servers
+09:44:09.245 [info] Sent 200 in 41ms
+11:50:16.168 [info] --------------> NODE DOWN 2 <--------------
+11:50:35.949 [info] GET /servers
+11:50:35.976 [info] Sent 200 in 26ms
+11:50:42.788 [info] POST /login
+11:50:43.435 [info] Sent 200 in 647ms
+11:50:43.436 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:50:46.591 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:50:46.591 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+11:50:46.649 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+11:50:46.649 [info] WEBSOCKET HANDLE: %{"server_name" => "first", "user" => %{"inserted_at" => "2022-05-22T16:34:58", "password_hash" => "$2b$12$P.FGxUgE9BjtvRn5L6q9X.y3gj2nhu28E1WOPHLXzThMlgDEdJ2sq", "updated_at" => "2022-05-22T16:34:58", "username" => "pass", "uuid" => "e9d8af6c-9ac8-4c1d-93ae-892af68b2d92"}} -> %{registry_key: "/socket/server/first"}
+11:50:46.923 [info] --------------> NODE UP 2 <--------------
+11:50:46.923 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:50:46.923 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:54:21.824 [info] --------------> NODE DOWN 2 <--------------
+11:54:31.841 [info] GET /servers
+11:54:31.906 [info] Sent 200 in 64ms
+11:54:41.988 [info] POST /login
+11:54:43.550 [info] Sent 200 in 1561ms
+11:54:43.550 [info] pass is already started at #PID<0.663.0>, returning :ignore
+11:54:45.831 [info] --------------> NODE UP 2 <--------------
+11:54:45.831 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:54:45.831 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+11:54:47.180 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+11:54:47.180 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+11:54:47.347 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+11:54:47.347 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.27824.0> exit with reason: {{:badmap, "THIS IS FROM THE CLIENT"}, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, 2, [file: 'lib/blackjack_web/sockets/server_handler.ex', line: 26]}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+12:09:52.803 [info] --------------> NODE DOWN 2 <--------------
+12:10:04.929 [info] GET /servers
+12:10:05.061 [info] Sent 200 in 132ms
+12:10:22.811 [info] POST /login
+12:10:23.211 [info] Sent 200 in 400ms
+12:10:23.212 [info] pass is already started at #PID<0.663.0>, returning :ignore
+12:10:24.346 [info] --------------> NODE UP 2 <--------------
+12:10:24.347 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:10:24.347 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:10:26.258 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+12:10:26.258 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+12:10:26.320 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+12:10:26.320 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.28295.0> exit with reason: {{:badmap, "THIS IS FROM THE CLIENT"}, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, 2, [file: 'lib/blackjack_web/sockets/server_handler.ex', line: 26]}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+12:30:28.560 [info] --------------> NODE DOWN 2 <--------------
+12:31:02.886 [info] GET /servers
+12:31:02.888 [info] Sent 200 in 1ms
+12:31:14.184 [info] POST /login
+12:31:14.797 [info] Sent 200 in 612ms
+12:31:14.797 [info] pass is already started at #PID<0.663.0>, returning :ignore
+12:31:17.568 [info] --------------> NODE UP 2 <--------------
+12:31:17.568 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:31:17.568 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:31:23.150 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+12:31:23.150 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+12:31:23.160 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+12:31:23.160 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.28781.0> exit with reason: {{:badmap, "THIS IS FROM THE CLIENT"}, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, 2, [file: 'lib/blackjack_web/sockets/server_handler.ex', line: 26]}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+12:31:23.161 [info] GET /server/first
+12:31:24.330 [info] Sent 500 in 1168ms
+12:31:24.353 [error] #PID<0.28783.0> running BlackjackWeb.Router (connection #PID<0.28772.0>, stream id 3) terminated
+Server: localhost:4000 (http)
+Request: GET /server/first
+** (exit) an exception was raised:
+    ** (Protocol.UndefinedError) protocol String.Chars not implemented for %{inserted_at: ~N[2022-05-22 16:35:08.000000], player_count: 0, server_name: "first", table_count: 0, updated_at: ~N[2022-05-22 16:35:08.000000], user_uuid: "e9d8af6c-9ac8-4c1d-93ae-892af68b2d92"} of type Map. This protocol is implemented for the following type(s): Atom, BitString, Date, DateTime, Decimal, Float, Integer, List, NaiveDateTime, Postgrex.Copy, Postgrex.Query, Time, URI, Version, Version.Requirement
+        (elixir 1.13.4) lib/string/chars.ex:3: String.Chars.impl_for!/1
+        (elixir 1.13.4) lib/string/chars.ex:22: String.Chars.to_string/1
+        (blackjack 0.1.0) lib/blackjack_web/controllers/servers/servers_controller.ex:60: BlackjackWeb.Controllers.ServersController.show/1
+        (blackjack 0.1.0) lib/blackjack_web/router.ex:76: anonymous fn/2 in BlackjackWeb.Router.do_match/4
+        (blackjack 0.1.0) lib/plug/router.ex:246: anonymous fn/4 in BlackjackWeb.Router.dispatch/2
+        (telemetry 1.0.0) /home/developer/Projects/blackjack/deps/telemetry/src/telemetry.erl:293: :telemetry.span/3
+        (blackjack 0.1.0) lib/plug/router.ex:242: BlackjackWeb.Router.dispatch/2
+        (blackjack 0.1.0) lib/blackjack_web/router.ex:1: BlackjackWeb.Router.plug_builder_call/2
+12:31:24.516 [info] GET /servers
+12:31:24.518 [info] Sent 200 in 1ms
+12:32:17.671 [info] --------------> NODE DOWN 2 <--------------
+12:32:48.061 [info] GET /servers
+12:32:48.315 [info] Sent 200 in 253ms
+12:32:57.019 [info] POST /login
+12:32:57.618 [info] Sent 200 in 598ms
+12:32:57.618 [info] pass is already started at #PID<0.663.0>, returning :ignore
+12:33:00.296 [info] --------------> NODE UP 2 <--------------
+12:33:00.296 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:33:00.296 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:33:01.867 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+12:33:01.867 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+12:33:02.156 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+12:33:02.157 [info] GET /server/first
+12:33:02.157 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.28905.0> exit with reason: {{:badmap, "THIS IS FROM THE CLIENT"}, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, 2, [file: 'lib/blackjack_web/sockets/server_handler.ex', line: 26]}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+12:33:02.391 [info] Sent 200 in 234ms
+12:33:25.135 [info] --------------> NODE DOWN 2 <--------------
+12:35:32.698 [info] GET /servers
+12:35:32.700 [info] Sent 200 in 2ms
+12:35:48.069 [info] POST /login
+12:35:48.489 [info] Sent 200 in 420ms
+12:35:48.490 [info] pass is already started at #PID<0.663.0>, returning :ignore
+12:35:48.958 [info] --------------> NODE UP 2 <--------------
+12:35:48.958 [info] CORE REGISTRY: [{Blackjack.Core.CoreRegistry, :blackjack_server_0@Developer}, {Blackjack.Core.CoreRegistry, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:35:48.958 [info] CORE SUPERVISOR: [{Blackjack.Core.Supervisor, :blackjack_server_0@Developer}, {Blackjack.Core.Supervisor, :"e9d8af6c-9ac8-4c1d-93ae-892af68b2d92@Developer"}]
+12:35:56.156 [info] WEBSOCKET INIT: %{registry_key: "/socket/server/first"}
+12:35:56.156 [info] WEBSOCKET INFO: "PUSING MESSAGE" -> %{registry_key: "/socket/server/first"}
+12:35:56.167 [info] WEBSOCKET HANDLE: "THIS IS FROM THE CLIENT" -> %{registry_key: "/socket/server/first"}
+12:35:56.167 [error] Ranch listener BlackjackWeb.Router.HTTP had connection process started with :cowboy_clear:start_link/4 at #PID<0.28930.0> exit with reason: {{:badmap, "THIS IS FROM THE CLIENT"}, [{BlackjackWeb.Sockets.ServerHandler, :websocket_handle, 2, [file: 'lib/blackjack_web/sockets/server_handler.ex', line: 26]}, {:cowboy_websocket, :handler_call, 6, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_websocket.erl', line: 528]}, {:cowboy_http, :loop, 1, [file: '/home/developer/Projects/blackjack/deps/cowboy/src/cowboy_http.erl', line: 257]}, {:proc_lib, :init_p_do_apply, 3, [file: 'proc_lib.erl', line: 226]}]}
+
+12:35:56.168 [info] GET /server/first
+12:35:56.381 [info] Sent 200 in 213ms
+12:36:29.930 [info] --------------> NODE DOWN 2 <--------------

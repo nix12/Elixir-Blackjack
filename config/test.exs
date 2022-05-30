@@ -23,9 +23,7 @@ config :blackjack, Blackjack.Repo,
   password: "postgres",
   hostname: "localhost",
   timeout: 60_000,
-  adapter: Ecto.Adapters.Postgres,
-  pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  pool: Ecto.Adapters.SQL.Sandbox
 
 config :plug_cowboy, log_exceptions_with_status_code: [400..500]
 

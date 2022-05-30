@@ -1,49 +1,49 @@
 defmodule Blackjack.Accounts.UserTest do
   use Blackjack.RepoCase, async: true
 
+  alias Blackjack.Repo
   alias Blackjack.Accounts.User
 
   describe "User" do
-    test "change_request valid" do
-      user_params = %{
-        username: "username",
-        password_hash: "password",
-        inserted_at: DateTime.utc_now(),
-        updated_at: DateTime.utc_now()
-      }
+    test "insert valid user" do
+      changeset =
+        User.changeset(%User{}, %{
+          username: "username0",
+          password_hash: "password"
+        })
 
-      {:ok, changeset} = User.insert(user_params)
+      {:ok, changeset} = Repo.insert(changeset)
 
       assert %{uuid: _, username: _, password_hash: _, inserted_at: _, updated_at: _} = changeset
     end
 
-    test "change_request invalid" do
-      user_params = %{username: "", password_hash: ""}
-      {:error, changeset} = User.insert(user_params)
+    test "insert invalid user" do
+      changeset = User.changeset(%User{}, %{username: "", password_hash: ""})
+      {:error, changeset} = Repo.insert(changeset)
 
       refute changeset.valid?
     end
 
     test "validates required" do
-      user_params = %{username: "", password_hash: ""}
-      {:error, changeset} = User.insert(user_params)
+      changeset = User.changeset(%User{}, %{username: "", password_hash: ""})
+      {:error, changeset} = Repo.insert(changeset)
 
       refute changeset.valid?
     end
 
     test "validates uniqueness" do
-      build(:custom_user, username: "username") |> User.insert()
+      user = build(:user) |> set_password("password") |> insert()
 
-      user_params = %{
-        username: "username",
-        password_hash: "password",
-        inserted_at: DateTime.utc_now(),
-        updated_at: DateTime.utc_now()
-      }
+      changeset =
+        User.changeset(%User{}, %{
+          username: user.username,
+          password_hash: "password"
+        })
 
-      {:error, changeset} = User.insert(user_params)
+      {:error, changeset} = Repo.insert(changeset)
 
-      assert changeset == "This username is already taken."
+      [{field, {error, _constraints}}] = changeset.errors
+      assert "#{field} #{error}." == "username has already been taken."
     end
   end
 end

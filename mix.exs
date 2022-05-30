@@ -5,17 +5,11 @@ defmodule Blackjack.MixProject do
     [
       app: :blackjack,
       version: "0.1.0",
-      elixir: "~> 1.13.2",
+      elixir: "~> 1.13.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
-      preferred_cli_env: [
-        vcr: :test,
-        "vcr.delete": :test,
-        "vcr.check": :test,
-        "vcr.show": :test
-      ]
+      aliases: aliases()
     ]
   end
 
