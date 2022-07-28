@@ -14,6 +14,7 @@ defmodule Blackjack.Application do
       {Blackjack.Repo, []},
 
       # Network
+      {Registry, keys: :duplicate, name: Registry.Sockets},
       {Plug.Cowboy,
        scheme: :http,
        plug: BlackjackWeb.Router,
@@ -33,7 +34,8 @@ defmodule Blackjack.Application do
       {Blackjack.NodeObserver, []},
 
       # Notifications
-      Blackjack.Notifications.AccountsNotifier,
+      Blackjack.Notifier.AccountsNotifier,
+      Blackjack.Notifier.CoreNotifier,
 
       # Startup Tasks
       {Task.Supervisor, name: Blackjack.TaskSupervisor},

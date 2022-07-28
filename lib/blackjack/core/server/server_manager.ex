@@ -22,47 +22,41 @@ defmodule Blackjack.Core.ServerManager do
     end
   end
 
-  #   def get_server(server_name) do
-  #     GenServer.call(Blackjack.via_horde({CoreRegistry, server_name}), {:get_server})
-  #   end
+  def get_server(server_name) do
+    GenServer.call(Blackjack.via_horde({CoreRegistry, server_name}), {:get_server})
+  end
 
   #   # For updating all connected databases, but will be using single database
   #   # def update_server(%{"server_name" => server_name} = server) do
   #   #   GenServer.call(Blackjack.via_horde({CoreRegistry, server_name}), {:update_server, server})
   #   # end
 
-  def join_server(server_name, user) do
-    GenServer.cast(
-      Blackjack.via_horde({CoreRegistry, server_name}),
-      {:join_server, server_name, user}
-    )
-  end
+  # def join_server([server_name, user]) do
+  #   GenServer.cast(
+  #     Blackjack.via_horde({CoreRegistry, server_name}),
+  #     {:join_server, server_name, user}
+  #   )
+  # end
 
-  #   def remove_user(server_name, username) do
-  #     GenServer.call(
-  #       Blackjack.via_horde({CoreRegistry, server_name}),
-  #       {:remove_user, server_name, username}
-  #     )
-  #   end
+  # def leave_server([server_name, user]) do
+  #   GenServer.cast(
+  #     Blackjack.via_horde({CoreRegistry, server_name}),
+  #     {:leave_server, server_name, user}
+  #   )
+  # end
 
   @impl true
   def init(server) do
     # Process.flag(:trap_exit, true)
 
-    # PubSub
-    # |> Process.whereis()
-    # |> Process.link()
-
-    PubSub.start_link()
-
     # , {:continue, :load_state} For loading state of saved server
-    {:ok, server}
+    {:ok, %{server: server, members: []}}
   end
 
-  #   @impl true
-  #   def handle_call({:get_server}, _from, server) do
-  #     {:reply, server, server}
-  #   end
+  @impl true
+  def handle_call({:get_server}, _from, server) do
+    {:reply, server, server}
+  end
 
   #   # For updating all connected databases, but will be using single database
   #   # def handle_call({:update_server, %{"server_name" => server_name}}, _from, _server) do
@@ -73,35 +67,43 @@ defmodule Blackjack.Core.ServerManager do
   #   # end
 
   @impl true
-  def handle_cast({:join_server, server_name, user}, server) do
-    join_server(server_name, user)
+  def handle_info({:join_server, [{server_name, user}]}, %{server: server, members: members}) do
+    members = Servers.join_server(members, user)
+    server = Repo.get(Server, server.id)
+    IO.puts("JOINED")
+    IO.inspect(members, label: "MEMBERS")
 
-    changeset =
-      Server.changeset(%Server{}, %{
-        server_name: server["server_name"],
-        player_count: server["player_count"] + 1
+    {:ok, changeset} =
+      server
+      |> Server.changeset(%{
+        server_name: server_name,
+        user_uuid: user.uuid,
+        player_count: Enum.count(members)
       })
-      |> Repo.preload(:user)
-      |> Repo.update!()
+      |> Repo.update()
 
-    IO.inspect(PubSub.subscribers(server_name), label: "LIST USERS")
+    IO.inspect(changeset, label: "JOIN CHANGESET")
 
-    {:noreply, changeset}
+    Servers.notify_members(members)
+    {:noreply, %{server: changeset, members: members}}
   end
 
-  #   def handle_call({:remove_user, server_name, username}, _from, server) do
-  #     leave_server(server_name, username)
+  def handle_info({:leave_server, [{server_name, user}]}, %{server: server, members: members}) do
+    members = Servers.leave_server(members, user)
+    server = Repo.get(Server, server.id)
+    IO.puts("LEFT")
 
-  #     changeset =
-  #       Server.changeset(%Server{}, %{
-  #         server_name: server["server_name"],
-  #         player_count: server["player_count"] - 1
-  #       })
-  #       |> Repo.preload(:user)
-  #       |> Repo.update!()
+    {:ok, changeset} =
+      server
+      |> Server.changeset(%{
+        server_name: server_name,
+        user_uuid: user.uuid,
+        player_count: Enum.count(members)
+      })
+      |> Repo.update()
 
-  #     {:reply, changeset, changeset}
-  #   end
+    {:noreply, %{server: changeset, members: members}}
+  end
 
   #   @impl true
   #   def handle_info({:update_status}, server) do
@@ -128,12 +130,8 @@ defmodule Blackjack.Core.ServerManager do
   #     {:noreply, load_state(server)}
   #   end
 
-  #   @impl true
-  #   def terminate(_reason, server) do
-  #     Enum.each(PubSub.subscribers(server["server_name"]), fn user ->
-  #       PubSub.unsubscribe(user, server["server_name"])
-  #     end)
-
-  #     save_state(%{server | "player_count" => player_count(server["server_name"])})
-  #   end
+  @impl true
+  def terminate(_reason, %{server: server, members: members}) do
+    # save_state(%{server | "player_count" => player_count(server["server_name"])})
+  end
 end

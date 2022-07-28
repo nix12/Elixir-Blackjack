@@ -27,3 +27,12 @@ Currently working on:
 - Form password
 - Fix forms
 - Sync connected GUI's
+
+Blackjack
+
+- Accounts
+  - Users
+  - Friends
+  - Settings
+  - Authorization/Roles
+  - Inbox

@@ -1,5 +1,6 @@
 defmodule Blackjack.Core.Servers do
   alias Blackjack.{Repo, Accounts}
+  alias Blackjack.Accounts.AccountsRegistry
   alias Blackjack.Core.Supervisor, as: CoreSupervisor
   alias Blackjack.Core.{CoreRegistry, Server, ServerManager, Servers, ServerQuery, StateManager}
 
@@ -22,6 +23,8 @@ defmodule Blackjack.Core.Servers do
   #     inserted_at: DateTime.utc_now(),
   #     updated_at: DateTime.utc_now()
   #   })
+
+  #   State
   # end
 
   # def load_state(server) do
@@ -44,29 +47,31 @@ defmodule Blackjack.Core.Servers do
   #   end
   # end
 
-  # defp player_count(server_name) do
-  #   server_name
-  #   |> PubSub.subscribers()
-  #   |> Enum.count()
+  # def player_count(members) do
+  #   # server_name
+  #   # |> PubSub.subscribers()
+  #   # |> Enum.count()
+
+  #   Enum.count(members)
   # end
 
-  def join_server(server_name, user) do
-    [{pid, _}] =
-      {Blackjack.Accounts.AccountsRegistry, user}
-      |> Blackjack.via_horde()
-      |> Horde.Registry.whereis()
+  def join_server(members, %{uuid: uuid}) do
+    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, uuid)
 
-    PubSub.subscribe(pid, server_name)
+    Process.link(pid)
+    [pid | members]
   end
 
-  # defp leave_server(server_name, username) do
-  #   [{pid, _}] =
-  #     {Blackjack.Accounts.AccountsRegistry, username}
-  #     |> Blackjack.via_horde()
-  #     |> Horde.Registry.whereis()
+  def leave_server(members, %{uuid: uuid}) do
+    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, uuid)
 
-  #   PubSub.unsubscribe(pid, server_name)
-  # end
+    Process.unlink(pid)
+    List.delete(members, pid)
+  end
+
+  def notify_members(members) do
+    # Send updated server through socket
+  end
 
   # def send_update do
   #   :timer.send_interval(10_000, {:update_status})

@@ -29,6 +29,10 @@ config :plug_cowboy, log_exceptions_with_status_code: [400..500]
 
 config :blackjack, port: 4000
 
+config :blackjack, Blackjack.AuthAccessPipeline,
+  module: Blackjack.Accounts.Authentication.Guardian,
+  error_handler: Blackjack.AuthErrorHandler
+
 config :blackjack, Blackjack.Accounts.Authentication.Guardian,
   allowed_algos: ["HS512"],
   verify_module: Guardian.JWT,

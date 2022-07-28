@@ -4,8 +4,8 @@ defmodule Blackjack.Accounts.UserManager do
   use GenServer
 
   alias Blackjack.Repo
-  alias Blackjack.Core
-  alias Blackjack.Accounts.{User, Users, AccountsRegistry}
+  alias Blackjack.Accounts.{User, Friendship, Friendships, AccountsRegistry}
+  alias Blackjack.Accounts.Inbox.Notifications.Notification
 
   # Client
 
@@ -31,10 +31,6 @@ defmodule Blackjack.Accounts.UserManager do
     GenServer.call(Blackjack.via_horde({AccountsRegistry, uuid}), {:get_user})
   end
 
-  def update_user(uuid, user) do
-    GenServer.cast(Blackjack.via_horde({AccountsRegistry, uuid}), {:update_user, user})
-  end
-
   # Server
 
   @impl true
@@ -52,15 +48,43 @@ defmodule Blackjack.Accounts.UserManager do
   end
 
   @impl true
-  def handle_cast({:update_user, user}, user_account) do
-    changeset = User.changeset(%User{uuid: user_account.uuid}, user |> Map.delete(:mod))
-    updated_user = Repo.update(changeset)
+  def handle_info({:update_user, [user]}, user_account) do
+    case User.changeset(user_account, user) |> Repo.update() do
+      {:ok, updated_user} ->
+        {:noreply, updated_user}
 
-    {:noreply, updated_user}
+      {:error, _changeset} ->
+        {:noreply, %{user_account | error: "Failed to update account. Please try again."}}
+    end
   end
 
-  # For updating all connected databases, but will be using single database
-  # def handle_call({:sync_server, [server_data] = _server}, _from, user_account) do
-  #   {:reply, Core.sync_server(server_data), user_account}
-  # end
+  def handle_info({:create_friendship, [requested_user]}, user_account) do
+    case Friendship.changeset(%Friendship{}, %{
+           user_uuid: user_account.uuid,
+           friend_uuid: requested_user.uuid
+         })
+         |> Repo.insert() do
+      {:ok, _pending_friendship} ->
+        send(self(), {:friend_request, requested_user})
+        {:noreply, user_account}
+
+      {:error, _changeset} ->
+        {:noreply, %{user_account | error: "Failed to send friend request. Please try again."}}
+    end
+  end
+
+  def handle_info({:friend_request, requested_user}, user_account) do
+    Notification.changeset(%Notification{}, %{
+      user_uuid: user_account.uuid,
+      recipient_uuid: requested_user.uuid,
+      body: "Friend request from: " <> user_account.username
+    })
+
+    {:noreply, user_account}
+  end
+
+  @impl true
+  def terminate(reason, state) do
+    IO.inspect(reason, label: "TERMINATE")
+  end
 end

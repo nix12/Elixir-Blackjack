@@ -1,9 +1,9 @@
 [
   {
     "request": {
-      "body": "{\"user\":{\"password_hash\":\"password\",\"username\":\"username0\"}}",
+      "body": "{\"user\":{\"email\":\"rory.moen@goyette.name\",\"password_hash\":\"password\",\"username\":\"remington1965\"}}",
       "headers": {
-        "Content-Type": "application/json"
+        "content-type": "application/json"
       },
       "method": "post",
       "options": [],
@@ -16,7 +16,7 @@
       "headers": {
         "cache-control": "max-age=0, private, must-revalidate",
         "content-length": "45",
-        "date": "Sat, 02 Apr 2022 18:25:04 GMT",
+        "date": "Sat, 02 Jul 2022 22:40:20 GMT",
         "server": "Cowboy"
       },
       "status_code": 500,

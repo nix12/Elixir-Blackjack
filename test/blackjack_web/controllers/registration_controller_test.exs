@@ -12,6 +12,7 @@ defmodule BlackjackWeb.Controllers.RegistrationControllerTest do
     test "succussful register with correct username and password" do
       user_params = %{
         user: %{
+          email: "fake@email.com",
           username: "username0",
           password_hash: "password"
         }
@@ -25,6 +26,7 @@ defmodule BlackjackWeb.Controllers.RegistrationControllerTest do
 
       assert %{
                "user" => %{
+                 "email" => _,
                  "username" => _,
                  "password_hash" => _,
                  "inserted_at" => _,
@@ -38,6 +40,7 @@ defmodule BlackjackWeb.Controllers.RegistrationControllerTest do
 
       user_params = %{
         user: %{
+          email: user.email,
           username: user.username,
           password_hash: "password"
         }
@@ -47,7 +50,7 @@ defmodule BlackjackWeb.Controllers.RegistrationControllerTest do
       response = Router.call(conn, [])
 
       assert response.state == :sent
-      assert response.status == 500
+      assert response.status == 422
 
       assert %{"errors" => "username has already been taken."} =
                response.resp_body |> Jason.decode!()

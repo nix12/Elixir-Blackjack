@@ -1,21 +1,39 @@
 defmodule Blackjack.Core.ServerQuery do
   import Ecto.Query, only: [from: 2]
 
+  alias Blackjack.Core.Server
+
   def query_server(server_name) do
-    from(s in "servers",
-      select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at],
+    from(server in Server,
+      select: [
+        :id,
+        :player_count,
+        :server_name,
+        :table_count,
+        :user_uuid,
+        :inserted_at,
+        :updated_at
+      ],
       where: [server_name: ^server_name]
     )
   end
 
   def query_servers() do
-    from(s in "servers",
-      select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at]
+    from(server in Server,
+      select: [
+        :id,
+        :player_count,
+        :server_name,
+        :table_count,
+        :user_uuid,
+        :inserted_at,
+        :updated_at
+      ]
     )
   end
 
   # def update_by_server_name(server_name) do
-  #   from(s in "servers",
+  #   from(s in Server,
   #     select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at],
   #     where: [server_name: ^server_name],
   #     update: [set: [player_count: ^player_count(server_name)]]

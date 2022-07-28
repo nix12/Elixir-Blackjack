@@ -1,9 +1,9 @@
 defmodule LoginUserTest do
   use Blackjack.RepoCase, async: false
   use Plug.Test
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias Blackjack.Accounts.User
+  alias Blackjack.Accounts.Authentication.Guardian
 
   setup do
     user = build(:user) |> set_password("password") |> insert()
@@ -11,53 +11,39 @@ defmodule LoginUserTest do
     %{user: user}
   end
 
-  setup do
-    ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes")
-
-    :ok
-  end
-
-  setup :verify_on_exit!
-
   describe "POST /login" do
     test "success!", %{user: user} do
-      use_cassette "successful_user_login_request" do
-        user_params = %{
-          user: %{
-            username: user.username,
-            password_hash: "password"
-          }
+      user_params = %{
+        user: %{
+          email: user.email,
+          password_hash: "password"
         }
+      }
 
-        %HTTPoison.Response{
-          body: body,
-          status_code: status
-        } = BlackjackCli.login_path(user_params)
+      %HTTPoison.Response{
+        headers: [{_token_type, "Bearer " <> token} | _headers],
+        status_code: status
+      } = login_path(user_params)
 
-        assert status == 200
+      {:ok, current_user, _claims} = Guardian.resource_from_token(token)
 
-        assert %{"token" => _, "user" => %{"username" => _, "password_hash" => _}} =
-                 body |> Jason.decode!()
-      end
+      assert status == 200
+
+      assert user == current_user
     end
 
     test "failure!" do
-      use_cassette "failed_user_login_request" do
-        user_params = %{
-          user: %{
-            username: "",
-            password_hash: ""
-          }
+      user_params = %{
+        user: %{
+          email: "",
+          password_hash: ""
         }
+      }
 
-        %HTTPoison.Response{
-          body: body,
-          status_code: status
-        } = BlackjackCli.login_path(user_params)
+      %HTTPoison.Response{body: body, status_code: status} = login_path(user_params)
 
-        assert status == 422
-        assert %{"errors" => "invalid credentials"} = body |> Jason.decode!()
-      end
+      assert status == 422
+      assert %{"error" => "not found"} = body |> Jason.decode!()
     end
   end
 end

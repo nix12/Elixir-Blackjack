@@ -18,7 +18,7 @@ defmodule BlackjackWeb.Controllers.AuthenticationControllerTest do
     test "succussful login with correct username and password", %{user: user} do
       user_params = %{
         user: %{
-          username: user.username,
+          email: user.email,
           password_hash: "password"
         }
       }
@@ -29,14 +29,13 @@ defmodule BlackjackWeb.Controllers.AuthenticationControllerTest do
       assert response.state == :sent
       assert response.status == 200
 
-      assert %{"token" => _, "user" => %{"username" => _, "password_hash" => _}} =
-               response.resp_body |> Jason.decode!()
+      assert [_, {"authorization", _}] = response.resp_headers
     end
 
     test "failure from wrong username and password" do
       user_params = %{
         user: %{
-          username: "badname",
+          email: "wrong@email.com",
           password_hash: "notpassword"
         }
       }
@@ -45,7 +44,7 @@ defmodule BlackjackWeb.Controllers.AuthenticationControllerTest do
       response = Router.call(conn, [])
 
       assert response.status == 422
-      assert %{"errors" => "invalid credentials"} = response.resp_body |> Jason.decode!()
+      assert %{"error" => "not found"} = response.resp_body |> Jason.decode!()
     end
   end
 end

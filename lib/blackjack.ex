@@ -4,8 +4,8 @@ defmodule Blackjack do
     {:via, Registry, {registry, name}}
   end
 
-  def via_horde(opts) do
-    {:via, Horde.Registry, opts}
+  def via_horde(params) do
+    {:via, Horde.Registry, params}
   end
 
   def format_name(name) do

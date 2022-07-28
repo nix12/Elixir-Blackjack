@@ -4,25 +4,60 @@ defmodule Blackjack.Accounts.User do
   import Ecto.Changeset
   import Bcrypt
 
+  alias Blackjack.Repo
   alias Blackjack.Core.Server
+  alias Blackjack.Accounts.{User, Friendship}
+  alias Blackjack.Accounts.Inbox
 
-  @derive {Jason.Encoder, only: [:uuid, :username, :password_hash, :inserted_at, :updated_at]}
+  @derive {Jason.Encoder,
+           only: [
+             :uuid,
+             :email,
+             :username,
+             :password_hash,
+             :inserted_at,
+             :updated_at
+           ]}
   @primary_key {:uuid, Ecto.UUID, autogenerate: true}
-  @o
 
   schema "users" do
+    field(:email, :string)
     field(:username, :string)
     field(:password_hash, :string)
+    field(:error, :string, virtual: true, default: nil)
 
-    has_one(:server, Server, foreign_key: :user_uuid)
+    has_one(:server, Server, foreign_key: :user_uuid, defaults: nil)
+    has_one(:inbox, Inbox, foreign_key: :user_uuid)
+
+    # has_many(:friendships, Friendship)
+    # has_many(:friends, through: [:friendships, :friend])
+
+    # has_many(:reverse_friendships, Friendship, foreign_key: :friend_id)
+    # has_many(:received_friends, through: [:reverse_friendships, :user])
+
+    many_to_many(:friends, User,
+      join_through: Friendship,
+      join_keys: [user_uuid: :uuid, friend_uuid: :uuid]
+    )
+
+    many_to_many(:received_friends, User,
+      join_through: Friendship,
+      join_keys: [friend_uuid: :uuid, user_uuid: :uuid]
+    )
 
     timestamps()
   end
 
-  def changeset(user, params \\ %{}) do
+  def changeset(user, params) do
     user
-    |> cast(params, [:username, :password_hash])
-    |> validate_required([:username, :password_hash])
+    |> Repo.preload(:inbox)
+    |> cast(params, [:email, :username, :password_hash])
+    |> put_assoc(:inbox, %Inbox{user_uuid: user.uuid})
+    |> validate_required([:email, :username, :password_hash])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+      message: "is invalid"
+    )
+    |> unique_constraint(:email, name: :users_email_index)
     |> unique_constraint(:username, name: :users_username_index)
     |> put_pass_hash
   end

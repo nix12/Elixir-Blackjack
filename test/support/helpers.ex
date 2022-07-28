@@ -25,4 +25,50 @@ defmodule Blackjack.Helpers do
 
     module.update(state, {:event, %{ch: charlist}})
   end
+
+  def register_path(user_params) do
+    HTTPoison.post!(
+      "http://localhost:" <>
+        (Application.get_env(:blackjack, :port) |> to_string()) <> "/register",
+      Jason.encode!(user_params),
+      [{"content-type", "application/json"}]
+    )
+  end
+
+  def login_path(user_params) do
+    HTTPoison.post!(
+      "http://localhost:" <>
+        (Application.get_env(:blackjack, :port) |> to_string()) <> "/login",
+      Jason.encode!(user_params),
+      [{"content-type", "application/json"}]
+    )
+  end
+
+  def update_user_path(%{user: user}, change_params, auth_header) do
+    HTTPoison.put!(
+      "http://localhost:" <>
+        (Application.get_env(:blackjack, :port) |> to_string()) <>
+        "/user/" <> user.uuid <> "/update",
+      Jason.encode!(change_params),
+      [{"content-type", "application/json"}, auth_header]
+    )
+  end
+
+  def show_user_path(uuid, auth_header) do
+    HTTPoison.get!(
+      "http://localhost:" <>
+        (Application.get_env(:blackjack, :port) |> to_string()) <>
+        "/user/" <> uuid,
+      [auth_header]
+    )
+  end
+
+  def create_friendship_path(friendship_params, auth_header) do
+    HTTPoison.post!(
+      "http://localhost:" <>
+        (Application.get_env(:blackjack, :port) |> to_string()) <> "/friendship/create",
+      Jason.encode!(friendship_params),
+      [{"content-type", "application/json"}, auth_header]
+    )
+  end
 end

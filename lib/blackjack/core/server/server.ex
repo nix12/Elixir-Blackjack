@@ -21,16 +21,16 @@ defmodule Blackjack.Core.Server do
     field(:player_count, :integer, default: 0)
     field(:lock_version, :integer, default: 1)
 
-    belongs_to(:user, User, foreign_key: :user_uuid, references: :uuid, type: :string)
+    belongs_to(:user, User, foreign_key: :user_uuid, references: :uuid, type: :binary_id)
 
     timestamps()
   end
 
   def changeset(server, params \\ %{}) do
     server
-    |> cast(params, [:server_name, :table_count, :player_count])
+    |> cast(params, [:server_name, :table_count, :player_count, :user_uuid])
     |> optimistic_lock(:lock_version)
-    |> validate_required([:server_name])
+    |> validate_required([:server_name, :user_uuid])
     |> unique_constraint(:server_name)
   end
 end

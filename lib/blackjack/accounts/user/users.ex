@@ -10,7 +10,7 @@ defmodule Blackjack.Accounts.Users do
   # end
 
   # def assign_user(username) do
-  #   case username |> UserQuery.user_query() |> Repo.one() do
+  #   case username |> UserQuery.find_by_username() |> Repo.one() do
   #     nil ->
   #       {:error, "No user found."}
 
