@@ -1,10 +1,14 @@
 defmodule Blackjack.Core.ServerManager do
+  @moduledoc """
+    Manages server processes.
+  """
   require Logger
 
   use GenServer
 
   alias Blackjack.{Repo, Accounts}
-  alias Blackjack.Core.{CoreRegistry, Server, ServerManager, Servers, Supervisor, StateManager}
+  alias Blackjack.Core.Supervisor, as: CoreSupervisor
+  alias Blackjack.Core.{CoreRegistry, Server, ServerManager, Servers}
 
   def start_link(server) do
     case GenServer.start_link(__MODULE__, server,
@@ -70,8 +74,6 @@ defmodule Blackjack.Core.ServerManager do
   def handle_info({:join_server, [{server_name, user}]}, %{server: server, members: members}) do
     members = Servers.join_server(members, user)
     server = Repo.get(Server, server.id)
-    IO.puts("JOINED")
-    IO.inspect(members, label: "MEMBERS")
 
     {:ok, changeset} =
       server
@@ -82,8 +84,6 @@ defmodule Blackjack.Core.ServerManager do
       })
       |> Repo.update()
 
-    IO.inspect(changeset, label: "JOIN CHANGESET")
-
     Servers.notify_members(members)
     {:noreply, %{server: changeset, members: members}}
   end
@@ -91,7 +91,6 @@ defmodule Blackjack.Core.ServerManager do
   def handle_info({:leave_server, [{server_name, user}]}, %{server: server, members: members}) do
     members = Servers.leave_server(members, user)
     server = Repo.get(Server, server.id)
-    IO.puts("LEFT")
 
     {:ok, changeset} =
       server

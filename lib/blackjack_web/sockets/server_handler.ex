@@ -1,4 +1,7 @@
 defmodule BlackjackWeb.Sockets.ServerHandler do
+  @moduledoc """
+    Handles websockets connections for servers.
+  """
   require Logger
 
   @behaviour :cowboy_websocket
@@ -89,7 +92,6 @@ defmodule BlackjackWeb.Sockets.ServerHandler do
       end
     end)
 
-    IO.inspect(server, label: "SERVER TASK 2")
     {:reply, {:text, Jason.encode!(%{payload: %{server: server}})}, state}
   end
 

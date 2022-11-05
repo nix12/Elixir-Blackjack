@@ -1,12 +1,14 @@
 defmodule Blackjack.NodeObserver do
+  @moduledoc false
   require Logger
+
   use GenServer
 
   alias Blackjack.Accounts.AccountsRegistry
   alias Blackjack.Accounts.Supervisor, as: AccountsSupervisor
-  alias Blackjack.Core
   alias Blackjack.Core.CoreRegistry
   alias Blackjack.Core.Supervisor, as: CoreSupervisor
+
   def start_link(_), do: GenServer.start_link(__MODULE__, [])
 
   @impl true

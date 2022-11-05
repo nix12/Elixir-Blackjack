@@ -1,10 +1,11 @@
-defmodule Blackjack.Accounts.Inbox.Notifications.Notification do
+defmodule Blackjack.Communications.Notifications.Notification do
+  @moduledoc """
+    Notification model.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias Blackjack.Repo
-  alias Blackjack.Accounts.{User, Inbox}
   alias Blackjack.Accounts.Inbox.InboxesNotifications
 
   schema "notifications" do
@@ -21,7 +22,6 @@ defmodule Blackjack.Accounts.Inbox.Notifications.Notification do
   def changeset(notification, params \\ %{}) do
     notification
     |> cast(params, [:body, :user_uuid])
-    |> cast_assoc(:inboxes_notifications, required: true)
     |> validate_required([:body, :user_uuid])
   end
 end

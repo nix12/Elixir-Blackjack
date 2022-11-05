@@ -1,10 +1,12 @@
-# Handles server instructionis
-defmodule Blackjack.Notifier.AccountsNotifier do
+defmodule Blackjack.Notifiers.AccountsNotifier do
+  @moduledoc """
+    Handles and directs messages for User Accounts.
+  """
   use GenServer
 
   alias Blackjack.Accounts.{User, AccountsRegistry}
 
-  def start_link(_ \\ []) do
+  def start_link(_) do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
@@ -25,9 +27,20 @@ defmodule Blackjack.Notifier.AccountsNotifier do
     {:noreply, accounts}
   end
 
+  defp decode_instruction({:update_user, user}), do: {:update_user, user}
+  defp decode_instruction({:stop_user, empty}), do: {:stop_user, empty}
+
   defp decode_instruction({:create_friendship, requested_user}),
     do: {:create_friendship, requested_user}
 
+  defp decode_instruction({:accept_friendship, requested_user}),
+    do: {:accept_friendship, requested_user}
+
+  defp decode_instruction({:decline_friendship, requested_user}),
+    do: {:decline_friendship, requested_user}
+
+  defp decode_instruction({:remove_friendship, requested_user}),
+    do: {:remove_friendship, requested_user}
+
   defp decode_instruction({:start_server, server}), do: {:start_server, server}
-  defp decode_instruction({:update_user, user}), do: {:update_user, user}
 end

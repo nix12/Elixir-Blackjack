@@ -395,3 +395,12 @@
 02:53:59.632 [info] Starting Core Supervisor.
 02:53:59.632 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Core.Supervisor
 02:53:59.633 [info] Accounts Observer started.
+16:08:54.843 [info] Protocol 'inet_tcp': register/listen error: econnrefused
+
+16:08:54.924 [info] Starting Horde.RegistryImpl with name Blackjack.Accounts.AccountsRegistry
+16:08:54.925 [info] Starting Horde.RegistryImpl with name Blackjack.Core.CoreRegistry
+16:08:54.925 [info] Starting Accounts Supervisor.
+16:08:54.926 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Accounts.Supervisor
+16:08:54.926 [info] Starting Core Supervisor.
+16:08:54.926 [info] Starting Horde.DynamicSupervisorImpl with name Blackjack.Core.Supervisor
+16:08:54.927 [info] Accounts Observer started.

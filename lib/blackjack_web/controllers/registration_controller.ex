@@ -1,9 +1,16 @@
 defmodule BlackjackWeb.Controllers.RegistrationController do
+  @moduledoc """
+    Contains functions for user creation and registration.
+  """
   import Plug.Conn
 
   alias Blackjack.Repo
   alias Blackjack.Accounts.User
 
+  @doc """
+    Creates a user or returns an error conn.
+  """
+  @spec create(Plug.Conn.t()) :: {:ok, Plug.Conn.t()} | {:errors, Plug.Conn.t()}
   def create(
         %{
           params: %{

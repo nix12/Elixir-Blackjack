@@ -1,4 +1,7 @@
 defmodule Blackjack.Core.ServerQuery do
+  @moduledoc """
+    Queries for servers.
+  """
   import Ecto.Query, only: [from: 2]
 
   alias Blackjack.Core.Server

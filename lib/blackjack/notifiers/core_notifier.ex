@@ -1,5 +1,7 @@
-defmodule Blackjack.Notifier.CoreNotifier do
-  # Handles server_name instructionis
+defmodule Blackjack.Notifiers.CoreNotifier do
+  @moduledoc """
+    Handles and directs messages for core application processes.
+  """
   use GenServer
 
   alias Blackjack.Core.CoreRegistry
@@ -20,14 +22,11 @@ defmodule Blackjack.Notifier.CoreNotifier do
   end
 
   def handle_cast({:notify_server, server_name, server_instruction}, server) do
-    # {:join_server, [server_name, user]}
     {action, args} = decode_instruction(server_instruction)
-
     events = [args | []]
-
     [{server_pid, _}] = Horde.Registry.lookup(CoreRegistry, server_name)
-    send(server_pid, {action, events})
 
+    send(server_pid, {action, events})
     {:noreply, server}
   end
 

@@ -1,4 +1,8 @@
 defmodule BlackjackWeb.AuthRouter do
+  @moduledoc """
+    This router contains routes where incoming traffic must
+    be authenticated.
+  """
   use Plug.Router
   if Mix.env() == :dev, do: use(Plug.Debugger)
   use Plug.ErrorHandler
@@ -8,7 +12,8 @@ defmodule BlackjackWeb.AuthRouter do
   alias BlackjackWeb.Controllers.{
     UsersController,
     FriendshipsController,
-    ServersController
+    ServersController,
+    AuthenticationController
   }
 
   plug(Plug.Logger)
@@ -24,6 +29,16 @@ defmodule BlackjackWeb.AuthRouter do
   plug(:dispatch)
 
   # User routes
+
+  delete "/logout" do
+    case AuthenticationController.destroy(conn) do
+      {:ok, conn} ->
+        send_resp(conn, 200, "User is logged out.")
+
+      {:error, conn} ->
+        send_resp(conn, 500, "Failed to logout.")
+    end
+  end
 
   put "/user/:uuid/update" do
     case UsersController.update(conn) do
@@ -57,8 +72,35 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  # delete "/friendship/remove" do
-  # end
+  post "/friendship/:friend_uuid/accept" do
+    case FriendshipsController.accept(conn) do
+      {:ok, conn} ->
+        send_resp(conn, 200, Jason.encode!(conn.assigns))
+
+      {:error, conn} ->
+        send_resp(conn, 401, Jason.encode!(conn.assigns))
+    end
+  end
+
+  post "/friendship/:friend_uuid/decline" do
+    case FriendshipsController.decline(conn) do
+      {:ok, conn} ->
+        send_resp(conn, 200, Jason.encode!(conn.assigns))
+
+      {:error, conn} ->
+        send_resp(conn, 401, Jason.encode!(conn.assigns))
+    end
+  end
+
+  delete "/friendship/:friend_uuid/destroy" do
+    case FriendshipsController.destroy(conn) do
+      {:ok, conn} ->
+        send_resp(conn, 200, Jason.encode!(conn.assigns))
+
+      {:error, conn} ->
+        send_resp(conn, 401, Jason.encode!(conn.assigns))
+    end
+  end
 
   # Server routes
 

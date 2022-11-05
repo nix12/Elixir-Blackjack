@@ -4,7 +4,7 @@ defmodule UpdateUserTest do
 
   alias Blackjack.Accounts.User
   alias Blackjack.Accounts.Supervisor, as: AccountsSupervisor
-  alias Blackjack.Accounts.Authentication.Guardian
+  alias Blackjack.Accounts.Authentication.Authentication
 
   setup do
     user = build(:user) |> set_password("password") |> insert()
@@ -14,6 +14,8 @@ defmodule UpdateUserTest do
 
   describe "POST /:uuid/update" do
     test "SUCCESS", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
+
       change_params = %{
         user: %{
           email: Faker.Internet.email(),
@@ -22,17 +24,8 @@ defmodule UpdateUserTest do
         }
       }
 
-      {:ok, token, _claims} = Guardian.encode_and_sign(user)
-
-      AccountsSupervisor.start_user(user)
-
-      %HTTPoison.Response{
-        body: body,
-        headers: [{"authorization", "Bearer " <> token} | _headers],
-        status_code: status
-      } = update_user_path(%{user: user}, change_params, {"authorization", "Bearer " <> token})
-
-      {:ok, updated_current_user, _claims} = Guardian.resource_from_token(token)
+      %{current_user: updated_current_user, token: current_user_token, info: {status, _}} =
+        update_user(current_user, change_params, current_user_token)
 
       assert status == 200
 
@@ -46,17 +39,14 @@ defmodule UpdateUserTest do
     end
 
     test "failure!", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
       change_params = %{user: %{email: "", username: "", password_hash: ""}}
 
-      {:ok, token, _claims} = Guardian.encode_and_sign(user)
-
-      AccountsSupervisor.start_user(user)
-
-      %HTTPoison.Response{body: body, status_code: status} =
-        update_user_path(%{user: user}, change_params, {"authorization", "Bearer " <> token})
+      %{current_user: updated_current_user, token: current_user_token, info: {status, body}} =
+        update_user(current_user, change_params, current_user_token)
 
       assert status == 422
-      assert %{"error" => "Failed to update account. Please try again."} = body |> Jason.decode!()
+      assert %{"error" => "Failed to update account. Please try again."} = body
     end
   end
 end

@@ -31,8 +31,30 @@ Currently working on:
 Blackjack
 
 - Accounts
+
   - Users
   - Friends
   - Settings
   - Authorization/Roles
   - Inbox
+
+- Communications
+
+  - Notifications
+  - Messaging
+  - Chat
+
+- Core
+
+  - Servers
+  - Tables
+  - Games
+  - Engine
+
+- Economy
+
+  - Betting
+
+- Logging
+
+  - TBA

@@ -1,8 +1,11 @@
 defmodule Blackjack.Core.Servers do
-  alias Blackjack.{Repo, Accounts}
+  @moduledoc """
+    Contains actions for servers.
+  """
+  alias Blackjack.Repo
   alias Blackjack.Accounts.AccountsRegistry
   alias Blackjack.Core.Supervisor, as: CoreSupervisor
-  alias Blackjack.Core.{CoreRegistry, Server, ServerManager, Servers, ServerQuery, StateManager}
+  alias Blackjack.Core.{CoreRegistry, Server, ServerManager, Servers, ServerQuery}
 
   # defp start_server(server_name) do
   #   case server_name |> query_servers |> Repo.all() do

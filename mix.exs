@@ -5,13 +5,34 @@ defmodule Blackjack.MixProject do
     [
       app: :blackjack,
       version: "0.1.0",
-      elixir: "~> 1.13.4",
+      elixir: "~> 1.14.0",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
       preferred_cli_env: [
         "test.watch": :test
+      ],
+      test_coverage: [
+        ignore_modules: [
+          Blackjack.Helpers,
+          Blackjack.Factory,
+          Blackjack.Repo,
+          Blackjack.Accounts.Policy,
+          Blackjack.NodeObserver,
+          Blackjack.Accounts.Authentication.Guardian,
+          Blackjack.Application,
+          Blackjack.AuthAccessPipeline,
+          Blackjack.AuthErrorHandler,
+          Blackjack.RepoCase,
+          Blackjack.Accounts.Authentication.Guardian.Plug,
+          Jason.Encoder.Blackjack.Accounts.Friendship,
+          Jason.Encoder.Blackjack.Accounts.User,
+          Jason.Encoder.Blackjack.Core.Server,
+          BlackjackWeb.Router,
+          BlackjackWeb.AuthRouter,
+          BlackjackWeb.StaticRouter
+        ]
       ]
     ]
   end
@@ -39,7 +60,7 @@ defmodule Blackjack.MixProject do
       {:cowboy, "~> 2.8"},
       {:plug_cowboy, "~> 2.5.2"},
       {:httpoison, "~> 1.8"},
-      {:guardian, "~> 2.0"},
+      {:guardian, "~> 2.3"},
       {:bodyguard, "~> 2.4.2"},
       {:jason, "~> 1.3"},
       {:bcrypt_elixir, "~> 2.3"},

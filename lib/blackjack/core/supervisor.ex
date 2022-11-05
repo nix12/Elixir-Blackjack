@@ -1,4 +1,5 @@
 defmodule Blackjack.Core.Supervisor do
+  @moduledoc false
   require Logger
 
   use Horde.DynamicSupervisor

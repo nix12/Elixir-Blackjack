@@ -1,4 +1,8 @@
 defmodule BlackjackWeb.StaticRouter do
+  @moduledoc """
+    This router contains routes where incoming traffic
+    does not require authentication..
+  """
   use Plug.Router
   if Mix.env() == :dev, do: use(Plug.Debugger)
   use Plug.ErrorHandler
@@ -46,12 +50,6 @@ defmodule BlackjackWeb.StaticRouter do
         |> resp(422, Jason.encode!(conn.assigns))
     end
     |> send_resp()
-  end
-
-  delete "/logout" do
-    {status, _body} = {200, AuthenticationController.delete(conn)}
-
-    send_resp(conn, status, "User is logged out.")
   end
 
   # Catch all routes and error handling.

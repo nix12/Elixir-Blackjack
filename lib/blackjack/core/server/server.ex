@@ -1,4 +1,7 @@
 defmodule Blackjack.Core.Server do
+  @moduledoc """
+    Server model.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

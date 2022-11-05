@@ -1,13 +1,14 @@
 defmodule Blackjack.Accounts.User do
+  @moduledoc """
+    User model
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
   import Bcrypt
 
-  alias Blackjack.Repo
   alias Blackjack.Core.Server
-  alias Blackjack.Accounts.{User, Friendship}
-  alias Blackjack.Accounts.Inbox
+  alias Blackjack.Accounts.{User, Friendship, Inbox}
 
   @derive {Jason.Encoder,
            only: [
@@ -29,12 +30,6 @@ defmodule Blackjack.Accounts.User do
     has_one(:server, Server, foreign_key: :user_uuid, defaults: nil)
     has_one(:inbox, Inbox, foreign_key: :user_uuid)
 
-    # has_many(:friendships, Friendship)
-    # has_many(:friends, through: [:friendships, :friend])
-
-    # has_many(:reverse_friendships, Friendship, foreign_key: :friend_id)
-    # has_many(:received_friends, through: [:reverse_friendships, :user])
-
     many_to_many(:friends, User,
       join_through: Friendship,
       join_keys: [user_uuid: :uuid, friend_uuid: :uuid]
@@ -50,9 +45,7 @@ defmodule Blackjack.Accounts.User do
 
   def changeset(user, params) do
     user
-    |> Repo.preload(:inbox)
     |> cast(params, [:email, :username, :password_hash])
-    |> put_assoc(:inbox, %Inbox{user_uuid: user.uuid})
     |> validate_required([:email, :username, :password_hash])
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
       message: "is invalid"
@@ -62,6 +55,7 @@ defmodule Blackjack.Accounts.User do
     |> put_pass_hash
   end
 
+  @spec put_pass_hash(Ecto.Changeset.t()) :: Ecto.Changeset.t()
   defp put_pass_hash(
          %Ecto.Changeset{valid?: true, changes: %{password_hash: password}} = changeset
        ) do

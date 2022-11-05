@@ -1,4 +1,7 @@
 defmodule BlackjackWeb.Controllers.ServersController do
+  @moduledoc """
+    Contains CRUD actions for servers.
+  """
   import Plug.Conn
 
   alias Blackjack.{Accounts, Repo}

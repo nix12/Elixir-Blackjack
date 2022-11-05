@@ -1,5 +1,8 @@
 defmodule Blackjack do
-  # Utilities
+  @moduledoc """
+    Contains utility functions to be used throughout the
+    application.
+  """
   def via_tuple(registry, name) do
     {:via, Registry, {registry, name}}
   end

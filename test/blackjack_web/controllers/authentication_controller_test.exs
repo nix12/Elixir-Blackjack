@@ -6,45 +6,35 @@ defmodule BlackjackWeb.Controllers.AuthenticationControllerTest do
   alias BlackjackWeb.Controllers.AuthenticationController
   alias BlackjackWeb.Router
 
-  @login_path "http://localhost:#{Application.compile_env(:blackjack, :port)}/login"
-
   setup do
     user = build(:user) |> set_password("password") |> insert()
 
     %{user: user}
   end
 
-  describe "#create" do
+  describe "create/1" do
     test "succussful login with correct username and password", %{user: user} do
-      user_params = %{
-        user: %{
-          email: user.email,
-          password_hash: "password"
-        }
-      }
+      %{current_user: current_user, token: current_user_token, info: {status, _}} =
+        login_user(user)
 
-      conn = conn(:post, @login_path, user_params)
-      response = Router.call(conn, [])
-
-      assert response.state == :sent
-      assert response.status == 200
-
-      assert [_, {"authorization", _}] = response.resp_headers
+      assert status == 200
+      assert current_user_token
     end
 
     test "failure from wrong username and password" do
-      user_params = %{
-        user: %{
-          email: "wrong@email.com",
-          password_hash: "notpassword"
-        }
-      }
+      user_params = %{email: "wrong@email.com", password_hash: "notpassword"}
+      %{current_user: current_user, info: {status, body}} = login_user(user_params)
 
-      conn = conn(:post, @login_path, user_params)
-      response = Router.call(conn, [])
+      assert status == 422
+      assert %{"error" => "not found"} = body
+    end
+  end
 
-      assert response.status == 422
-      assert %{"error" => "not found"} = response.resp_body |> Jason.decode!()
+  describe "destroy/1" do
+    test "should logout current user", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
+
+      assert %{status: 200, body: "User is logged out."} = logout_user(current_user_token)
     end
   end
 end

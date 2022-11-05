@@ -5,8 +5,8 @@ defmodule Blackjack.Accounts.UserTest do
   alias Blackjack.Accounts.User
 
   @valid_user %{
-    email: "email@fake.com",
-    username: "username0",
+    email: Faker.Internet.email(),
+    username: Faker.Internet.user_name(),
     password_hash: "password"
   }
   @invalid_user %{email: "", username: "", password_hash: ""}

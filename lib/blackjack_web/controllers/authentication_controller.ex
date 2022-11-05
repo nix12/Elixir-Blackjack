@@ -1,4 +1,7 @@
 defmodule BlackjackWeb.Controllers.AuthenticationController do
+  @moduledoc """
+    Contains functions for user authentication functions.
+  """
   import Plug.Conn
   import Bcrypt
 
@@ -6,7 +9,22 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
   alias Blackjack.Accounts.User
   alias Blackjack.Accounts.Authentication.Guardian
   alias Blackjack.Accounts.Supervisor, as: AccountsSupervisor
+  alias Blackjack.Notifiers.AccountsNotifier
 
+  @type user :: %User{
+          uuid: String.t(),
+          email: String.t(),
+          username: String.t(),
+          password_hash: String.t(),
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
+        }
+
+  @doc """
+    Finds the user from the database, then checks for a matching password.
+    If correct, this functions generates a JWT token to be sent back to the
+    client, otherwise return an error conn.
+  """
   @spec create(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
   def create(%{:params => %{"user" => %{"email" => email, "password_hash" => password}}} = conn) do
     user = Repo.get_by(User, email: email)
@@ -16,31 +34,45 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
         {:ok, login(conn, user)}
 
       user ->
-        conn = assign(conn, :error, "unauthorized")
-        {:error, conn}
+        {:error, assign(conn, :error, "unauthorized")}
 
       true ->
-        conn = assign(conn, :error, "not found")
-        {:error, conn}
+        {:error, assign(conn, :error, "not found")}
     end
   end
 
-  @spec delete(Plug.Conn.t()) :: Plug.Conn.t()
-  def delete(conn) do
-    Guardian.Plug.sign_out(conn)
+  @doc """
+    Clears conn of resource information.
+  """
+  @spec destroy(Plug.Conn.t()) :: Plug.Conn.t()
+  def destroy(conn) do
+    {:ok, conn |> Guardian.Plug.sign_out()}
   end
 
+  def before_sign_out(conn, _location, _options) do
+    Guardian.Plug.current_resource(conn)
+    |> AccountsNotifier.publish({:stop_user, []})
+
+    {:ok, conn}
+  end
+
+  @spec login(Plug.Conn.t(), user()) :: Plug.Conn.t()
   defp login(conn, user) do
     conn
     |> Guardian.Plug.sign_in(user)
-    |> assign_token(user)
-    |> tap(fn _conn ->
-      AccountsSupervisor.start_user(user)
-    end)
+    |> assign_token()
   end
 
-  def assign_token(conn, user) do
-    {:ok, token, _} = Guardian.encode_and_sign(user, %{}, token_type: :access)
+  def after_sign_in(conn, user, _token, _claims, _options) do
+    AccountsSupervisor.start_user(user)
+
+    {:ok, conn}
+  end
+
+  @spec assign_token(Plug.Conn.t()) :: Plug.Conn.t()
+  defp assign_token(conn) do
+    user = Guardian.Plug.current_resource(conn)
+    {:ok, token, _claims} = Guardian.encode_and_sign(user, %{}, token_type: :access)
 
     put_resp_header(conn, "authorization", "Bearer " <> token)
   end

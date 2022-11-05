@@ -1,11 +1,20 @@
 defmodule Blackjack.Accounts.UserManager do
+  @moduledoc """
+    Controls the process and actions of the current user.
+  """
   require Logger
 
   use GenServer
 
+  alias Blackjack.Accounts.{
+    User,
+    Friendships,
+    AccountsRegistry
+  }
+
   alias Blackjack.Repo
-  alias Blackjack.Accounts.{User, Friendship, Friendships, AccountsRegistry}
-  alias Blackjack.Accounts.Inbox.Notifications.Notification
+  alias Blackjack.Accounts.Inbox.InboxesNotifications
+  alias Blackjack.Communications.Notifications.Notification
 
   # Client
 
@@ -34,10 +43,9 @@ defmodule Blackjack.Accounts.UserManager do
   # Server
 
   @impl true
-  @spec init(map()) :: {:ok, map()}
   def init(user_account) do
     # Handle user crash
-    # Process.flag(:trap_exit, true)
+    Process.flag(:trap_exit, true)
 
     {:ok, user_account}
   end
@@ -49,7 +57,7 @@ defmodule Blackjack.Accounts.UserManager do
 
   @impl true
   def handle_info({:update_user, [user]}, user_account) do
-    case User.changeset(user_account, user) |> Repo.update() do
+    case user_account |> Repo.reload() |> User.changeset(user) |> Repo.update() do
       {:ok, updated_user} ->
         {:noreply, updated_user}
 
@@ -58,33 +66,78 @@ defmodule Blackjack.Accounts.UserManager do
     end
   end
 
+  def handle_info({:stop_user, _}, user_account) do
+    {:stop, :normal, user_account}
+  end
+
   def handle_info({:create_friendship, [requested_user]}, user_account) do
-    case Friendship.changeset(%Friendship{}, %{
-           user_uuid: user_account.uuid,
-           friend_uuid: requested_user.uuid
-         })
-         |> Repo.insert() do
-      {:ok, _pending_friendship} ->
+    case Friendships.create_friendships(user_account, requested_user) do
+      {:ok, friendship} ->
+        Friendships.send_success(:create, user_account, requested_user, friendship)
         send(self(), {:friend_request, requested_user})
         {:noreply, user_account}
 
-      {:error, _changeset} ->
-        {:noreply, %{user_account | error: "Failed to send friend request. Please try again."}}
+      {:error, error} ->
+        Friendships.send_error(:create, user_account, requested_user, error)
+
+        {:noreply, user_account}
     end
   end
 
   def handle_info({:friend_request, requested_user}, user_account) do
-    Notification.changeset(%Notification{}, %{
-      user_uuid: user_account.uuid,
-      recipient_uuid: requested_user.uuid,
+    notification = %Notification{
+      user_uuid: requested_user.uuid,
       body: "Friend request from: " <> user_account.username
-    })
+    }
 
+    %InboxesNotifications{
+      inbox: requested_user |> Repo.preload(:inbox) |> Map.get(:inbox),
+      notification: notification
+    }
+    |> Repo.insert()
+
+    Logger.info("Friend request sent to: " <> requested_user.username)
     {:noreply, user_account}
   end
 
+  def handle_info({:accept_friendship, [requested_user]}, user_account) do
+    case Friendships.update_friendship(user_account, requested_user) do
+      {:ok, friendship} ->
+        Friendships.send_success(:accept, user_account, requested_user, friendship)
+        {:noreply, user_account}
+
+      {:error, error} ->
+        Friendships.send_error(:accept, user_account, requested_user, error)
+        {:noreply, user_account}
+    end
+  end
+
+  def handle_info({:decline_friendship, [requested_user]}, user_account) do
+    case Friendships.remove_friendship(user_account, requested_user) do
+      {:ok, friendship} ->
+        Friendships.send_success(:decline, user_account, requested_user, friendship)
+        {:noreply, user_account}
+
+      {:error, error} ->
+        Friendships.send_error(:decline, user_account, requested_user, error)
+        {:noreply, user_account}
+    end
+  end
+
+  def handle_info({:remove_friendship, [requested_user]}, user_account) do
+    case Friendships.remove_friendship(user_account, requested_user) do
+      {:ok, friendship} ->
+        Friendships.send_success(:remove, user_account, requested_user, friendship)
+        {:noreply, user_account}
+
+      {:error, error} ->
+        Friendships.send_error(:remove, user_account, requested_user, error)
+        {:noreply, user_account}
+    end
+  end
+
   @impl true
-  def terminate(reason, state) do
-    IO.inspect(reason, label: "TERMINATE")
+  def terminate(_reason, user_account) do
+    Logger.info("Stopping user -> #{user_account.uuid}: #{user_account.username}")
   end
 end

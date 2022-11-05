@@ -9,19 +9,19 @@ defmodule Blackjack.Repo.Migrations.CreateFriendshipsTable do
       timestamps()
     end
 
-  create index(:friendships, [:user_uuid])
-  create index(:friendships, [:friend_uuid])
+    create index(:friendships, [:user_uuid])
+    create index(:friendships, [:friend_uuid])
 
-  create unique_index(
-    :friendships,
-    [:user_uuid, :friend_uuid],
-    name: :friendships_user_uuid_friend_uuid_index
-  )
+    create unique_index(
+      :friendships,
+      [:user_uuid, :friend_uuid],
+      name: :friendships_user_uuid_friend_uuid_index
+    )
 
-  create unique_index(
-    :friendships,
-    [:friend_uuid, :user_uuid],
-    name: :friendships_friend_uuid_user_uuid_index
-  )
+    create unique_index(
+      :friendships,
+      [:friend_uuid, :user_uuid],
+      name: :friendships_friend_uuid_user_uuid_index
+    )
   end
 end

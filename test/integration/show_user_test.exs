@@ -3,37 +3,47 @@ defmodule ShowUserTest do
   use Plug.Test
 
   alias Blackjack.Repo
-  alias Blackjack.Accounts.User
-  alias Blackjack.Accounts.Authentication.Guardian
+  alias Blackjack.Policy
+  alias Blackjack.Accounts.{User, UserManager}
+  alias Blackjack.Accounts.Authentication.Authentication
 
   setup do
-    user1 = build(:user) |> set_password("password") |> insert()
-    user2 = build(:user) |> set_password("password") |> insert()
+    users = build_pair(:user) |> set_password("password") |> insert_each()
 
-    %{user1: user1, user2: user2}
+    for user <- users, do: UserManager.start_link(user)
+
+    %{users: users}
   end
 
   describe "GET /:uuid" do
-    test "SUCCESS", %{user1: user1, user2: user2} do
-      {:ok, token, _claims} = Guardian.encode_and_sign(user1)
+    test "SUCCESS", %{
+      users: [current_user, requested_user | _empty]
+    } do
+      %{current_user: current_user, token: current_user_token} = login_user(current_user)
+      %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
+      %{viewed_user: viewed_user, status: status} = show_user(current_user_token, requested_user)
 
-      %HTTPoison.Response{body: body, status_code: status} =
-        show_user_path(user2.uuid, {"authorization", "Bearer " <> token})
-
-      %{"user" => viewed_user} = body |> Jason.decode!()
+      assert Bodyguard.permit?(Policy, :show_user, current_user, requested_user)
 
       assert status == 200
 
-      assert viewed_user["email"] == user2.email
-      assert viewed_user["username"] == user2.username
-      assert viewed_user["uuid"] == user2.uuid
+      assert viewed_user["email"] == requested_user.email
+      assert viewed_user["username"] == requested_user.username
+      assert viewed_user["uuid"] == requested_user.uuid
     end
 
-    test "failure!", %{user1: user1, user2: user2} do
-      %HTTPoison.Response{body: body, status_code: status} =
-        show_user_path(user2.uuid, {"authorization", nil})
+    test "failure!", %{
+      users: [_current_user, requested_user | _empty]
+    } do
+      invalid_current_user = %{email: "", password_hash: ""}
 
-      assert body |> Jason.decode!() == %{"message" => "unauthenticated"}
+      %{current_user: current_user, token: current_user_token, info: {status, _}} =
+        login_user(invalid_current_user)
+
+      %{viewed_user: viewed_user, status: status} = show_user(current_user_token, requested_user)
+
+      assert status == 401
+      assert viewed_user == %{"message" => "unauthenticated"}
     end
   end
 end

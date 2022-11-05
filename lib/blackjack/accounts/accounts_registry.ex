@@ -1,4 +1,5 @@
 defmodule Blackjack.Accounts.AccountsRegistry do
+  @moduledoc false
   use Horde.Registry
 
   def start_link(_) do

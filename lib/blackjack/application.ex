@@ -1,4 +1,5 @@
 defmodule Blackjack.Application do
+  @moduledoc false
   use Application
 
   @impl true
@@ -26,6 +27,9 @@ defmodule Blackjack.Application do
       # Cache
       {Cachex, name: Blackjack.Cache},
 
+      # Web
+      {Registry, keys: :unique, name: BlackjackWeb.Registry},
+
       # Horde
       {Blackjack.Accounts.AccountsRegistry, []},
       {Blackjack.Core.CoreRegistry, []},
@@ -33,9 +37,9 @@ defmodule Blackjack.Application do
       {Blackjack.Core.Supervisor, []},
       {Blackjack.NodeObserver, []},
 
-      # Notifications
-      Blackjack.Notifier.AccountsNotifier,
-      Blackjack.Notifier.CoreNotifier,
+      # Notifiers
+      Blackjack.Notifiers.AccountsNotifier,
+      Blackjack.Notifiers.CoreNotifier,
 
       # Startup Tasks
       {Task.Supervisor, name: Blackjack.TaskSupervisor},

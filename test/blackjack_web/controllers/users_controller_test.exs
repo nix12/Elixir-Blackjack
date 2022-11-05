@@ -4,8 +4,9 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
   use Plug.Test
 
   alias Blackjack.Repo
-  alias Blackjack.Accounts.Authentication.Guardian
-  alias Blackjack.Accounts.{User, UserManager, Policy}
+  alias Blackjack.Accounts.Authentication.Authentication
+  alias Blackjack.Policy
+  alias Blackjack.Accounts.{User, UserManager}
   alias BlackjackWeb.Router
 
   @valid_change_params %{
@@ -17,45 +18,31 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
   }
 
   @invalid_change_params %{
-    "user" => %{
-      "email" => "",
-      "username" => "",
-      "password_hash" => ""
+    user: %{
+      email: "",
+      username: "",
+      password_hash: ""
     }
   }
 
   setup do
     user = build(:user) |> set_password("password") |> insert()
-    UserManager.start_link(user)
 
-    update_user_path =
-      "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.uuid}/update"
-
-    {:ok, token, _claims} = Guardian.encode_and_sign(user)
-
-    conn =
-      conn(:put, update_user_path, @valid_change_params |> Jason.encode!())
-      |> put_req_header("authorization", "Bearer " <> token)
-      |> put_req_header("content-type", "application/json")
-
-    %{conn: conn}
+    %{user: user}
   end
 
-  describe "#update" do
-    test "succussfully update user" do
-      conn = login_user() |> Router.call([])
-      current_user = Guardian.Plug.current_resource(conn)
-      token = Guardian.Plug.current_token(conn)
-      login_user_path = "http://localhost:#{Application.get_env(:blackjack, :port)}/login"
+  describe "update/1" do
+    test "succussfully update user", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
 
-      update_user_path =
-        "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{current_user.uuid}/update"
+      conn =
+        conn(:put, update_user_url(current_user), @valid_change_params |> Jason.encode!())
+        |> put_req_header("content-type", "application/json")
+        |> put_req_header("authorization", "Bearer " <> current_user_token)
+        |> Router.call([])
 
       %User{email: email, username: username} =
-        conn(:put, update_user_path, @valid_change_params |> Jason.encode!())
-        |> put_req_header("content-type", "application/json")
-        |> put_req_header("authorization", "Bearer " <> token)
-        |> Router.call([])
+        conn
         |> Guardian.Plug.current_resource()
 
       assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.uuid)
@@ -70,140 +57,107 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
       assert username == @valid_change_params["user"]["username"]
     end
 
-    test "failure from wrong username and password", %{conn: conn} do
-      conn = %{conn | params: @invalid_change_params, body_params: @invalid_change_params}
-      response = Router.call(conn, [])
-      current_user = Guardian.Plug.current_resource(response)
+    test "failure from wrong username and password", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
+
+      %{current_user: updated_user, token: current_user_token, info: {status, body}} =
+        update_user(current_user, @invalid_change_params, current_user_token)
 
       assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.uuid)
 
-      assert response.status == 422
-
-      assert %{"error" => "Failed to update account. Please try again."} =
-               response.resp_body |> Jason.decode!()
+      assert status == 422
+      assert %{"error" => "Failed to update account. Please try again."} = body
     end
 
-    test "update user from different account" do
-      conn = login_user() |> Router.call([])
-      current_user = Guardian.Plug.current_resource(conn)
-      user2 = build(:user) |> set_password("password") |> insert()
-      UserManager.start_link(user2)
+    test "update user from different account", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
 
-      update_user_path =
-        "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user2.uuid}/update"
+      %{current_user: requested_user, token: requested_user_token} =
+        build(:user) |> set_password("password") |> insert() |> login_user()
 
-      token = Guardian.Plug.current_token(conn)
-
-      updated_conn =
-        conn(:put, update_user_path, @valid_change_params |> Jason.encode!())
-        |> put_req_header("authorization", "Bearer " <> token)
+      conn =
+        conn(:put, update_user_url(requested_user), @valid_change_params |> Jason.encode!())
+        |> put_req_header("authorization", "Bearer " <> current_user_token)
         |> put_req_header("content-type", "application/json")
         |> Router.call([])
 
-      %{"error" => error} = updated_conn.resp_body |> Jason.decode!()
+      %{"error" => error} = conn.resp_body |> Jason.decode!()
 
-      refute Bodyguard.permit?(Policy, :update_user, current_user, user2)
+      refute Bodyguard.permit?(Policy, :update_user, current_user, requested_user)
 
-      assert updated_conn.status == 422
+      assert conn.status == 422
       assert error == "unauthorized"
     end
   end
 
-  describe "#show" do
-    test "must be logged in to view current user profile" do
-      conn = login_user_show_path()
-      response = Router.call(conn, [])
-      current_user = Guardian.Plug.current_resource(response)
+  describe "show/1" do
+    test "must be logged in to view current user profile", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
+
+      conn =
+        conn(:get, show_user_url(user))
+        |> put_req_header("authorization", "Bearer " <> current_user_token)
+        |> Router.call([])
 
       assert Bodyguard.permit?(Policy, :show_user, current_user, current_user)
 
-      assert response.status == 200
-
-      assert response.assigns.user.email == current_user.email
-      assert response.assigns.user.username == current_user.username
-      assert response.assigns.user.uuid == current_user.uuid
+      assert conn.status == 200
+      assert conn.assigns.user.email == current_user.email
+      assert conn.assigns.user.username == current_user.username
+      assert conn.assigns.user.uuid == current_user.uuid
     end
 
-    test "must be logged in to view different user profile" do
-      conn = login_user()
-      response = Router.call(conn, [])
-      current_user = Guardian.Plug.current_resource(response)
-      user2 = build(:user) |> set_password("password") |> insert()
+    test "must be logged in to view different user profile", %{user: user} do
+      %{current_user: current_user, token: current_user_token} = login_user(user)
 
-      show_user_path =
-        "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user2.uuid}"
+      %{current_user: requested_user, token: requested_user_token} =
+        build(:user) |> set_password("password") |> insert() |> login_user()
 
-      show_conn =
-        conn(:get, show_user_path)
-        |> put_req_header("authorization", "Bearer " <> Guardian.Plug.current_token(response))
-        |> put_req_header("content-type", "application/json")
+      conn =
+        conn(:get, show_user_url(requested_user))
+        |> put_req_header("authorization", "Bearer " <> current_user_token)
+        |> Router.call([])
 
-      show_response = Router.call(show_conn, [])
+      assert Bodyguard.permit?(Policy, :show_user, current_user, requested_user)
 
-      assert Bodyguard.permit?(Policy, :show_user, current_user, user2)
+      assert conn.status == 200
 
-      assert show_response.status == 200
-
-      assert user2 != current_user
-      assert show_response.assigns.user.email == user2.email
-      assert show_response.assigns.user.username == user2.username
-      assert show_response.assigns.user.uuid == user2.uuid
+      assert requested_user != current_user
+      assert conn.assigns.user.email == requested_user.email
+      assert conn.assigns.user.username == requested_user.username
+      assert conn.assigns.user.uuid == requested_user.uuid
     end
 
     test "logged out user cannot view profiles" do
-      login_path = "http://localhost:#{Application.get_env(:blackjack, :port)}/login"
-      conn = conn(:get, login_path)
-      response = Router.call(conn, [])
+      user = build(:user) |> set_password("password") |> insert()
 
-      requested_user =
-        build(:user)
-        |> set_password("password")
-        |> insert()
+      %{current_user: requested_user, token: requested_user_token} =
+        build(:user) |> set_password("password") |> insert() |> login_user()
 
-      current_user = Guardian.Plug.current_resource(response)
+      conn = conn(:get, show_user_url(user)) |> Router.call([])
 
-      show_user_path =
-        "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{requested_user.uuid}"
+      assert conn.status == 401
 
-      show_conn = conn(:get, show_user_path, current_user |> Jason.encode!())
-      show_response = Router.call(show_conn, [])
-
-      refute Bodyguard.permit?(Policy, :show_user, current_user, current_user)
-
-      assert show_response.status == 401
-
-      assert show_response.resp_body != current_user
-      assert show_response.resp_body |> Jason.decode!() == %{"message" => "unauthenticated"}
+      assert conn.resp_body != user
+      assert conn.resp_body |> Jason.decode!() == %{"message" => "unauthenticated"}
     end
-  end
 
-  def login_user_show_path do
-    user = build(:user) |> set_password("password") |> insert()
-    UserManager.start_link(user)
+    test "should attempt to show an unregistered account" do
+      requested_user = build(:user) |> set_password("password")
 
-    show_user_path =
-      "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.uuid}"
+      %{current_user: current_user, token: current_user_token} =
+        build(:user) |> set_password("password") |> insert() |> login_user()
 
-    {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn =
+        conn(:get, show_user_url(requested_user))
+        |> put_req_header("authorization", "Bearer " <> current_user_token)
+        |> Router.call([])
 
-    conn(:get, show_user_path)
-    |> put_req_header("authorization", "Bearer " <> token)
-    |> put_req_header("content-type", "application/json")
-  end
+      refute Bodyguard.permit?(Policy, :show_user, current_user, requested_user.uuid)
 
-  def login_user do
-    user = build(:user) |> set_password("password") |> insert()
-
-    user_params = %{
-      user: %{
-        email: user.email,
-        password_hash: "password"
-      }
-    }
-
-    login_user_path = "http://localhost:#{Application.get_env(:blackjack, :port)}/login"
-
-    conn(:post, login_user_path, user_params |> Jason.encode!())
-    |> put_req_header("content-type", "application/json")
+      assert conn.status == 401
+      assert conn.resp_body != requested_user
+      assert conn.resp_body |> Jason.decode!() == %{"message" => "unauthenticated"}
+    end
   end
 end
