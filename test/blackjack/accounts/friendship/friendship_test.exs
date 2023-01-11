@@ -14,14 +14,14 @@ defmodule Blackjack.Accounts.FriendshipTest do
     test "insert valid friendship", %{current_user: current_user, requested_user: requested_user} do
       changeset1 =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: requested_user.uuid
+          user_id: current_user.id,
+          friend_id: requested_user.id
         })
 
       changeset2 =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: requested_user.uuid,
-          friend_uuid: current_user.uuid
+          user_id: requested_user.id,
+          friend_id: current_user.id
         })
 
       assert {:ok, new_friendship} = Repo.insert(changeset1)
@@ -30,7 +30,7 @@ defmodule Blackjack.Accounts.FriendshipTest do
       {:error, changeset} = Repo.insert(changeset1)
 
       assert changeset.errors == [
-               user_uuid:
+               user_id:
                  {"has already been taken",
                   [
                     constraint: :unique,
@@ -41,20 +41,19 @@ defmodule Blackjack.Accounts.FriendshipTest do
       refute changeset.valid?
     end
 
-    test "insert invalid friendship where friend_uuid does not exist", %{
+    test "insert invalid friendship where friend_id does not exist", %{
       current_user: current_user
     } do
       changeset =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: Ecto.UUID.generate()
+          user_id: current_user.id,
+          friend_id: Ecto.UUID.generate()
         })
 
       assert {:error, changeset} = Repo.insert(changeset)
 
       assert changeset.errors == [
-               friendship:
-                 {"One of these fields UUID does not exist: [:user_uuid, :friend_uuid]", []}
+               friendship: {"One of these fields UUID does not exist: [:user_id, :friend_id]", []}
              ]
 
       refute changeset.valid?
@@ -68,11 +67,11 @@ defmodule Blackjack.Accounts.FriendshipTest do
     } do
       changeset =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: requested_user.uuid
+          user_id: current_user.id,
+          friend_id: requested_user.id
         })
 
-      changeset = Friendship.check_uuids_existence(changeset, [:user_uuid, :friend_uuid])
+      changeset = Friendship.check_uuids_existence(changeset, [:user_id, :friend_id])
 
       assert changeset.valid?
     end
@@ -83,11 +82,11 @@ defmodule Blackjack.Accounts.FriendshipTest do
     } do
       changeset =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: Ecto.UUID.generate()
+          user_id: current_user.id,
+          friend_id: Ecto.UUID.generate()
         })
 
-      changeset = Friendship.check_uuids_existence(changeset, [:user_uuid, :friend_uuid])
+      changeset = Friendship.check_uuids_existence(changeset, [:user_id, :friend_id])
 
       refute changeset.valid?
     end
@@ -95,23 +94,23 @@ defmodule Blackjack.Accounts.FriendshipTest do
     test "existence? valid", %{current_user: current_user, requested_user: requested_user} do
       changeset =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: requested_user.uuid
+          user_id: current_user.id,
+          friend_id: requested_user.id
         })
 
-      assert Friendship.existence?(changeset, :user_uuid)
-      assert Friendship.existence?(changeset, :friend_uuid)
+      assert Friendship.existence?(changeset, :user_id)
+      assert Friendship.existence?(changeset, :friend_id)
     end
 
     test "existence? invalid", %{current_user: current_user, requested_user: requested_user} do
       changeset =
         Friendship.changeset(%Friendship{}, %{
-          user_uuid: current_user.uuid,
-          friend_uuid: Ecto.UUID.generate()
+          user_id: current_user.id,
+          friend_id: Ecto.UUID.generate()
         })
 
-      assert Friendship.existence?(changeset, :user_uuid)
-      refute Friendship.existence?(changeset, :friend_uuid)
+      assert Friendship.existence?(changeset, :user_id)
+      refute Friendship.existence?(changeset, :friend_id)
     end
   end
 end

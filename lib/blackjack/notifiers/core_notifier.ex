@@ -7,7 +7,7 @@ defmodule Blackjack.Notifiers.CoreNotifier do
   alias Blackjack.Core.CoreRegistry
 
   def start_link(_ \\ []) do
-    GenServer.start_link(__MODULE__, :ok, name: Blackjack.via_horde({CoreRegistry, __MODULE__}))
+    GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   def publish(server_name, server_instruction) do

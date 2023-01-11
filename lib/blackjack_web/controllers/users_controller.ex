@@ -14,15 +14,15 @@ defmodule BlackjackWeb.Controllers.UsersController do
     Updates the current user or returns an error conn
   """
   @spec update(Plug.Conn.t()) :: {:ok, Plug.Conn.t()} | {:error, Plug.Conn.t()}
-  def update(%{params: %{"user" => user}, path_params: %{"uuid" => uuid}} = conn) do
+  def update(%{params: %{"user" => user}, path_params: %{"id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
 
     with true <- Guardian.Plug.authenticated?(conn),
-         :ok <- Bodyguard.permit(Policy, :update_user, current_user, uuid) do
+         :ok <- Bodyguard.permit(Policy, :update_user, current_user, id) do
       AccountsNotifier.publish(current_user, {:update_user, user})
       :timer.sleep(50)
 
-      updated_user = UserManager.get_user(current_user.uuid)
+      updated_user = UserManager.get_user(current_user.id)
 
       if updated_user.error do
         {:error, assign(conn, :error, updated_user.error)}
@@ -49,9 +49,9 @@ defmodule BlackjackWeb.Controllers.UsersController do
     Gets the user resource.
   """
   @spec show(Plug.Conn.t()) :: {:ok, Plug.Conn.t()} | {:error, Plug.Conn.t()}
-  def show(%{path_params: %{"uuid" => uuid}} = conn) do
+  def show(%{path_params: %{"id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
-    requested_user = Repo.get(User, uuid)
+    requested_user = Repo.get(User, id)
 
     with true <- Guardian.Plug.authenticated?(conn),
          :ok <- Bodyguard.permit(Policy, :show_user, current_user, requested_user) do

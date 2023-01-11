@@ -15,6 +15,7 @@ defmodule Blackjack.Core.ServerManager do
            name: Blackjack.via_horde({CoreRegistry, server.server_name})
          ) do
       {:ok, pid} ->
+        Logger.info("Starting server #{server.server_name}: #{server.user_id}")
         {:ok, pid}
 
       {:error, {:already_started, pid}} ->
@@ -79,7 +80,7 @@ defmodule Blackjack.Core.ServerManager do
       server
       |> Server.changeset(%{
         server_name: server_name,
-        user_uuid: user.uuid,
+        user_id: user.id,
         player_count: Enum.count(members)
       })
       |> Repo.update()
@@ -96,7 +97,7 @@ defmodule Blackjack.Core.ServerManager do
       server
       |> Server.changeset(%{
         server_name: server_name,
-        user_uuid: user.uuid,
+        user_id: user.id,
         player_count: Enum.count(members)
       })
       |> Repo.update()

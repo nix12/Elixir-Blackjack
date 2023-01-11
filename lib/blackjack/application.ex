@@ -4,8 +4,6 @@ defmodule Blackjack.Application do
 
   @impl true
   def start(_type, _args) do
-    Node.start(:"blackjack_server_#{Node.list() |> Enum.count()}", :shortnames)
-
     children = [
       # Node Cluster
       {Cluster.Supervisor,
@@ -21,7 +19,11 @@ defmodule Blackjack.Application do
        plug: BlackjackWeb.Router,
        options: [
          port: port(),
-         dispatch: dispatch()
+         dispatch: dispatch(),
+         protocol_options: [request_timeout: :timer.minutes(5)],
+         transport_options: [
+           num_acceptors: 10
+         ]
        ]},
 
       # Cache
@@ -50,6 +52,7 @@ defmodule Blackjack.Application do
     ]
 
     opts = [strategy: :one_for_one, name: Blackjack.Supervisor]
+
     Supervisor.start_link(children, opts)
   end
 
@@ -66,13 +69,13 @@ defmodule Blackjack.Application do
       {:_,
        [
          {"/socket/server/[...]", BlackjackWeb.Sockets.ServerHandler, []},
-         #  {"/game/[...]", Blackjack.Sockets.SocketHandler, []},
+         {"/socket/user/[...]", BlackjackWeb.Sockets.UserHandler, []},
          {:_, Plug.Cowboy.Handler, {BlackjackWeb.Router, []}}
        ]}
     ]
   end
 
-  def start_all_servers do
+  defp start_all_servers do
     if Mix.env() != :test do
       Stream.each(
         Blackjack.Repo.all(Blackjack.Core.ServerQuery.query_servers()),

@@ -8,7 +8,7 @@ defmodule Blackjack.Accounts.Friendships do
   alias Blackjack.Accounts.{User, Friendship}
 
   @type user :: %User{
-          uuid: String.t(),
+          id: String.t(),
           email: String.t(),
           username: String.t(),
           password_hash: String.t(),
@@ -17,8 +17,8 @@ defmodule Blackjack.Accounts.Friendships do
         }
 
   @type friendship :: %Friendship{
-          user_uuid: String.t(),
-          friend_uuid: String.t(),
+          user_id: String.t(),
+          friend_id: String.t(),
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }
@@ -34,14 +34,14 @@ defmodule Blackjack.Accounts.Friendships do
   def create_friendships(current_user, requested_user) do
     friendship_changeset =
       Friendship.changeset(%Friendship{}, %{
-        user_uuid: current_user.uuid,
-        friend_uuid: requested_user.uuid
+        user_id: current_user.id,
+        friend_id: requested_user.id
       })
 
     inverse_friendship =
       Friendship.changeset(%Friendship{}, %{
-        user_uuid: requested_user.uuid,
-        friend_uuid: current_user.uuid
+        user_id: requested_user.id,
+        friend_id: current_user.id
       })
 
     Ecto.Multi.new()
@@ -100,7 +100,7 @@ defmodule Blackjack.Accounts.Friendships do
   end
 
   defp get_friendship(current_user, requested_user) do
-    case Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: requested_user.uuid) do
+    case Repo.get_by(Friendship, user_id: current_user.id, friend_id: requested_user.id) do
       nil ->
         {:error, :failed_operation}
 
@@ -115,45 +115,45 @@ defmodule Blackjack.Accounts.Friendships do
   @spec send_success(atom(), user(), user(), friendship()) :: :ok
   def send_success(:create, current_user, requested_user, friendship) do
     send(
-      {:"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+      {:"create_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
       {:ok, friendship}
     )
 
     Logger.info(
-      "Friendship created between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+      "Friendship created between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
     )
   end
 
   def send_success(:accept, current_user, requested_user, friendship) do
     send(
-      {:"accept_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+      {:"accept_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
       {:ok, friendship}
     )
 
     Logger.info(
-      "Friendship accepted between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+      "Friendship accepted between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
     )
   end
 
   def send_success(:decline, current_user, requested_user, friendship) do
     send(
-      {:"decline_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+      {:"decline_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
       {:ok, friendship}
     )
 
     Logger.info(
-      "Friendship declined between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+      "Friendship declined between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
     )
   end
 
   def send_success(:remove, current_user, requested_user, friendship) do
     send(
-      {:"remove_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+      {:"remove_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
       {:ok, friendship}
     )
 
     Logger.info(
-      "Friendship removal between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+      "Friendship removal between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
     )
   end
 
@@ -172,12 +172,12 @@ defmodule Blackjack.Accounts.Friendships do
         IO.inspect(error_message, label: "ERROR1")
 
         send(
-          {:"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+          {:"create_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
           {:error, error_message}
         )
 
         Logger.error(
-          "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+          "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
             error_message
         )
 
@@ -185,13 +185,13 @@ defmodule Blackjack.Accounts.Friendships do
         IO.inspect(error_message, label: "ERROR2")
 
         Logger.error(
-          "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+          "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
             (field_or_name
              |> Atom.to_string()) <> " " <> error_message
         )
 
         send(
-          {:"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}", node()},
+          {:"create_friendship_#{current_user.id}_to_#{requested_user.id}", node()},
           {:error, "#{field_or_name |> Atom.to_string()} #{error_message}."}
         )
     end
@@ -199,38 +199,38 @@ defmodule Blackjack.Accounts.Friendships do
 
   def send_error(:accept, current_user, requested_user, {_type, reason} = error) do
     send(
-      :"accept_friendship_#{current_user.uuid}_to_#{requested_user.uuid}",
+      :"accept_friendship_#{current_user.id}_to_#{requested_user.id}",
       {:error,
        "Failed to accept friend request because #{reason |> Atom.to_string() |> String.replace("_", " ")}. Please try again later."}
     )
 
     Logger.error(
-      "Accept friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+      "Accept friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
         inspect(error)
     )
   end
 
   def send_error(:decline, current_user, requested_user, {_type, reason} = error) do
     send(
-      :"decline_friendship_#{current_user.uuid}_to_#{requested_user.uuid}",
+      :"decline_friendship_#{current_user.id}_to_#{requested_user.id}",
       {:error,
        "Failed to decline friend request because #{reason |> Atom.to_string() |> String.replace("_", " ")}. Please try again later."}
     )
 
     Logger.error(
-      "Friendship declined error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+      "Friendship declined error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
         inspect(error)
     )
   end
 
   def send_error(:remove, current_user, requested_user, {_type, _reason} = error) do
     send(
-      :"remove_friendship_#{current_user.uuid}_to_#{requested_user.uuid}",
+      :"remove_friendship_#{current_user.id}_to_#{requested_user.id}",
       {:error, "Failed to remove friend request because user not found. Please try again later."}
     )
 
     Logger.error(
-      "Friendship removal error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+      "Friendship removal error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
         inspect(error)
     )
   end

@@ -8,18 +8,12 @@ defmodule Blackjack.Accounts.User do
   import Bcrypt
 
   alias Blackjack.Core.Server
-  alias Blackjack.Accounts.{User, Friendship, Inbox}
+  alias Blackjack.Accounts.{Friendship, Inbox}
+  alias Blackjack.Communications.Conversations.Conversation
 
-  @derive {Jason.Encoder,
-           only: [
-             :uuid,
-             :email,
-             :username,
-             :password_hash,
-             :inserted_at,
-             :updated_at
-           ]}
-  @primary_key {:uuid, Ecto.UUID, autogenerate: true}
+  @derive {Jason.Encoder, only: [:id, :email, :username, :inserted_at]}
+
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
 
   schema "users" do
     field(:email, :string)
@@ -27,17 +21,17 @@ defmodule Blackjack.Accounts.User do
     field(:password_hash, :string)
     field(:error, :string, virtual: true, default: nil)
 
-    has_one(:server, Server, foreign_key: :user_uuid, defaults: nil)
-    has_one(:inbox, Inbox, foreign_key: :user_uuid)
+    has_one(:server, Server, defaults: nil)
+    has_one(:inbox, Inbox, foreign_key: :user_id)
 
-    many_to_many(:friends, User,
+    many_to_many(:friends, __MODULE__,
       join_through: Friendship,
-      join_keys: [user_uuid: :uuid, friend_uuid: :uuid]
+      join_keys: [user_id: :id, friend_id: :id]
     )
 
-    many_to_many(:received_friends, User,
+    many_to_many(:received_friends, __MODULE__,
       join_through: Friendship,
-      join_keys: [friend_uuid: :uuid, user_uuid: :uuid]
+      join_keys: [friend_id: :id, user_id: :id]
     )
 
     timestamps()

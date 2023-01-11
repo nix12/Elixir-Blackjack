@@ -7,7 +7,7 @@ defmodule Blackjack.Accounts.UserQuery do
   alias Blackjack.Accounts.User
 
   @type username :: String.t()
-  @type uuid :: String.t()
+  @type id :: String.t()
 
   @doc """
     Finds a user by the username.
@@ -16,8 +16,8 @@ defmodule Blackjack.Accounts.UserQuery do
   def find_by_username(username), do: from(user in User, where: user.username == ^username)
 
   @doc """
-    Finds a user by the uuid.
+    Finds a user by the id.
   """
-  @spec find_by_uuid(uuid()) :: Ecto.Query.t()
-  def find_by_uuid(uuid), do: from(user in User, where: user.uuid == ^uuid)
+  @spec find_by_id(id()) :: Ecto.Query.t()
+  def find_by_id(id), do: from(user in User, where: user.id == ^id)
 end

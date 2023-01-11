@@ -8,7 +8,7 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   alias Blackjack.Accounts.{User, Friendship}
 
   @type user :: %User{
-          uuid: String.t(),
+          id: String.t(),
           email: String.t(),
           username: String.t(),
           password_hash: String.t(),
@@ -26,10 +26,10 @@ defmodule Blackjack.Accounts.FriendshipQuery do
       friendships in Friendship,
       where:
         (friendships.pending == true and
-           (friendships.friend_uuid == ^requested_user.uuid and
-              friendships.user_uuid == ^current_user.uuid)) or
-          (friendships.friend_uuid == ^current_user.uuid and
-             friendships.user_uuid == ^requested_user.uuid)
+           (friendships.friend_id == ^requested_user.id and
+              friendships.user_id == ^current_user.id)) or
+          (friendships.friend_id == ^current_user.id and
+             friendships.user_id == ^requested_user.id)
     )
   end
 
@@ -43,10 +43,10 @@ defmodule Blackjack.Accounts.FriendshipQuery do
       friendships in Friendship,
       where:
         (friendships.accepted == true and
-           (friendships.friend_uuid == ^requested_user.uuid and
-              friendships.user_uuid == ^current_user.uuid)) or
-          (friendships.friend_uuid == ^current_user.uuid and
-             friendships.user_uuid == ^requested_user.uuid)
+           (friendships.friend_id == ^requested_user.id and
+              friendships.user_id == ^current_user.id)) or
+          (friendships.friend_id == ^current_user.id and
+             friendships.user_id == ^requested_user.id)
     )
   end
 
@@ -57,8 +57,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def pending_friendships(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.pending == true and friendships.friend_uuid == ^current_user.uuid,
+      on: friendships.user_id == user.id,
+      where: friendships.pending == true and friendships.friend_id == ^current_user.id,
       select: friendships
     )
   end
@@ -70,8 +70,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def accepted_friendships(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.accepted == true and friendships.friend_uuid == ^current_user.uuid,
+      on: friendships.user_id == user.id,
+      where: friendships.accepted == true and friendships.friend_id == ^current_user.id,
       select: friendships
     )
   end
@@ -83,8 +83,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def all_friendships(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.friend_uuid == ^current_user.uuid,
+      on: friendships.user_id == user.id,
+      where: friendships.friend_id == ^current_user.id,
       select: friendships
     )
   end
@@ -96,8 +96,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def pending_friends(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.pending == true and friendships.friend_uuid == ^current_user.uuid
+      on: friendships.user_id == user.id,
+      where: friendships.pending == true and friendships.friend_id == ^current_user.id
     )
   end
 
@@ -108,8 +108,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def accepted_friends(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.accepted == true and friendships.friend_uuid == ^current_user.uuid
+      on: friendships.user_id == user.id,
+      where: friendships.accepted == true and friendships.friend_id == ^current_user.id
     )
   end
 
@@ -120,8 +120,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def pending_received_friends(requested_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.pending == true and friendships.user_uuid == ^requested_user.uuid
+      on: friendships.user_id == user.id,
+      where: friendships.pending == true and friendships.user_id == ^requested_user.id
     )
   end
 
@@ -132,8 +132,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def accepted_received_friends(requested_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.accepted == true and friendships.user_uuid == ^requested_user.uuid
+      on: friendships.user_id == user.id,
+      where: friendships.accepted == true and friendships.user_id == ^requested_user.id
     )
   end
 
@@ -144,8 +144,8 @@ defmodule Blackjack.Accounts.FriendshipQuery do
   def all_friends(current_user) do
     from(user in User,
       left_join: friendships in Friendship,
-      on: friendships.user_uuid == user.uuid,
-      where: friendships.friend_uuid == ^current_user.uuid
+      on: friendships.user_id == user.id,
+      where: friendships.friend_id == ^current_user.id
     )
   end
 end

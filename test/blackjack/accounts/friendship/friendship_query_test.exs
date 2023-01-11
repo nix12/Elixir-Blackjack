@@ -19,13 +19,13 @@ defmodule Blackjack.Accounts.FriendshipQueryTest do
         FriendshipQuery.pending_friendship(current_user, requested_user)
         |> Repo.all()
 
-      assert pending.user_uuid == current_user.uuid
-      assert pending.friend_uuid == requested_user.uuid
+      assert pending.user_id == current_user.id
+      assert pending.friend_id == requested_user.id
       assert pending.pending == true
       assert pending.accepted == false
 
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
       assert inverse.pending == true
       assert inverse.accepted == false
     end
@@ -42,13 +42,13 @@ defmodule Blackjack.Accounts.FriendshipQueryTest do
         FriendshipQuery.accepted_friendship(requested_user, current_user)
         |> Repo.all()
 
-      assert accepted.user_uuid == current_user.uuid
-      assert accepted.friend_uuid == requested_user.uuid
+      assert accepted.user_id == current_user.id
+      assert accepted.friend_id == requested_user.id
       assert accepted.pending == false
       assert accepted.accepted == true
 
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
       assert inverse.pending == false
       assert inverse.accepted == true
     end
@@ -72,14 +72,14 @@ defmodule Blackjack.Accounts.FriendshipQueryTest do
 
       assert friendships
              |> Enum.any?(fn friendship ->
-               friendship.user_uuid == requested_user.uuid
+               friendship.user_id == requested_user.id
              end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid == third_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id == third_user.id end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid != fourth_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id != fourth_user.id end)
     end
   end
 
@@ -104,14 +104,14 @@ defmodule Blackjack.Accounts.FriendshipQueryTest do
 
       assert friendships
              |> Enum.any?(fn friendship ->
-               friendship.user_uuid == requested_user.uuid
+               friendship.user_id == requested_user.id
              end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid == third_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id == third_user.id end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid != fourth_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id != fourth_user.id end)
     end
   end
 
@@ -135,14 +135,14 @@ defmodule Blackjack.Accounts.FriendshipQueryTest do
 
       assert friendships
              |> Enum.any?(fn friendship ->
-               friendship.user_uuid == requested_user.uuid
+               friendship.user_id == requested_user.id
              end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid == third_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id == third_user.id end)
 
       assert friendships
-             |> Enum.any?(fn friendship -> friendship.user_uuid != fourth_user.uuid end)
+             |> Enum.any?(fn friendship -> friendship.user_id != fourth_user.id end)
     end
   end
 

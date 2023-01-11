@@ -6,22 +6,19 @@ defmodule Blackjack.Communications.Notifications.Notification do
 
   import Ecto.Changeset
 
-  alias Blackjack.Accounts.Inbox.InboxesNotifications
+  @derive {Jason.Encoder, only: [:body, :read, :inserted_at]}
 
   schema "notifications" do
     field(:body, :string)
     field(:read, :boolean, default: false)
-    field(:user_uuid, :binary_id)
-
-    has_many(:inboxes_notifications, InboxesNotifications)
-    has_many(:notifications, through: [:inboxes_notifications, :inbox])
+    field(:user_id, :binary_id)
 
     timestamps()
   end
 
   def changeset(notification, params \\ %{}) do
     notification
-    |> cast(params, [:body, :user_uuid])
-    |> validate_required([:body, :user_uuid])
+    |> cast(params, [:body, :user_id])
+    |> validate_required([:body, :user_id])
   end
 end

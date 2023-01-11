@@ -45,7 +45,7 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
         conn
         |> Guardian.Plug.current_resource()
 
-      assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.uuid)
+      assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.id)
 
       assert conn.state == :sent
       assert conn.status == 200
@@ -63,7 +63,7 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
       %{current_user: updated_user, token: current_user_token, info: {status, body}} =
         update_user(current_user, @invalid_change_params, current_user_token)
 
-      assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.uuid)
+      assert Bodyguard.permit?(Policy, :update_user, current_user, current_user.id)
 
       assert status == 422
       assert %{"error" => "Failed to update account. Please try again."} = body
@@ -104,7 +104,7 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
       assert conn.status == 200
       assert conn.assigns.user.email == current_user.email
       assert conn.assigns.user.username == current_user.username
-      assert conn.assigns.user.uuid == current_user.uuid
+      assert conn.assigns.user.id == current_user.id
     end
 
     test "must be logged in to view different user profile", %{user: user} do
@@ -125,7 +125,7 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
       assert requested_user != current_user
       assert conn.assigns.user.email == requested_user.email
       assert conn.assigns.user.username == requested_user.username
-      assert conn.assigns.user.uuid == requested_user.uuid
+      assert conn.assigns.user.id == requested_user.id
     end
 
     test "logged out user cannot view profiles" do
@@ -153,7 +153,7 @@ defmodule BlackjackWeb.Controllers.UsersControllerTest do
         |> put_req_header("authorization", "Bearer " <> current_user_token)
         |> Router.call([])
 
-      refute Bodyguard.permit?(Policy, :show_user, current_user, requested_user.uuid)
+      refute Bodyguard.permit?(Policy, :show_user, current_user, requested_user.id)
 
       assert conn.status == 401
       assert conn.resp_body != requested_user

@@ -32,11 +32,11 @@ defmodule Blackjack.Helpers do
   # URL
 
   def update_user_url(user) do
-    "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.uuid}/update"
+    "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.id}/update"
   end
 
   def show_user_url(user) do
-    "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.uuid}"
+    "http://localhost:#{Application.get_env(:blackjack, :port)}/user/#{user.id}"
   end
 
   def create_friendship_url do
@@ -47,19 +47,19 @@ defmodule Blackjack.Helpers do
   def accept_friendship_url(user) do
     "http://localhost:" <>
       (Application.get_env(:blackjack, :port) |> to_string()) <>
-      "/friendship/" <> user.uuid <> "/accept"
+      "/friendship/" <> user.id <> "/accept"
   end
 
   def decline_friendship_url(user) do
     "http://localhost:" <>
       (Application.get_env(:blackjack, :port) |> to_string()) <>
-      "/friendship/" <> user.uuid <> "/decline"
+      "/friendship/" <> user.id <> "/decline"
   end
 
   def destroy_friendship_url(user) do
     "http://localhost:" <>
       (Application.get_env(:blackjack, :port) |> to_string()) <>
-      "/friendship/" <> user.uuid <> "/destroy"
+      "/friendship/" <> user.id <> "/destroy"
   end
 
   # Requested routes
@@ -93,7 +93,7 @@ defmodule Blackjack.Helpers do
     HTTPoison.put!(
       "http://localhost:" <>
         (Application.get_env(:blackjack, :port) |> to_string()) <>
-        "/user/" <> user.uuid <> "/update",
+        "/user/" <> user.id <> "/update",
       Jason.encode!(change_params),
       [{"content-type", "application/json"}, {"authorization", "Bearer " <> user_token}]
     )
@@ -184,7 +184,7 @@ defmodule Blackjack.Helpers do
 
   def show_user(current_user_token, requested_user) do
     %HTTPoison.Response{body: body, status_code: status} =
-      show_user_path({"authorization", "Bearer " <> current_user_token}, requested_user.uuid)
+      show_user_path({"authorization", "Bearer " <> current_user_token}, requested_user.id)
 
     body = body |> Jason.decode!()
     viewed_user = if body["user"], do: body["user"], else: body

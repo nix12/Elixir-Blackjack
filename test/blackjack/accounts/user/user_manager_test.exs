@@ -30,7 +30,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
     test "init/1", %{users: [current_user, requested_user | _empty]} do
       {:ok, current_user} =
         UserManager.init(%{
-          uuid: current_user.uuid,
+          id: current_user.id,
           email: current_user.email,
           username: current_user.username,
           password_hash: current_user.password_hash,
@@ -39,7 +39,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
         })
 
       assert %{
-               uuid: current_user.uuid,
+               id: current_user.id,
                email: current_user.email,
                username: current_user.username,
                password_hash: current_user.password_hash,
@@ -59,21 +59,21 @@ defmodule Blackjack.Accounts.UserManagerTest do
       %{current_user: current_user} = login_user(current_user)
 
       change_params = %{
-        uuid: current_user.uuid,
+        id: current_user.id,
         email: Faker.Internet.email(),
         username: Faker.Internet.user_name(),
         password_hash: "newpassword"
       }
 
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
       send(current_user_pid, {:update_user, [change_params]})
       :timer.sleep(250)
 
       assert capture_log(fn ->
-               Logger.info("Updated user " <> current_user.uuid)
-             end) =~ "Updated user " <> current_user.uuid
+               Logger.info("Updated user " <> current_user.id)
+             end) =~ "Updated user " <> current_user.id
 
-      assert current_user.uuid == change_params.uuid
+      assert current_user.id == change_params.id
       refute current_user.email == change_params.email
       refute current_user.username == change_params.username
       refute current_user.password_hash == change_params.password_hash
@@ -81,7 +81,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
 
     test "stop_user", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
 
       send(current_user_pid, {:stop_user, []})
       Process.sleep(50)
@@ -90,12 +90,12 @@ defmodule Blackjack.Accounts.UserManagerTest do
 
     test "create_friendship success", %{users: [current_user, requested_user | _empty]} do
       %{current_user: current_user} = login_user(current_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
 
       Task.async(fn ->
         Process.register(
           self(),
-          :"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+          :"create_friendship_#{current_user.id}_to_#{requested_user.id}"
         )
 
         send(current_user_pid, {:create_friendship, [requested_user]})
@@ -104,10 +104,10 @@ defmodule Blackjack.Accounts.UserManagerTest do
           {:ok, friendship} ->
             assert capture_log(fn ->
                      Logger.info(
-                       "Friendship created between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                       "Friendship created between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                      )
                    end) =~
-                     "Friendship created between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                     "Friendship created between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
         end
       end)
       |> Task.await()
@@ -129,18 +129,18 @@ defmodule Blackjack.Accounts.UserManagerTest do
              ]
     end
 
-    test "create_friendship failure by invalid friend_uuid", %{
+    test "create_friendship failure by invalid friend_id", %{
       users: [current_user, requested_user | _empty]
     } do
       %{current_user: current_user} = login_user(current_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       error =
         Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
           Process.register(
             self(),
-            :"create_friendship_#{current_user.uuid}_to_#{invalid_requested_user.uuid}"
+            :"create_friendship_#{current_user.id}_to_#{invalid_requested_user.id}"
           )
 
           send(
@@ -152,11 +152,11 @@ defmodule Blackjack.Accounts.UserManagerTest do
             {:error, error_message} ->
               assert capture_log(fn ->
                        Logger.error(
-                         "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                         "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                            error_message
                        )
                      end) =~
-                       "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                       "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                          error_message
 
               error_message
@@ -165,14 +165,14 @@ defmodule Blackjack.Accounts.UserManagerTest do
         |> Task.await()
 
       assert Repo.all(Friendship) |> Enum.count() == 0
-      assert error == "One of these fields UUID does not exist: [:user_uuid, :friend_uuid]"
+      assert error == "One of these fields UUID does not exist: [:user_id, :friend_id]"
     end
 
     test "create_friendship failure by creating an already created friendship", %{
       users: [current_user, requested_user | _empty]
     } do
       %{current_user: current_user} = login_user(current_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
 
       Friendships.create_friendships(current_user, requested_user)
 
@@ -180,7 +180,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
         Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
           Process.register(
             self(),
-            :"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+            :"create_friendship_#{current_user.id}_to_#{requested_user.id}"
           )
 
           send(
@@ -192,11 +192,11 @@ defmodule Blackjack.Accounts.UserManagerTest do
             {:error, error_message} ->
               assert capture_log(fn ->
                        Logger.error(
-                         "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                         "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                            error_message
                        )
                      end) =~
-                       "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                       "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                          error_message
 
               error_message
@@ -205,12 +205,12 @@ defmodule Blackjack.Accounts.UserManagerTest do
         |> Task.await()
 
       assert Repo.all(Friendship) |> Enum.count() == 2
-      assert error == "user_uuid has already been taken."
+      assert error == "user_id has already been taken."
     end
 
     test "friend_request", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
 
       send(current_user_pid, {:friend_request, requested_user})
       :timer.sleep(250)
@@ -242,20 +242,20 @@ defmodule Blackjack.Accounts.UserManagerTest do
              |> Repo.preload(inbox: :notifications)
              |> get_in([Access.key(:inbox), Access.key(:notifications)])
              |> Enum.at(0)
-             |> Map.get(:user_uuid) == requested_user.uuid
+             |> Map.get(:user_id) == requested_user.id
     end
 
     test "accept_friendship success", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
       %{current_user: requested_user} = login_user(requested_user)
-      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.uuid)
+      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.id)
 
       Friendships.create_friendships(current_user, requested_user)
 
       Task.async(fn ->
         Process.register(
           self(),
-          :"accept_friendship_#{requested_user.uuid}_to_#{current_user.uuid}"
+          :"accept_friendship_#{requested_user.id}_to_#{current_user.id}"
         )
 
         send(requested_user_pid, {:accept_friendship, [current_user]})
@@ -264,10 +264,10 @@ defmodule Blackjack.Accounts.UserManagerTest do
           {:ok, friendship} ->
             assert capture_log(fn ->
                      Logger.info(
-                       "Friendship accepted between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                       "Friendship accepted between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                      )
                    end) =~
-                     "Friendship accepted between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                     "Friendship accepted between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
         end
       end)
       |> Task.await()
@@ -288,14 +288,14 @@ defmodule Blackjack.Accounts.UserManagerTest do
     test "accept_friendship failure", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
       %{current_user: requested_user} = login_user(requested_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       error =
         Task.async(fn ->
           Process.register(
             self(),
-            :"accept_friendship_#{current_user.uuid}_to_#{invalid_requested_user.uuid}"
+            :"accept_friendship_#{current_user.id}_to_#{invalid_requested_user.id}"
           )
 
           send(current_user_pid, {:accept_friendship, [invalid_requested_user]})
@@ -304,11 +304,11 @@ defmodule Blackjack.Accounts.UserManagerTest do
             {:error, error_message} ->
               assert capture_log(fn ->
                        Logger.error(
-                         "Accept friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                         "Accept friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                            error_message
                        )
                      end) =~
-                       "Accept friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                       "Accept friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                          error_message
 
               error_message
@@ -331,14 +331,14 @@ defmodule Blackjack.Accounts.UserManagerTest do
     test "decline_friendship success", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
       %{current_user: requested_user} = login_user(requested_user)
-      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.uuid)
+      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.id)
 
       Friendships.create_friendships(current_user, requested_user)
 
       Task.async(fn ->
         Process.register(
           self(),
-          :"decline_friendship_#{requested_user.uuid}_to_#{current_user.uuid}"
+          :"decline_friendship_#{requested_user.id}_to_#{current_user.id}"
         )
 
         send(requested_user_pid, {:decline_friendship, [current_user]})
@@ -347,10 +347,10 @@ defmodule Blackjack.Accounts.UserManagerTest do
           {:ok, friendship} ->
             assert capture_log(fn ->
                      Logger.info(
-                       "Friendship declined between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                       "Friendship declined between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                      )
                    end) =~
-                     "Friendship declined between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                     "Friendship declined between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
         end
       end)
       |> Task.await()
@@ -366,14 +366,14 @@ defmodule Blackjack.Accounts.UserManagerTest do
     test "decline_friendship failure", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
       %{current_user: requested_user} = login_user(requested_user)
-      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       error =
         Task.async(fn ->
           Process.register(
             self(),
-            :"decline_friendship_#{current_user.uuid}_to_#{invalid_requested_user.uuid}"
+            :"decline_friendship_#{current_user.id}_to_#{invalid_requested_user.id}"
           )
 
           send(current_user_pid, {:decline_friendship, [invalid_requested_user]})
@@ -382,11 +382,11 @@ defmodule Blackjack.Accounts.UserManagerTest do
             {:error, error_message} ->
               assert capture_log(fn ->
                        Logger.error(
-                         "Decline friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                         "Decline friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                            error_message
                        )
                      end) =~
-                       "Decline friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                       "Decline friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                          error_message
 
               error_message
@@ -409,7 +409,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
     test "remove_friendship success", %{users: [current_user, requested_user | _empty] = users} do
       %{current_user: current_user} = login_user(current_user)
       %{current_user: requested_user} = login_user(requested_user)
-      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.uuid)
+      [{requested_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, requested_user.id)
 
       Friendships.create_friendships(current_user, requested_user)
       Friendships.update_friendship(current_user, requested_user)
@@ -417,7 +417,7 @@ defmodule Blackjack.Accounts.UserManagerTest do
       Task.async(fn ->
         Process.register(
           self(),
-          :"remove_friendship_#{requested_user.uuid}_to_#{current_user.uuid}"
+          :"remove_friendship_#{requested_user.id}_to_#{current_user.id}"
         )
 
         send(requested_user_pid, {:remove_friendship, [current_user]})
@@ -426,10 +426,10 @@ defmodule Blackjack.Accounts.UserManagerTest do
           {:ok, friendship} ->
             assert capture_log(fn ->
                      Logger.info(
-                       "Friendship removal between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                       "Friendship removal between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                      )
                    end) =~
-                     "Friendship removal between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                     "Friendship removal between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
         end
       end)
       |> Task.await()
@@ -447,14 +447,14 @@ defmodule Blackjack.Accounts.UserManagerTest do
   test "remove_friendship failure", %{users: [current_user, requested_user | _empty] = users} do
     %{current_user: current_user} = login_user(current_user)
     %{current_user: requested_user} = login_user(requested_user)
-    [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
-    invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+    [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
+    invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
     error =
       Task.async(fn ->
         Process.register(
           self(),
-          :"remove_friendship_#{current_user.uuid}_to_#{invalid_requested_user.uuid}"
+          :"remove_friendship_#{current_user.id}_to_#{invalid_requested_user.id}"
         )
 
         send(current_user_pid, {:remove_friendship, [invalid_requested_user]})
@@ -463,11 +463,11 @@ defmodule Blackjack.Accounts.UserManagerTest do
           {:error, error_message} ->
             assert capture_log(fn ->
                      Logger.error(
-                       "Remove friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                       "Remove friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                          error_message
                      )
                    end) =~
-                     "Remove friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                     "Remove friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                        error_message
 
             error_message
@@ -487,13 +487,13 @@ defmodule Blackjack.Accounts.UserManagerTest do
 
   test "terminate", %{users: [current_user, requested_user | _empty] = users} do
     %{current_user: current_user} = login_user(current_user)
-    [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.uuid)
+    [{current_user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, current_user.id)
 
     send(current_user_pid, {:stop_user, []})
 
     assert capture_log(fn ->
-             Logger.info("Stopping user -> #{current_user.uuid}: #{current_user.username}")
+             Logger.info("Stopping user -> #{current_user.id}: #{current_user.username}")
            end) =~
-             "Stopping user -> #{current_user.uuid}: #{current_user.username}"
+             "Stopping user -> #{current_user.id}: #{current_user.username}"
   end
 end

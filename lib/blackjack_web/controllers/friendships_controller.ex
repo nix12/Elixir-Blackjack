@@ -14,15 +14,15 @@ defmodule BlackjackWeb.Controllers.FriendshipsController do
     of a new friendship.
   """
   @spec create(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
-  def create(%{params: %{"uuid" => uuid}} = conn) do
+  def create(%{params: %{"id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    with %User{} = requested_user <- Repo.get(User, uuid),
+    with %User{} = requested_user <- Repo.get(User, id),
          :ok <- Bodyguard.permit(Policy, :create_friendship, current_user, %Friendship{}) do
       Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
         Process.register(
           self(),
-          :"create_friendship_#{current_user.uuid}_to_#{uuid}"
+          :"create_friendship_#{current_user.id}_to_#{id}"
         )
 
         AccountsNotifier.publish(current_user, {:create_friendship, requested_user})
@@ -51,17 +51,17 @@ defmodule BlackjackWeb.Controllers.FriendshipsController do
     Routes incoming messages to the Accounts Notifiers to accept a friendship.
   """
   @spec accept(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
-  def accept(%{path_params: %{"friend_uuid" => uuid}} = conn) do
+  def accept(%{path_params: %{"friend_id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    with %User{} = requested_user <- Repo.get(User, uuid),
+    with %User{} = requested_user <- Repo.get(User, id),
          %Friendship{} = friendship <-
-           Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: uuid),
+           Repo.get_by(Friendship, user_id: current_user.id, friend_id: id),
          :ok <- Bodyguard.permit(Policy, :accept_friendship, current_user, friendship) do
       Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
         Process.register(
           self(),
-          :"accept_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+          :"accept_friendship_#{current_user.id}_to_#{requested_user.id}"
         )
 
         AccountsNotifier.publish(current_user, {:accept_friendship, requested_user})
@@ -90,17 +90,17 @@ defmodule BlackjackWeb.Controllers.FriendshipsController do
     Routes incoming messages to the Accounts Notifiers to decline a friendship.
   """
   @spec decline(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
-  def decline(%{path_params: %{"friend_uuid" => uuid}} = conn) do
+  def decline(%{path_params: %{"friend_id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    with %User{} = requested_user <- Repo.get(User, uuid),
+    with %User{} = requested_user <- Repo.get(User, id),
          %Friendship{} = friendship <-
-           Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: uuid),
+           Repo.get_by(Friendship, user_id: current_user.id, friend_id: id),
          :ok <- Bodyguard.permit(Policy, :decline_friendship, current_user, friendship) do
       Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
         Process.register(
           self(),
-          :"decline_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+          :"decline_friendship_#{current_user.id}_to_#{requested_user.id}"
         )
 
         AccountsNotifier.publish(current_user, {:decline_friendship, requested_user})
@@ -130,17 +130,17 @@ defmodule BlackjackWeb.Controllers.FriendshipsController do
     friendship.
   """
   @spec destroy(Plug.Conn.t()) :: {:error, Plug.Conn.t()} | {:ok, Plug.Conn.t()}
-  def destroy(%{path_params: %{"friend_uuid" => uuid}} = conn) do
+  def destroy(%{path_params: %{"friend_id" => id}} = conn) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    with %User{} = requested_user <- Repo.get(User, uuid),
+    with %User{} = requested_user <- Repo.get(User, id),
          %Friendship{} = friendship <-
-           Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: uuid),
+           Repo.get_by(Friendship, user_id: current_user.id, friend_id: id),
          :ok <- Bodyguard.permit(Policy, :remove_friendship, current_user, friendship) do
       Task.Supervisor.async(Blackjack.TaskSupervisor, fn ->
         Process.register(
           self(),
-          :"remove_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+          :"remove_friendship_#{current_user.id}_to_#{requested_user.id}"
         )
 
         AccountsNotifier.publish(current_user, {:remove_friendship, requested_user})

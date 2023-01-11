@@ -2,12 +2,15 @@ defmodule BlackjackWeb.Controllers.ServersController do
   @moduledoc """
     Contains CRUD actions for servers.
   """
+  require Logger
+
   import Plug.Conn
 
-  alias Blackjack.{Accounts, Repo}
+  alias Blackjack.Repo
   alias Blackjack.Core.Supervisor, as: CoreSupervisor
   alias Blackjack.Core.{Server, ServerQuery}
-  alias Blackjack.Notifications.AccountsNotifier
+  alias Blackjack.Notifiers.AccountsNotifier
+  alias Blackjack.Accounts.Authentication.Guardian
 
   def index(conn) do
     case Repo.all(Server) do
@@ -20,28 +23,23 @@ defmodule BlackjackWeb.Controllers.ServersController do
   end
 
   def create(conn) do
-    uuid = conn.params["current_user"]["uuid"]
-    old_user = Repo.get!(Blackjack.Accounts.User, uuid)
-    server_name = conn.params["server"]["server_name"]
+    user = Guardian.Plug.current_resource(conn)
+    %{"server" => %{"server_name" => server_name}} = conn.params
 
-    update_user_with_server =
-      Ecto.Multi.new()
-      |> Ecto.Multi.insert(:server, Server.changeset(%Server{}, %{server_name: server_name}))
-      |> Ecto.Multi.update(:user, fn %{server: server} ->
-        old_user
-        |> Repo.preload([:friends, :server, :inbox])
-        |> Ecto.Changeset.change(%{server: server})
-      end)
-      |> Repo.transaction()
+    changeset =
+      Server.changeset(%Server{}, %{
+        server_name: server_name,
+        user_id: user.id |> Ecto.UUID.cast!()
+      })
 
-    case update_user_with_server do
-      {:ok, user} ->
+    case changeset |> Repo.insert() do
+      {:ok, server} ->
         AccountsNotifier.publish(
           user |> Map.put("mod", CoreSupervisor),
-          {:start_server, user.server}
+          {:start_server, server}
         )
 
-        {:ok, assign(conn, :server, user.server)}
+        {:ok, assign(conn, :server, server)}
 
       {:error, error} ->
         {:errors, assign(conn, :errors, error)}
@@ -64,11 +62,11 @@ defmodule BlackjackWeb.Controllers.ServersController do
   def destroy do
   end
 
-  def join_server(%{params: %{"server_name" => server_name, "username" => username}}) do
-    Accounts.join_server(username, server_name)
-  end
+  # def join_server(%{params: %{"server_name" => server_name, "username" => username}}) do
+  #   Accounts.join_server(username, server_name)
+  # end
 
-  def leave_server(%{params: %{"server_name" => server_name, "username" => username}}) do
-    Accounts.leave_server(username, server_name)
-  end
+  # def leave_server(%{params: %{"server_name" => server_name, "username" => username}}) do
+  #   Accounts.leave_server(username, server_name)
+  # end
 end

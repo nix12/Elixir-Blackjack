@@ -32,7 +32,7 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
         conn(
           :post,
           create_friendship_url(),
-          %{uuid: requested_user.uuid} |> Jason.encode!()
+          %{id: requested_user.id} |> Jason.encode!()
         )
         |> put_req_header("authorization", "Bearer " <> current_user_token)
         |> put_req_header("content-type", "application/json")
@@ -57,13 +57,13 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
 
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       %{resp_body: response} =
         conn(
           :post,
           create_friendship_url(),
-          %{uuid: invalid_requested_user.uuid} |> Jason.encode!()
+          %{id: invalid_requested_user.id} |> Jason.encode!()
         )
         |> put_req_header("authorization", "Bearer " <> current_user_token)
         |> put_req_header("content-type", "application/json")
@@ -85,13 +85,13 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
 
-      conn(:post, create_friendship_url(), %{uuid: requested_user.uuid} |> Jason.encode!())
+      conn(:post, create_friendship_url(), %{id: requested_user.id} |> Jason.encode!())
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
       |> Router.call([])
 
       requested_friendship =
-        Repo.get_by(Friendship, user_uuid: requested_user.uuid, friend_uuid: current_user.uuid)
+        Repo.get_by(Friendship, user_id: requested_user.id, friend_id: current_user.id)
 
       conn(:post, accept_friendship_url(current_user))
       |> put_req_header("authorization", "Bearer " <> requested_user_token)
@@ -127,12 +127,12 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
     } do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       conn(
         :post,
         create_friendship_url(),
-        %{uuid: invalid_requested_user.uuid} |> Jason.encode!()
+        %{id: invalid_requested_user.id} |> Jason.encode!()
       )
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
@@ -157,13 +157,13 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
 
-      conn(:post, create_friendship_url(), %{uuid: requested_user.uuid} |> Jason.encode!())
+      conn(:post, create_friendship_url(), %{id: requested_user.id} |> Jason.encode!())
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
       |> Router.call([])
 
       requested_friendship =
-        Repo.get_by(Friendship, user_uuid: requested_user.uuid, friend_uuid: current_user.uuid)
+        Repo.get_by(Friendship, user_id: requested_user.id, friend_id: current_user.id)
 
       conn(:post, decline_friendship_url(current_user))
       |> put_req_header("authorization", "Bearer " <> requested_user_token)
@@ -197,9 +197,9 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
     } do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
-      conn(:post, create_friendship_url(), %{uuid: requested_user.uuid} |> Jason.encode!())
+      conn(:post, create_friendship_url(), %{id: requested_user.id} |> Jason.encode!())
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
       |> Router.call([])
@@ -223,7 +223,7 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
 
-      conn(:post, create_friendship_url(), %{uuid: requested_user.uuid} |> Jason.encode!())
+      conn(:post, create_friendship_url(), %{id: requested_user.id} |> Jason.encode!())
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
       |> Router.call([])
@@ -233,7 +233,7 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       |> Router.call([])
 
       requested_friendship =
-        Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: requested_user.uuid)
+        Repo.get_by(Friendship, user_id: current_user.id, friend_id: requested_user.id)
 
       conn(:delete, destroy_friendship_url(requested_user))
       |> put_req_header("authorization", "Bearer " <> current_user_token)
@@ -257,12 +257,12 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
     } do
       %{current_user: current_user, token: current_user_token} = login_user(current_user)
       %{current_user: requested_user, token: requested_user_token} = login_user(requested_user)
-      invalid_requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      invalid_requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       conn(
         :post,
         create_friendship_url(),
-        %{uuid: invalid_requested_user.uuid} |> Jason.encode!()
+        %{id: invalid_requested_user.id} |> Jason.encode!()
       )
       |> put_req_header("authorization", "Bearer " <> current_user_token)
       |> put_req_header("content-type", "application/json")
@@ -273,7 +273,7 @@ defmodule BlackjackWeb.Controllers.FriendshipsControllerTest do
       |> Router.call([])
 
       requested_friendship =
-        Repo.get_by(Friendship, user_uuid: current_user.uuid, friend_uuid: requested_user.uuid)
+        Repo.get_by(Friendship, user_id: current_user.id, friend_id: requested_user.id)
 
       %{resp_body: response} =
         conn(:delete, destroy_friendship_url(invalid_requested_user))

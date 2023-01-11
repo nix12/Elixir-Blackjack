@@ -5,7 +5,7 @@ defmodule Blackjack.MixProject do
     [
       app: :blackjack,
       version: "0.1.0",
-      elixir: "~> 1.14.0",
+      elixir: "~> 1.14.2",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -57,10 +57,9 @@ defmodule Blackjack.MixProject do
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:cowboy, "~> 2.8"},
-      {:plug_cowboy, "~> 2.5.2"},
+      {:plug_cowboy, "~> 2.6.0"},
       {:httpoison, "~> 1.8"},
-      {:guardian, "~> 2.3"},
+      {:guardian, "~> 2.3.0"},
       {:bodyguard, "~> 2.4.2"},
       {:jason, "~> 1.3"},
       {:bcrypt_elixir, "~> 2.3"},
@@ -70,7 +69,7 @@ defmodule Blackjack.MixProject do
       {:logger_file_backend, "~> 0.0"},
       {:dotenvy, "~> 0.3.0"},
       {:poolboy, "~> 1.5.2"},
-      {:libcluster, git: "https://github.com/bitwalker/libcluster.git", ref: "a18a19c"},
+      {:libcluster, git: "https://github.com/bitwalker/libcluster", ref: "5240d23"},
       {:horde, "~> 0.8.5"}
     ]
   end

@@ -2,6 +2,8 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
   @moduledoc """
     Contains functions for user authentication functions.
   """
+  require Logger
+
   import Plug.Conn
   import Bcrypt
 
@@ -12,7 +14,7 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
   alias Blackjack.Notifiers.AccountsNotifier
 
   @type user :: %User{
-          uuid: String.t(),
+          id: String.t(),
           email: String.t(),
           username: String.t(),
           password_hash: String.t(),
@@ -44,7 +46,7 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
   @doc """
     Clears conn of resource information.
   """
-  @spec destroy(Plug.Conn.t()) :: Plug.Conn.t()
+  @spec destroy(Plug.Conn.t()) :: {:ok, Plug.Conn.t()}
   def destroy(conn) do
     {:ok, conn |> Guardian.Plug.sign_out()}
   end
@@ -64,16 +66,34 @@ defmodule BlackjackWeb.Controllers.AuthenticationController do
   end
 
   def after_sign_in(conn, user, _token, _claims, _options) do
-    AccountsSupervisor.start_user(user)
+    Logger.info("USER: #{inspect(user)}")
+    user |> AccountsSupervisor.start_user()
 
     {:ok, conn}
   end
 
-  @spec assign_token(Plug.Conn.t()) :: Plug.Conn.t()
+  # @spec assign_token(Plug.Conn.t()) :: Plug.Conn.t()
   defp assign_token(conn) do
     user = Guardian.Plug.current_resource(conn)
-    {:ok, token, _claims} = Guardian.encode_and_sign(user, %{}, token_type: :access)
-
+    %{id: id, email: email, username: username} = user
+    claims = %{user: %{id: id, email: email, username: username}}
+    {:ok, token, _claims} = Guardian.encode_and_sign(user, claims, token_type: :access)
+    Logger.info(inspect(token))
     put_resp_header(conn, "authorization", "Bearer " <> token)
   end
+
+  # defp route_to_server(%{email: email} = user) do
+  #   Logger.info("EMAIL: #{inspect(email)}")
+
+  #   if email in ["user2@email.com", "user3@email.com"] do
+  #     IO.puts("IN SERVER ROUTER")
+
+  #     {Blackjack.TaskSupervisor, Enum.at(Node.list(), 0)}
+  #     |> Task.Supervisor.async(AccountsSupervisor, :start_user, [user])
+  #     |> Task.await()
+  #     |> IO.inspect(label: "SERVER")
+  #   else
+  #     AccountsSupervisor.start_user(user)
+  #   end
+  # end
 end

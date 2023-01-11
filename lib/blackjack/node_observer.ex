@@ -19,25 +19,25 @@ defmodule Blackjack.NodeObserver do
   end
 
   @impl true
-  def handle_info({:nodeup, _node, _node_type}, state) do
+  def handle_info({:nodeup, node, _node_type}, state) do
     set_members(AccountsRegistry)
     set_members(CoreRegistry)
     set_members(AccountsSupervisor)
     set_members(CoreSupervisor)
 
-    Logger.info("--------------> NODE UP 2 <--------------")
+    Logger.info("--------------> NODE UP #{node} <--------------")
 
     {:noreply, state, {:continue, :log}}
   end
 
   @impl true
-  def handle_info({:nodedown, _node, _node_type}, state) do
+  def handle_info({:nodedown, node, _node_type}, state) do
     set_members(AccountsRegistry)
     set_members(CoreRegistry)
     set_members(AccountsSupervisor)
     set_members(CoreSupervisor)
 
-    Logger.info("--------------> NODE DOWN 2 <--------------")
+    Logger.info("--------------> NODE DOWN #{node} <--------------")
 
     {:noreply, state}
   end

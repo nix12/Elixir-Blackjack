@@ -13,7 +13,7 @@ defmodule Blackjack.Core.ServerQuery do
         :player_count,
         :server_name,
         :table_count,
-        :user_uuid,
+        :user_id,
         :inserted_at,
         :updated_at
       ],
@@ -22,22 +22,12 @@ defmodule Blackjack.Core.ServerQuery do
   end
 
   def query_servers() do
-    from(server in Server,
-      select: [
-        :id,
-        :player_count,
-        :server_name,
-        :table_count,
-        :user_uuid,
-        :inserted_at,
-        :updated_at
-      ]
-    )
+    from(server in Server, select: server)
   end
 
   # def update_by_server_name(server_name) do
   #   from(s in Server,
-  #     select: [:player_count, :server_name, :table_count, :user_uuid, :inserted_at, :updated_at],
+  #     select: [:player_count, :server_name, :table_count, :user_id, :inserted_at, :updated_at],
   #     where: [server_name: ^server_name],
   #     update: [set: [player_count: ^player_count(server_name)]]
   #   )

@@ -7,8 +7,9 @@ defmodule Blackjack.Accounts.Inbox do
   import Ecto.Changeset
 
   alias Blackjack.Accounts.User
-  alias Blackjack.Accounts.Inbox.InboxesNotifications
+  alias Blackjack.Accounts.Inbox.{InboxesNotifications, InboxesConversations}
   alias Blackjack.Communications.Conversations.Conversation
+  alias Blackjack.Communications.Notifications.Notification
 
   @type inbox :: %{
           user: map(),
@@ -16,26 +17,34 @@ defmodule Blackjack.Accounts.Inbox do
           conversations: maybe_improper_list()
         }
 
+  @derive {Jason.Encoder, only: [:user_id]}
+
   schema "inboxes" do
+    field(:communications, {:array, :map}, virtual: true)
+
     belongs_to(:user, User,
-      foreign_key: :user_uuid,
-      references: :uuid,
+      foreign_key: :user_id,
+      references: :id,
       type: :binary_id
     )
 
-    has_many(:inboxes_notifications, InboxesNotifications)
-    has_many(:notifications, through: [:inboxes_notifications, :notification])
+    many_to_many(:notifications, Notification,
+      join_through: InboxesNotifications,
+      join_keys: [inbox_id: :id, notification_id: :id]
+    )
 
-    has_many(:conversations, Conversation)
+    many_to_many(:conversations, Conversation,
+      join_through: InboxesConversations,
+      join_keys: [inbox_id: :id, conversation_id: :id]
+    )
   end
 
   @doc """
     Takes inbox struct and change parameters to create a changeset.
   """
-  @spec changeset(inbox()) :: Ecto.Changeset.t()
-  def changeset(inbox, params \\ %{}) do
+  def changeset(inbox, params) do
     inbox
-    |> cast(params, [:user_uuid])
-    |> validate_required([:user_uuid])
+    |> cast(params, [:user_id])
+    |> validate_required([:user_id])
   end
 end

@@ -16,7 +16,7 @@ defmodule Blackjack.Accounts.UserTest do
       changeset = User.changeset(%User{}, @valid_user)
       {:ok, changeset} = Repo.insert(changeset)
 
-      assert %{uuid: _, username: _, password_hash: _, inserted_at: _, updated_at: _} = changeset
+      assert %{id: _, username: _, password_hash: _, inserted_at: _, updated_at: _} = changeset
     end
 
     test "insert invalid user" do

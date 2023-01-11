@@ -3,6 +3,8 @@ defmodule BlackjackWeb.AuthRouter do
     This router contains routes where incoming traffic must
     be authenticated.
   """
+  require Logger
+
   use Plug.Router
   if Mix.env() == :dev, do: use(Plug.Debugger)
   use Plug.ErrorHandler
@@ -16,16 +18,18 @@ defmodule BlackjackWeb.AuthRouter do
     AuthenticationController
   }
 
-  plug(Plug.Logger)
   plug(:match)
+  plug(Blackjack.AuthAccessPipeline)
+  plug(:log)
 
   plug(Plug.Parsers,
     parsers: [:json],
     pass: ["application/json"],
-    json_decoder: Jason
+    json_decoder: Jason,
+    validate_utf8: true
   )
 
-  plug(Blackjack.AuthAccessPipeline)
+  plug(:log)
   plug(:dispatch)
 
   # User routes
@@ -40,7 +44,7 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  put "/user/:uuid/update" do
+  put "/user/:id/update" do
     case UsersController.update(conn) do
       {:ok, conn} ->
         send_resp(conn, 200, Jason.encode!(conn.assigns))
@@ -50,7 +54,7 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  get "/user/:uuid" do
+  get "/user/:id" do
     case UsersController.show(conn) do
       {:ok, conn} ->
         send_resp(conn, 200, Jason.encode!(conn.assigns))
@@ -72,7 +76,7 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  post "/friendship/:friend_uuid/accept" do
+  post "/friendship/:friend_id/accept" do
     case FriendshipsController.accept(conn) do
       {:ok, conn} ->
         send_resp(conn, 200, Jason.encode!(conn.assigns))
@@ -82,7 +86,7 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  post "/friendship/:friend_uuid/decline" do
+  post "/friendship/:friend_id/decline" do
     case FriendshipsController.decline(conn) do
       {:ok, conn} ->
         send_resp(conn, 200, Jason.encode!(conn.assigns))
@@ -92,7 +96,7 @@ defmodule BlackjackWeb.AuthRouter do
     end
   end
 
-  delete "/friendship/:friend_uuid/destroy" do
+  delete "/friendship/:friend_id/destroy" do
     case FriendshipsController.destroy(conn) do
       {:ok, conn} ->
         send_resp(conn, 200, Jason.encode!(conn.assigns))
@@ -127,13 +131,14 @@ defmodule BlackjackWeb.AuthRouter do
     case ServersController.create(conn) do
       {:ok, conn} ->
         conn
-        |> resp(201, Jason.encode!(conn.assigns))
+        |> put_resp_content_type("application/json")
+        |> send_resp(201, Jason.encode!(conn.assigns))
 
       {:errors, conn} ->
         conn
-        |> resp(500, Jason.encode!(conn.assigns))
+        |> put_resp_content_type("application/json")
+        |> send_resp(500, Jason.encode!(conn.assigns))
     end
-    |> send_resp()
   end
 
   # Catch all routes and error handling.
@@ -145,5 +150,11 @@ defmodule BlackjackWeb.AuthRouter do
   @impl true
   def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
     send_resp(conn, conn.status, %{errors: "Something went wrong!"} |> Jason.encode!())
+  end
+
+  def log(conn, _opts) do
+    Logger.info(conn.params |> inspect())
+
+    conn
   end
 end

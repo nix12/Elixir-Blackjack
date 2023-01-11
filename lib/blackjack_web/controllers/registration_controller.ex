@@ -4,6 +4,7 @@ defmodule BlackjackWeb.Controllers.RegistrationController do
   """
   import Plug.Conn
 
+  alias Ecto.Multi
   alias Blackjack.Repo
   alias Blackjack.Accounts.User
 
@@ -11,17 +12,8 @@ defmodule BlackjackWeb.Controllers.RegistrationController do
     Creates a user or returns an error conn.
   """
   @spec create(Plug.Conn.t()) :: {:ok, Plug.Conn.t()} | {:errors, Plug.Conn.t()}
-  def create(
-        %{
-          params: %{
-            "user" => %{"email" => email, "username" => username, "password_hash" => password}
-          }
-        } = conn
-      ) do
-    changeset =
-      User.changeset(%User{}, %{email: email, username: username, password_hash: password})
-
-    case changeset |> Repo.insert() do
+  def create(%{params: params} = conn) do
+    case create_account(params) do
       {:ok, user} ->
         {:ok, assign(conn, :user, user)}
 
@@ -30,5 +22,23 @@ defmodule BlackjackWeb.Controllers.RegistrationController do
 
         {:errors, assign(conn, :errors, "#{field} #{message}.")}
     end
+  end
+
+  def create_account(%{
+        "user" => %{"email" => email, "username" => username, "password_hash" => password}
+      }) do
+    Multi.new()
+    |> Multi.insert(
+      :create_user,
+      User.changeset(%User{}, %{
+        email: email,
+        username: username,
+        password_hash: password
+      })
+    )
+    |> Multi.insert(:create_inbox, fn %{create_user: user} ->
+      Ecto.build_assoc(user, :inbox)
+    end)
+    |> Repo.transaction()
   end
 end

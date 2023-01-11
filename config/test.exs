@@ -27,7 +27,7 @@ config :blackjack, Blackjack.Repo,
 
 config :plug_cowboy, log_exceptions_with_status_code: [400..500]
 
-config :blackjack, port: 4000
+config :blackjack, port: 4001
 
 config :blackjack, Blackjack.AuthAccessPipeline,
   module: Blackjack.Accounts.Authentication.Guardian,

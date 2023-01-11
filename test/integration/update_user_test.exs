@@ -12,7 +12,7 @@ defmodule UpdateUserTest do
     %{user: user}
   end
 
-  describe "POST /:uuid/update" do
+  describe "POST /:id/update" do
     test "SUCCESS", %{user: user} do
       %{current_user: current_user, token: current_user_token} = login_user(user)
 

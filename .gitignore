@@ -26,3 +26,4 @@ blackjack-*.tar
 /config/prod.exs
 /config/.env.prod
 
+.elixir_ls

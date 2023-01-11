@@ -23,13 +23,13 @@ defmodule Blackjack.Accounts.FriendshipsTest do
       assert {:ok, %{create_friendship: friendship, inverse_friendship: inverse}} =
                Friendships.create_friendships(current_user, requested_user)
 
-      assert friendship.user_uuid == current_user.uuid
-      assert friendship.friend_uuid == requested_user.uuid
+      assert friendship.user_id == current_user.id
+      assert friendship.friend_id == requested_user.id
       assert friendship.accepted == false
       assert friendship.pending == true
 
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
       assert inverse.accepted == false
       assert inverse.pending == true
     end
@@ -50,13 +50,13 @@ defmodule Blackjack.Accounts.FriendshipsTest do
                 update_requested_user_friendship: inverse
               }} = Friendships.update_friendship(current_user, requested_user)
 
-      assert friendship.user_uuid == current_user.uuid
-      assert friendship.friend_uuid == requested_user.uuid
+      assert friendship.user_id == current_user.id
+      assert friendship.friend_id == requested_user.id
       assert friendship.accepted == true
       assert friendship.pending == false
 
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
       assert inverse.accepted == true
       assert inverse.pending == false
     end
@@ -90,13 +90,13 @@ defmodule Blackjack.Accounts.FriendshipsTest do
                 remove_requested_user_friendship: inverse
               }} = Friendships.remove_friendship(current_user, requested_user)
 
-      assert friendship.user_uuid == current_user.uuid
-      assert friendship.friend_uuid == requested_user.uuid
+      assert friendship.user_id == current_user.id
+      assert friendship.friend_id == requested_user.id
       assert friendship.accepted == true
       assert friendship.pending == false
 
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
       assert inverse.accepted == true
       assert inverse.pending == false
     end
@@ -121,7 +121,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"create_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       {:ok, friendship} = Friendships.create_friendships(current_user, requested_user)
@@ -132,18 +132,18 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.info(
-                 "Friendship created between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                 "Friendship created between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                )
              end) =~
-               "Friendship created between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+               "Friendship created between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
 
       assert %{create_friendship: create} = friendship
-      assert create.user_uuid == current_user.uuid
-      assert create.friend_uuid == requested_user.uuid
+      assert create.user_id == current_user.id
+      assert create.friend_id == requested_user.id
 
       assert %{inverse_friendship: inverse} = friendship
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
     end
 
     test "should send message and log friendship acception", %{
@@ -151,7 +151,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"accept_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"accept_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       Friendships.create_friendships(current_user, requested_user)
@@ -164,18 +164,18 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.info(
-                 "Friendship accepted between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                 "Friendship accepted between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                )
              end) =~
-               "Friendship accepted between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+               "Friendship accepted between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
 
       assert %{update_current_user_friendship: accept} = friendship
-      assert accept.user_uuid == current_user.uuid
-      assert accept.friend_uuid == requested_user.uuid
+      assert accept.user_id == current_user.id
+      assert accept.friend_id == requested_user.id
 
       assert %{update_requested_user_friendship: inverse} = friendship
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
     end
 
     test "should send message and log friendship decline", %{
@@ -183,7 +183,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"decline_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"decline_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       Friendships.create_friendships(current_user, requested_user)
@@ -196,18 +196,18 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.info(
-                 "Friendship declined between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                 "Friendship declined between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                )
              end) =~
-               "Friendship declined between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+               "Friendship declined between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
 
       assert %{remove_current_user_friendship: decline} = friendship
-      assert decline.user_uuid == current_user.uuid
-      assert decline.friend_uuid == requested_user.uuid
+      assert decline.user_id == current_user.id
+      assert decline.friend_id == requested_user.id
 
       assert %{remove_requested_user_friendship: inverse} = friendship
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
     end
 
     test "should send message and log friendship removal", %{
@@ -215,7 +215,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"remove_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"remove_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       Friendships.create_friendships(current_user, requested_user)
@@ -228,18 +228,18 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.info(
-                 "Friendship removed between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+                 "Friendship removed between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
                )
              end) =~
-               "Friendship removed between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}"
+               "Friendship removed between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}"
 
       assert %{remove_current_user_friendship: remove} = friendship
-      assert remove.user_uuid == current_user.uuid
-      assert remove.friend_uuid == requested_user.uuid
+      assert remove.user_id == current_user.id
+      assert remove.friend_id == requested_user.id
 
       assert %{remove_requested_user_friendship: inverse} = friendship
-      assert inverse.user_uuid == requested_user.uuid
-      assert inverse.friend_uuid == current_user.uuid
+      assert inverse.user_id == requested_user.id
+      assert inverse.friend_id == current_user.id
     end
   end
 
@@ -249,11 +249,11 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"create_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"create_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
-      current_user = %User{current_user | uuid: Ecto.UUID.generate()}
-      requested_user = %User{requested_user | uuid: Ecto.UUID.generate()}
+      current_user = %User{current_user | id: Ecto.UUID.generate()}
+      requested_user = %User{requested_user | id: Ecto.UUID.generate()}
 
       {:error, [{field_or_name, {error_message, constraint}}] = error} =
         Friendships.create_friendships(current_user, requested_user)
@@ -262,12 +262,12 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.error(
-                 "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                 "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                    (field_or_name
                     |> Atom.to_string()) <> " " <> error_message
                )
              end) =~
-               "Friendship creation error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+               "Friendship creation error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                  (field_or_name
                   |> Atom.to_string()) <> " " <> error_message
     end
@@ -277,7 +277,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"accept_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"accept_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       {:error, error} = Friendships.update_friendship(current_user, requested_user)
@@ -286,11 +286,11 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.error(
-                 "Accept friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                 "Accept friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                    inspect(error)
                )
              end) =~
-               "Accept friendship error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+               "Accept friendship error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                  inspect(error)
     end
 
@@ -299,7 +299,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"decline_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"decline_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       {:error, error} = Friendships.remove_friendship(current_user, requested_user)
@@ -308,11 +308,11 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.error(
-                 "Friendship declined error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                 "Friendship declined error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                    inspect(error)
                )
              end) =~
-               "Friendship declined error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+               "Friendship declined error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                  inspect(error)
     end
 
@@ -321,7 +321,7 @@ defmodule Blackjack.Accounts.FriendshipsTest do
     } do
       Process.register(
         self(),
-        :"remove_friendship_#{current_user.uuid}_to_#{requested_user.uuid}"
+        :"remove_friendship_#{current_user.id}_to_#{requested_user.id}"
       )
 
       {:error, error} = Friendships.remove_friendship(current_user, requested_user)
@@ -330,11 +330,11 @@ defmodule Blackjack.Accounts.FriendshipsTest do
 
       assert capture_log(fn ->
                Logger.error(
-                 "Friendship removal error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+                 "Friendship removal error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                    inspect(error)
                )
              end) =~
-               "Friendship removal error between #{current_user.uuid}: #{current_user.username} and #{requested_user.uuid}: #{requested_user.username}, reason -> " <>
+               "Friendship removal error between #{current_user.id}: #{current_user.username} and #{requested_user.id}: #{requested_user.username}, reason -> " <>
                  inspect(error)
     end
   end

@@ -58,15 +58,15 @@ defmodule Blackjack.Core.Servers do
   #   Enum.count(members)
   # end
 
-  def join_server(members, %{uuid: uuid}) do
-    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, uuid)
+  def join_server(members, %{id: id}) do
+    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, id)
 
     Process.link(pid)
     [pid | members]
   end
 
-  def leave_server(members, %{uuid: uuid}) do
-    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, uuid)
+  def leave_server(members, %{id: id}) do
+    [{pid, _}] = Horde.Registry.lookup(AccountsRegistry, id)
 
     Process.unlink(pid)
     List.delete(members, pid)

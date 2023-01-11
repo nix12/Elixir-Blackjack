@@ -21,7 +21,7 @@ be found at [https://hexdocs.pm/blackjack](https://hexdocs.pm/blackjack).
 
 Currently working on:
 
-- Websockets for servers
+- Switch to majority websockets
 - Build out Users
 - Event driven development
 - Form password

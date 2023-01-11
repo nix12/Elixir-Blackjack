@@ -3,25 +3,25 @@ defmodule Blackjack.Repo.Migrations.CreateFriendshipsTable do
 
   def change do
     create table(:friendships) do
-      add(:user_uuid, references(:users, column: :uuid, type: :binary_id, on_delete: :delete_all))
-      add(:friend_uuid, references(:users, column: :uuid, type: :binary_id, on_delete: :delete_all))
+      add(:user_id, references(:users, column: :id, type: :binary_id, on_delete: :delete_all))
+      add(:friend_id, references(:users, column: :id, type: :binary_id, on_delete: :delete_all))
 
       timestamps()
     end
 
-    create index(:friendships, [:user_uuid])
-    create index(:friendships, [:friend_uuid])
+    create index(:friendships, [:user_id])
+    create index(:friendships, [:friend_id])
 
     create unique_index(
       :friendships,
-      [:user_uuid, :friend_uuid],
-      name: :friendships_user_uuid_friend_uuid_index
+      [:user_id, :friend_id],
+      name: :friendships_user_id_friend_id_index
     )
 
     create unique_index(
       :friendships,
-      [:friend_uuid, :user_uuid],
-      name: :friendships_friend_uuid_user_uuid_index
+      [:friend_id, :user_id],
+      name: :friendships_friend_id_user_id_index
     )
   end
 end

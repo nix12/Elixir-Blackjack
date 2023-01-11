@@ -11,7 +11,7 @@ defmodule Blackjack.Core.Server do
   @derive {Jason.Encoder,
            only: [
              :server_name,
-             :user_uuid,
+             :user_id,
              :table_count,
              :player_count,
              :inserted_at,
@@ -24,16 +24,16 @@ defmodule Blackjack.Core.Server do
     field(:player_count, :integer, default: 0)
     field(:lock_version, :integer, default: 1)
 
-    belongs_to(:user, User, foreign_key: :user_uuid, references: :uuid, type: :binary_id)
+    belongs_to(:user, User, foreign_key: :user_id, type: :binary)
 
     timestamps()
   end
 
-  def changeset(server, params \\ %{}) do
+  def changeset(server, params) do
     server
-    |> cast(params, [:server_name, :table_count, :player_count, :user_uuid])
+    |> cast(params, [:server_name, :user_id])
     |> optimistic_lock(:lock_version)
-    |> validate_required([:server_name, :user_uuid])
+    |> validate_required([:server_name, :user_id])
     |> unique_constraint(:server_name)
   end
 end

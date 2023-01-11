@@ -15,7 +15,7 @@ defmodule ShowUserTest do
     %{users: users}
   end
 
-  describe "GET /:uuid" do
+  describe "GET /:id" do
     test "SUCCESS", %{
       users: [current_user, requested_user | _empty]
     } do
@@ -29,7 +29,7 @@ defmodule ShowUserTest do
 
       assert viewed_user["email"] == requested_user.email
       assert viewed_user["username"] == requested_user.username
-      assert viewed_user["uuid"] == requested_user.uuid
+      assert viewed_user["id"] == requested_user.id
     end
 
     test "failure!", %{

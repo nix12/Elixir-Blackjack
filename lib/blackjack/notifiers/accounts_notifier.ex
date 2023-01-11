@@ -18,10 +18,10 @@ defmodule Blackjack.Notifiers.AccountsNotifier do
     {:ok, %{}}
   end
 
-  def handle_cast({:notify_user, %User{uuid: uuid}, user_instruction}, accounts) do
+  def handle_cast({:notify_user, %User{id: id}, user_instruction}, accounts) do
     {action, args} = decode_instruction(user_instruction)
     events = [args | []]
-    [{user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, uuid)
+    [{user_pid, _}] = Horde.Registry.lookup(AccountsRegistry, id)
 
     send(user_pid, {action, events})
     {:noreply, accounts}

@@ -33,7 +33,12 @@ defmodule Blackjack.Accounts.Supervisor do
     |> Horde.DynamicSupervisor.init()
   end
 
-  defp members() do
+  def children do
+    IO.inspect(Horde.DynamicSupervisor.which_children(__MODULE__), label: "WHICH CHILDREN")
+    IO.inspect(Horde.DynamicSupervisor.count_children(__MODULE__), label: "COUNT CHILDREN1")
+  end
+
+  def members() do
     Enum.map([Node.self() | Node.list()], &{__MODULE__, &1})
   end
 end
