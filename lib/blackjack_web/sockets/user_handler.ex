@@ -6,7 +6,8 @@ defmodule BlackjackWeb.Sockets.UserHandler do
   alias Blackjack.Repo
   alias Blackjack.Policy
   alias Blackjack.Accounts.Authentication.Guardian
-  alias Blackjack.Accounts.{User, UserManager, AccountsRegistry, Friendship, Inbox}
+  alias Blackjack.Accounts.{User, UserManager, AccountsRegistry, Friendship}
+  alias Blackjack.Accounts.Inbox.InboxQuery
 
   def init(request, _state) do
     "Bearer " <> token = request.headers["authorization"]
@@ -31,7 +32,7 @@ defmodule BlackjackWeb.Sockets.UserHandler do
       "friendship" ->
         send(self(), {:friendship, data})
 
-      "messages" ->
+      "message" ->
         send(self(), {:message, data})
     end
 
@@ -189,21 +190,47 @@ defmodule BlackjackWeb.Sockets.UserHandler do
   end
 
   def websocket_info(
-        {:message, %{"action" => ["message", %{"read" => "all"}], "payload" => data}},
-        state
+        {:message, %{"action" => ["message", %{"read" => "all"}], "payload" => _}},
+        %{current_user: current_user} = state
       ) do
+    all_communications = current_user |> InboxQuery.all_communications() |> Repo.all()
+    payload = %{message: %{messages: all_communications}} |> Jason.encode!()
+
+    {[text: payload], state, :hibernate}
   end
 
   def websocket_info(
-        {:message, %{"action" => ["message", %{"read" => "notifications"}], "payload" => data}},
-        state
+        {:message, %{"action" => ["message", %{"read" => "notifications"}], "payload" => _}},
+        %{current_user: current_user} = state
       ) do
+    read_notifications = current_user |> InboxQuery.read_notifications() |> Repo.all()
+
+    payload =
+      %{
+        message: %{messages: read_notifications}
+      }
+      |> Jason.encode!()
+
+    {[text: payload], state}
   end
 
   def websocket_info(
-        {:message, %{"action" => ["message", %{"read" => "conversations"}], "payload" => data}},
-        state
+        {:message, %{"action" => ["message", %{"read" => "conversations"}], "payload" => _}},
+        %{current_user: current_user} = state
       ) do
+    read_conversations =
+      current_user
+      |> InboxQuery.read_conversations()
+      |> Repo.all()
+      |> IO.inspect()
+
+    payload =
+      %{
+        message: %{messages: read_conversations}
+      }
+      |> Jason.encode!()
+
+    {[text: payload], state}
   end
 
   def websocket_info({:DOWN, _ref, :process, _object, _reason}, state) do

@@ -4,7 +4,8 @@ defmodule Blackjack.Policy do
   """
   @behaviour Bodyguard.Policy
 
-  alias Blackjack.Accounts.{User, Friendship, Inbox}
+  alias Blackjack.Accounts.{User, Friendship}
+  alias Blackjack.Accounts.Inbox.Inbox
   alias Blackjack.Communications.Conversations.Conversation
 
   # User

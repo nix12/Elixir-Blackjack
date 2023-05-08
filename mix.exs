@@ -5,7 +5,7 @@ defmodule Blackjack.MixProject do
     [
       app: :blackjack,
       version: "0.1.0",
-      elixir: "~> 1.14.2",
+      elixir: "~> 1.14.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -55,6 +55,7 @@ defmodule Blackjack.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:faker, "~> 0.17", only: :test},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:sobelow, "0.12.1", only: [:dev, :test], runtime: false},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:plug_cowboy, "~> 2.6.0"},

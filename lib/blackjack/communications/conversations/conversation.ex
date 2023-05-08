@@ -4,16 +4,18 @@ defmodule Blackjack.Communications.Conversations.Conversation do
   """
   use Ecto.Schema
 
-  alias Blackjack.Accounts.User
+  alias Blackjack.Accounts.Inbox.Inbox
   alias Blackjack.Communications.Messages.Message
 
-  Ja
+  @derive {Jason.Encoder, only: [:inserted_at, :updated_at]}
 
   schema "conversations" do
-    belongs_to(:user, User, foreign_key: :user_id, type: :binary_id)
-    belongs_to(:recipient, User, foreign_key: :recipient_id, type: :binary_id)
+    field(:full_recipient, :string, virtual: true)
 
-    has_many(:messages, Message)
+    belongs_to(:current_user_inbox, Inbox, foreign_key: :current_user_inbox_id)
+    belongs_to(:recipient_inbox, Inbox, foreign_key: :recipient_inbox_id)
+
+    has_many(:messages, Message, on_delete: :delete_all)
 
     timestamps()
   end

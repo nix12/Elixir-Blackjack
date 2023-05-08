@@ -3,25 +3,25 @@ defmodule Blackjack.Repo.Migrations.CreateConversationsTable do
 
   def change do
     create table(:conversations) do
-      add(:user_id, references(:users, column: :id, type: :binary_id))
-      add(:recipient_id, references(:users, column: :id, type: :binary_id))
+      add(:current_user_inbox_id, :integer)
+      add(:recipient_inbox_id, :integer)
 
       timestamps()
     end
 
-    create index(:conversations, [:user_id])
-    create index(:conversations, [:recipient_id])
+    create index(:conversations, [:current_user_inbox_id])
+    create index(:conversations, [:recipient_inbox_id])
 
     create unique_index(
       :conversations,
-      [:user_id, :recipient_id],
-      name: :conversations_user_id_recipient_id_index
+      [:current_user_inbox_id, :recipient_inbox_id],
+      name: :conversations_user_inbox_id_recipient_inbox_id_index
     )
 
     create unique_index(
       :conversations,
-      [:recipient_id, :user_id],
-      name: :conversations_recipient_id_user_id_index
+      [:recipient_inbox_id, :current_user_inbox_id],
+      name: :conversations_recipient_inbox_id_user_inbox_id_index
     )
   end
 end

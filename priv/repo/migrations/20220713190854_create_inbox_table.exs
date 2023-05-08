@@ -3,8 +3,8 @@ defmodule Blackjack.Repo.Migrations.CreateInboxTable do
 
   def change do
     create table(:inboxes) do
-      add(:converstation_id, references(:conversations, on_delete: :delete_all))
-      add(:notification_id, references(:notifications, on_delete: :delete_all))
+      add(:converstation_id, references(:conversations))
+      add(:notification_id, references(:notifications))
     end
   end
 end

@@ -8,8 +8,10 @@ defmodule Blackjack.Accounts.User do
   import Bcrypt
 
   alias Blackjack.Core.Server
-  alias Blackjack.Accounts.{Friendship, Inbox}
+  alias Blackjack.Accounts.Friendship
+  alias Blackjack.Accounts.Inbox.Inbox
   alias Blackjack.Communications.Conversations.Conversation
+  alias Blackjack.Communications.Messages.Message
 
   @derive {Jason.Encoder, only: [:id, :email, :username, :inserted_at]}
 
@@ -22,7 +24,9 @@ defmodule Blackjack.Accounts.User do
     field(:error, :string, virtual: true, default: nil)
 
     has_one(:server, Server, defaults: nil)
-    has_one(:inbox, Inbox, foreign_key: :user_id)
+    has_one(:inbox, Inbox, foreign_key: :user_id, on_delete: :delete_all)
+
+    has_many(:messages, Message)
 
     many_to_many(:friends, __MODULE__,
       join_through: Friendship,

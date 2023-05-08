@@ -2,7 +2,8 @@ defmodule Blackjack.Factory do
   @moduledoc false
   use ExMachina.Ecto, repo: Blackjack.Repo
 
-  alias Blackjack.Accounts.{User, Inbox, Friendship}
+  alias Blackjack.Accounts.{User, Friendship}
+  alias Blackjack.Accounts.Inbox.Inbox
   alias Blackjack.Core.Server
 
   def user_factory do

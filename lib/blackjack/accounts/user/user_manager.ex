@@ -160,10 +160,9 @@ defmodule Blackjack.Accounts.UserManager do
   end
 
   def handle_call({:create_message, requested_user, message}, _from, user_account) do
-    {:ok, %{current_user_conversation: conversation}} =
-      Conversations.create_or_continue_conversation(user_account, requested_user)
+    {:ok, _} = Conversations.create_or_continue_conversation(user_account, requested_user)
 
-    case Messages.create_message(user_account, conversation, message) do
+    case Messages.create_message(message) do
       {:ok, _new_message} ->
         send(self(), {:send_message, requested_user})
         {:reply, "Message sent.", user_account}
@@ -191,7 +190,7 @@ defmodule Blackjack.Accounts.UserManager do
 
   def handle_info({:friend_request, requested_user}, user_account) do
     notification = %Notification{
-      user_id: requested_user.id,
+      from: requested_user.id,
       body: "Friend request from: " <> user_account.username
     }
 

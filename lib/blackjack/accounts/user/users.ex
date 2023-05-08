@@ -7,12 +7,12 @@ defmodule Blackjack.Accounts.Users do
 
   def insert_conversation_into_inboxes(current_user, requested_user, conversation) do
     current_user_inbox_changeset = %InboxesConversations{
-      inbox: current_user |> Repo.preload(:inbox) |> Map.get(:inbox),
+      current_user_inbox: current_user |> Repo.preload(:inbox) |> Map.get(:inbox),
       conversation: conversation
     }
 
     requested_user_inbox_changeset = %InboxesConversations{
-      inbox: requested_user |> Repo.preload(:inbox) |> Map.get(:inbox),
+      recipient_inbox: requested_user |> Repo.preload(:inbox) |> Map.get(:inbox),
       conversation: conversation
     }
 

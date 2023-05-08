@@ -1,4 +1,4 @@
-defmodule Blackjack.Accounts.Inbox do
+defmodule Blackjack.Accounts.Inbox.Inbox do
   @moduledoc """
     Inbox model.
   """
@@ -17,26 +17,14 @@ defmodule Blackjack.Accounts.Inbox do
           conversations: maybe_improper_list()
         }
 
-  @derive {Jason.Encoder, only: [:user_id]}
+  @derive {Jason.Encoder, only: [:id]}
 
   schema "inboxes" do
-    field(:communications, {:array, :map}, virtual: true)
+    belongs_to(:user, User, foreign_key: :user_id, type: :binary_id)
 
-    belongs_to(:user, User,
-      foreign_key: :user_id,
-      references: :id,
-      type: :binary_id
-    )
-
-    many_to_many(:notifications, Notification,
-      join_through: InboxesNotifications,
-      join_keys: [inbox_id: :id, notification_id: :id]
-    )
-
-    many_to_many(:conversations, Conversation,
-      join_through: InboxesConversations,
-      join_keys: [inbox_id: :id, conversation_id: :id]
-    )
+    has_many(:notifications, Notification, foreign_key: :recipient_inbox_id)
+    has_many(:conversations, Conversation, foreign_key: :current_user_inbox_id)
+    has_many(:recipient_conversations, Conversation, foreign_key: :recipient_inbox_id)
   end
 
   @doc """
@@ -44,7 +32,7 @@ defmodule Blackjack.Accounts.Inbox do
   """
   def changeset(inbox, params) do
     inbox
-    |> cast(params, [:user_id])
-    |> validate_required([:user_id])
+    |> cast(params, [:id])
+    |> validate_required([:id])
   end
 end

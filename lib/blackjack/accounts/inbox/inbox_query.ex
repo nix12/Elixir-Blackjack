@@ -2,57 +2,93 @@ defmodule Blackjack.Accounts.Inbox.InboxQuery do
   import Ecto.Query, only: [from: 2, subquery: 1]
 
   alias Blackjack.Repo
-  alias Blackjack.Accounts.Inbox
+  alias Blackjack.Accounts.User
+  alias Blackjack.Accounts.Inbox.Inbox
   alias Blackjack.Communications.Conversations.Conversation
   alias Blackjack.Communications.Notifications.Notification
+  alias Blackjack.Communications.Messages.Message
 
   def read_conversations(current_user) do
-    current_user
-    |> Repo.preload(inbox: [conversations: :messages])
-    |> get_in([
-      Access.key(:inbox),
-      Access.key(:conversations),
-      Access.all(),
-      Access.key(:messages)
-    ])
-    |> List.flatten()
-    |> Enum.map(fn message ->
-      message
-      |> Map.take([:title, :body])
-      |> Map.put(:from, message.user_id)
-      |> Map.put(:received, message.inserted_at)
-    end)
+    from(
+      conversations in Conversation,
+      join: inboxes in Inbox,
+      on: inboxes.id == conversations.current_user_inbox_id,
+      left_join: messages in Message,
+      on: conversations.current_user_inbox_id == inboxes.id,
+      where: ^current_user["id"] == inboxes.user_id,
+      select: %{
+        id: conversations.id,
+        inserted_at: conversations.inserted_at,
+        from:
+          fragment(
+            "SELECT CONCAT(inboxes.user_id, ': ', users.username)
+             FROM inboxes
+             LEFT JOIN users
+             ON inboxes.user_id = users.id
+             WHERE inboxes.id = ?",
+            conversations.recipient_inbox_id
+          ),
+        messages: messages
+      },
+      order_by: {:desc, :inserted_at}
+    )
   end
 
   def read_notifications(current_user) do
-    current_user
-    |> Repo.preload(inbox: :notifications)
-    |> get_in([
-      Access.key(:inbox),
-      Access.key(:notifications)
-    ])
-    |> List.flatten()
-    |> Enum.map(fn notification ->
-      notification
-      |> Map.take([:body])
-      |> Map.put(:from, "System")
-      |> Map.put(:received, notification.inserted_at)
-    end)
-  end
-
-  def read_all(current_user) do
-    current_user |> all_messages |> Repo.all()
-  end
-
-  def all_messages(current_user) do
     from(
-      inbox in Inbox,
-      join: conversations in assoc(inbox, :conversations),
-      on: ^current_user.id == conversations.user_id,
-      join: notifications in assoc(inbox, :notifications),
-      on: ^current_user.id == notifications.user_id,
-      where: inbox.user_id == ^current_user.id,
-      preload: [[conversations: :messages], :notifications]
+      notifications in Notification,
+      join: inbox in Inbox,
+      where: ^current_user["id"] == inbox.user_id,
+      select: %{
+        inserted_at: notifications.inserted_at,
+        from: notifications.from
+      },
+      order_by: {:desc, :inserted_at}
+    )
+  end
+
+  def all_communications(current_user) do
+    from(
+      communications in (current_user |> notifications() |> subquery()),
+      join: inboxes in Inbox,
+      where: ^current_user["id"] == inboxes.user_id,
+      select: %{
+        inserted_at: communications.inserted_at,
+        from: communications.from
+      },
+      order_by: communications.inserted_at
+    )
+  end
+
+  def conversations(current_user) do
+    from(
+      conversations in Conversation,
+      left_join: inboxes in Inbox,
+      on: inboxes.id == conversations.current_user_inbox_id,
+      where: ^current_user["id"] == inboxes.user_id,
+      select: %{
+        inserted_at: conversations.inserted_at,
+        from:
+          fragment(
+            "SELECT CONCAT(inboxes.user_id, ': ', users.username)
+            FROM inboxes
+            LEFT JOIN users
+            ON inboxes.user_id = users.id
+            WHERE inboxes.id = ?",
+            conversations.recipient_inbox_id
+          )
+      }
+    )
+  end
+
+  def notifications(current_user) do
+    from(
+      notifications in Notification,
+      union: ^conversations(current_user),
+      select: %{
+        inserted_at: notifications.inserted_at,
+        from: notifications.from
+      }
     )
   end
 end

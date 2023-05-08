@@ -1,9 +1,8 @@
-defmodule Blackjack.Accounts.Inboxes do
+defmodule Blackjack.Accounts.Inbox.Inboxes do
   @moduledoc """
     Contains functions for working with a users inbox.
   """
   alias Blackjack.Repo
-  alias Blackjack.Accounts.{User, Inbox}
 
   def create_inbox(user) do
     Ecto.build_assoc(user, :inbox) |> Repo.insert()
